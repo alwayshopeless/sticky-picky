@@ -1,0 +1,96 @@
+@use "reboot";
+@use "variables";
+@use "components/stickerpack";
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Noto Sans";
+  width: 100vw;
+  height: 100vh;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.ico {
+  color: var(--icon-color);
+}
+
+.top-nav {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  user-select: none;
+
+  &__item {
+    font-weight: 600;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 0.5rem;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &.ico {
+      max-width: 40px;
+    }
+
+    &[data-selected=true] {
+      border-bottom: solid 3px var(--bg-third);
+    }
+
+    &:hover {
+      background-color: var(--bg-secondary);
+      color: var(--text-main);
+    }
+  }
+}
+
+.view {
+  flex: 1;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  height: 100%;
+  flex: 1;
+}
+
+.btn {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  appearance: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover{
+    filter: brightness(0.8);
+  }
+  &--add-stick {
+    width: 100px;
+    text-align: center;
+    background-color: var(--success);
+    color: var(--text-main);
+  }
+}
