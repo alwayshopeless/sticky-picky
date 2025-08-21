@@ -5,6 +5,8 @@ import {apiRequest} from "../../api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
 import type {IStickerpack} from "../../types/stickerpack.ts";
 import {buildThumbnailUrl} from "../../utils/stickers.ts";
+import {Clock} from "lucide-preact";
+import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx";
 
 
 interface StickerViewNavProps {
@@ -16,11 +18,13 @@ export function StickerViewNav({stickerpacks, stickerpacksData}: StickerViewNavP
 
 
     return <div class={"stickerpacks-nav"}>
-        {stickerpacks.map((pack: IStickerpack) => (<div class={"pack-preview"}>
+        <div class={"pack-preview ico"}>
+            <Clock/>
+        </div>
+        {stickerpacks.map((pack: IStickerpack) => (<a href={`#spack-${pack.id}`} class={"pack-preview"}>
             {stickerpacksData[pack?.id] != undefined ?
                 <img src={buildThumbnailUrl(pack.repository, stickerpacksData[pack?.id][0])} alt=""/> : null}
-
-        </div>))}
+        </a>))}
     </div>;
 }
 
@@ -33,11 +37,6 @@ export function StickerView({explore}: { explore: any }) {
     //@ts-ignore
     const [stickersLoaded, setStickersLoaded] = useState<boolean>(false);
 
-    // const [userData, setUserData] = useState<any>(null);
-    // useEffect(() => {
-    //
-    //
-    // }, [])
 
     const loadStickerpack = async (stickerpack: IStickerpack, useProxy: boolean = false) => {
         let stickerpackUrl = "";
@@ -45,7 +44,8 @@ export function StickerView({explore}: { explore: any }) {
             stickerpackUrl = stickerpack.repository + "/packs/" + stickerpack.internal_name;
         }
 
-        const CORS_PROXY = "https://api.cors.lol/?url=";
+        const CORS_PROXY = "https://corsproxy.io/?url=";
+
         if (useProxy) {
             stickerpackUrl = CORS_PROXY + stickerpackUrl;
         }
@@ -94,21 +94,29 @@ export function StickerView({explore}: { explore: any }) {
     }, []);
 
     return <>
-        <StickerViewNav stickerpacks={stickerpacks} stickerpacksData={stickerpacksData}/>
-        <>
-            {stickerpacks.length == 0 ? <div class={"center"}>
-                <div style={{
-                    marginBottom: "1rem",
-                }}>
-                    You have not stickers yet...
+        <StickerPreviewProvider>
+            <StickerViewNav stickerpacks={stickerpacks} stickerpacksData={stickerpacksData}/>
+            <div>
+                <div class={"field"}>
+                    <input class={'field__input'} type="text"/>
+
                 </div>
-                <button onClick={explore} class={'btn'}>
-                    Explore!
-                </button>
-            </div> : null}
-            {stickerpacks.map((stickerpack: any) => (
-                <Stickerpack key={stickerpack.name} stickerpack={stickerpack}
-                             stickers={stickerpacksData[stickerpack.id]}/>))}
-        </>
+            </div>
+            <>
+                {stickerpacks.length == 0 ? <div class={"center"}>
+                    <div style={{
+                        marginBottom: "1rem",
+                    }}>
+                        You have not stickers yet...
+                    </div>
+                    <button onClick={explore} class={'btn'}>
+                        Explore!
+                    </button>
+                </div> : null}
+                {stickerpacks.map((stickerpack: any) => (
+                    <Stickerpack key={stickerpack.name} stickerpack={stickerpack}
+                                 stickers={stickerpacksData[stickerpack.id]}/>))}
+            </>
+        </StickerPreviewProvider>
     </>
 }

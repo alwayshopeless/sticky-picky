@@ -4,6 +4,7 @@ import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
 import {apiRequest} from "../../api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
 import type {IStickerpack} from "../../types/stickerpack.ts";
+import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx";
 
 export function ExploreStickersView() {
     //@ts-ignore
@@ -69,10 +70,7 @@ export function ExploreStickersView() {
         }
     }, []);
 
-    return <>
-        <div>
-            Stickerpacks nav
-        </div>
+    return <StickerPreviewProvider>
         <>
             {stickerpacks.length == 0 ? <div class={"center"}>
                 <div style={{
@@ -90,5 +88,5 @@ export function ExploreStickersView() {
                 stickers={stickerpacksData[stickerpack.id]}
             />))}
         </>
-    </>
+    </StickerPreviewProvider>
 }

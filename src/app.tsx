@@ -5,6 +5,7 @@ import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
 import {useStickerPicker} from "./contexts/sticker-picker-context.tsx";
 import {apiRequest} from "./api/backend-api.ts";
 import {ExploreStickersView} from "./components/views/ExploreStickersView.tsx";
+import {SettingsView} from "./components/views/SettingsView.tsx";
 
 export function App() {
     const [currentView, setCurrentView] = useState('stickers');
@@ -63,7 +64,7 @@ export function App() {
 
     return <>
         <div style={"padding: 0.1rem;"}>
-            <button class={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Login</button>
+            <button class={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Connect</button>
 
         </div>
         <div class={"main"}>
@@ -100,6 +101,7 @@ export function App() {
                     setCurrentView('explore');
                 }}/> : null}
                 {currentView == 'explore' ? <ExploreStickersView/> : null}
+                {currentView == 'settings' ? <SettingsView/> : null}
             </div>
         </div>
     </>

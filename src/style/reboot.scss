@@ -7,3 +7,15 @@ body, html {
   box-sizing: border-box;
 }
 
+input {
+  color: var(--text-main);
+  background-color: transparent;
+  appearance: none;
+  border: none;
+  outline: none;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}

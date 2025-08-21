@@ -1,6 +1,7 @@
 @use "reboot";
 @use "variables";
 @use "components/stickerpack";
+@use "components/field";
 
 body {
   background-color: var(--bg-main);
@@ -8,6 +9,14 @@ body {
   font-family: "Noto Sans";
   width: 100vw;
   height: 100vh;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 #app {
@@ -60,6 +69,7 @@ body {
 
 .view {
   flex: 1;
+  overflow-y: scroll;
 }
 
 .center {
@@ -98,18 +108,96 @@ body {
 }
 
 .stickerpacks-nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: var(--bg-main);
   display: flex;
   flex-flow: row nowrap;
   gap: 10px;
+  width: 100%;
+  overflow-y: scroll;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  user-select: none;
+  z-index: 10;
+
+  &__item {
+    cursor: pointer;
+  }
 }
 
 .pack-preview {
   width: 40px;
   height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   & img {
+    pointer-events: none;
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+}
+
+.sticker-preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.sticker-preview-img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.stickerpack, .sticker {
+  touch-action: none;
+}
+
+.settings-view {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+}
+
+.input-slider-cont {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &__label {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.input-slider {
+  flex: 1;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::-webkit-slider-thumb, &::-moz-range-thumb {
+    appearance: none;
+    border: none;
+    background-color: var(--bg-third);
+    box-shadow: none;
+  }
+
+  &:focus::-webkit-slider-runnable-track, &::-webkit-slider-runnable-track, &::-moz-range-track {
+    background-color: var(--bg-secondary);
   }
 }

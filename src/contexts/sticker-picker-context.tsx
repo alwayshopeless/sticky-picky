@@ -13,6 +13,7 @@ export type StickerPickerSettings = {
     theme: StickerPickerTheme;
     userData: BackendAuthData | null;
     savedStickerpacks: number[];
+    sentStickerSize: number; // новое поле
 };
 
 export type StickerPickerContextValue = Omit<StickerPickerSettings, 'userData'> & {
@@ -20,23 +21,21 @@ export type StickerPickerContextValue = Omit<StickerPickerSettings, 'userData'> 
     setUserData: (data: BackendAuthData | null) => void;
     setStickersPerRow: (n: number) => void;
     setTheme: (t: StickerPickerTheme) => void;
-    savedStickerpacks: number[],
-    setSavedStickerpacks: (val: number[]) => void,
+    setSavedStickerpacks: (val: number[]) => void;
+    setSentStickerSize: (size: number) => void; // новая функция
 };
 
 const DEFAULT_VALUE: StickerPickerContextValue = {
     stickersPerRow: 6,
     theme: 'light',
     userData: null,
-    setStickersPerRow: () => {
-    },
-    setTheme: () => {
-    },
-    setUserData: () => {
-    },
     savedStickerpacks: [],
-    setSavedStickerpacks: () => {
-    },
+    sentStickerSize: 128, // дефолтный размер
+    setStickersPerRow: () => {},
+    setTheme: () => {},
+    setUserData: () => {},
+    setSavedStickerpacks: () => {},
+    setSentStickerSize: () => {},
 };
 
 export const StickerPickerContext = createContext<StickerPickerContextValue>(DEFAULT_VALUE);
@@ -48,24 +47,25 @@ export type StickerPickerProviderProps = {
     minPerRow?: number;
     maxPerRow?: number;
     storageKey?: string;
+    initialSentStickerSize?: number; // новый проп
 };
 
 export function StickerPickerProvider({
-                                          children,
-                                          initialStickersPerRow = 6,
-                                          initialTheme = 'light',
-                                          minPerRow = 3,
-                                          maxPerRow = 12,
-                                          storageKey = 'stickerPickerSettings',
-                                      }: StickerPickerProviderProps) {
+    children,
+    initialStickersPerRow = 6,
+    initialTheme = 'light',
+    minPerRow = 3,
+    maxPerRow = 12,
+    storageKey = 'stickerPickerSettings',
+    initialSentStickerSize = 128, // дефолтный размер
+}: StickerPickerProviderProps) {
     const clamp = (n: number) => Math.max(minPerRow, Math.min(maxPerRow, Math.floor(n)));
 
     const loadFromStorage = (): StickerPickerSettings | null => {
         try {
             const raw = localStorage.getItem(storageKey);
             if (raw) return JSON.parse(raw);
-        } catch {
-        }
+        } catch {}
         return null;
     };
 
@@ -76,27 +76,41 @@ export function StickerPickerProvider({
     );
     const [theme, _setTheme] = useState<StickerPickerTheme>(stored?.theme || initialTheme);
     const [userData, setUserData] = useState<BackendAuthData | null>(stored?.userData || null);
-    const [savedStickerpacks, setSavedStickerpacks] = useState<number[]>([]);
+    const [savedStickerpacks, setSavedStickerpacks] = useState<number[]>(stored?.savedStickerpacks || []);
+    const [sentStickerSize, setSentStickerSize] = useState<number>(stored?.sentStickerSize || initialSentStickerSize);
 
     const setStickersPerRow = (n: number) => _setStickersPerRow(clamp(n));
     const setTheme = (t: StickerPickerTheme) => _setTheme(t);
 
     useEffect(() => {
         try {
-            const data: StickerPickerSettings = {stickersPerRow, theme, userData, savedStickerpacks};
+            const data: StickerPickerSettings = {stickersPerRow, theme, userData, savedStickerpacks, sentStickerSize};
             localStorage.setItem(storageKey, JSON.stringify(data));
-        } catch {
+        } catch {}
+    }, [stickersPerRow, theme, userData, savedStickerpacks, sentStickerSize, storageKey]);
+
+    useEffect(() => {
+        document.body.classList.remove('light', 'dark');
+        if (theme === 'light') {
+            document.body.classList.add('light');
+        } else if (theme === 'dark') {
+            document.body.classList.add('dark');
         }
-    }, [stickersPerRow, theme, userData, savedStickerpacks, storageKey]);
+    }, [theme]);
+
+    useEffect(() => {
+        document.documentElement.style.setProperty("--stickers-per-row", stickersPerRow.toString());
+    }, [stickersPerRow]);
 
     const value = useMemo<StickerPickerContextValue>(
         () => ({
             stickersPerRow, setStickersPerRow,
             theme, setTheme,
             userData, setUserData,
-            savedStickerpacks, setSavedStickerpacks
+            savedStickerpacks, setSavedStickerpacks,
+            sentStickerSize, setSentStickerSize
         }),
-        [stickersPerRow, theme, userData, savedStickerpacks]
+        [stickersPerRow, theme, userData, savedStickerpacks, sentStickerSize]
     );
 
     return (

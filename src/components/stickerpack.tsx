@@ -53,7 +53,7 @@ export function Stickerpack({stickerpack, stickers = []}: { stickerpack: any, st
         return stickerPicker.savedStickerpacks.includes(stickerpack.id);
     };
 
-    return <div className={"stickerpack"}>
+    return <div className={"stickerpack"} id={`spack-${stickerpack.id}`}>
         <div className={"stickerpack__header"}>
             <div>
                 {stickerpack.name}
