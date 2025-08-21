@@ -4,11 +4,23 @@ import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
 import {apiRequest} from "../../api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
 import type {IStickerpack} from "../../types/stickerpack.ts";
+import {buildThumbnailUrl} from "../../utils/stickers.ts";
 
 
-export function StickerViewNav() {
-    return <div>
+interface StickerViewNavProps {
+    stickerpacks: IStickerpack[],
+    stickerpacksData: any
+}
 
+export function StickerViewNav({stickerpacks, stickerpacksData}: StickerViewNavProps) {
+
+
+    return <div class={"stickerpacks-nav"}>
+        {stickerpacks.map((pack: IStickerpack) => (<div class={"pack-preview"}>
+            {stickerpacksData[pack?.id] != undefined ?
+                <img src={buildThumbnailUrl(pack.repository, stickerpacksData[pack?.id][0])} alt=""/> : null}
+
+        </div>))}
     </div>;
 }
 
@@ -82,7 +94,7 @@ export function StickerView({explore}: { explore: any }) {
     }, []);
 
     return <>
-        <StickerViewNav/>
+        <StickerViewNav stickerpacks={stickerpacks} stickerpacksData={stickerpacksData}/>
         <>
             {stickerpacks.length == 0 ? <div class={"center"}>
                 <div style={{

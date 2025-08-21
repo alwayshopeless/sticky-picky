@@ -17,27 +17,38 @@
 
   }
 
+  //&__body {
+  //  display: flex;
+  //  gap: 10px;
+  //  flex-flow: row wrap;
+  //  justify-content: flex-start;
+  //  margin: 0 auto;
+  //  align-items: center;
+  //}
   &__body {
-    display: flex;
-    gap: 10px;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    margin: 0 auto;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 колонки, каждая занимает равную долю */
+    gap: 10px;                              /* расстояние между колонками */
   }
 }
 
 .sticker {
-  max-width: 100px;
-  max-height: 100px;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  align-items: center;
+  //max-width: 100px;
+  //max-height: 100px;
+  //min-width: 100px;
+  width: 100%;           /* элемент занимает всю ширину колонки */
+  aspect-ratio: 1 / 1;   /* высота равна ширине */
   padding: 5px;
   border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
+
+  &.loading {
+  }
 
   &:hover {
     background-color: var(--bg-secondary);
@@ -49,3 +60,68 @@
     object-fit: contain;
   }
 }
+
+
+.sticker.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.sticker.loading::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+  //background: conic-gradient(
+  //                from 45deg,
+  //                #667eea,
+  //                #764ba2,
+  //                #f093fb,
+  //                #f5576c,
+  //                #4facfe,
+  //                #00f2fe,
+  //                #43e97b,
+  //                #38f9d7,
+  //                #667eea
+  //);
+  //background: conic-gradient(
+  //                from 45deg,
+  //                #667eea,
+  //                #764ba2,
+  //);
+  background: conic-gradient(
+                  from 45deg,
+                  #1c242b,
+                  #7745cd,
+  );
+  animation: rotateGradient 5s linear infinite;
+  z-index: 1;
+}
+
+.sticker.loading::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  //inset: 0;
+  background: rgba(26, 26, 26, 0.85);
+  border-radius: inherit;
+  backdrop-filter: blur(30px);
+  //backdrop-filter: blur(1px);
+  z-index: 2;
+}
+
+.sticker.loading > * {
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes rotateGradient {
+  from {
+    transform: rotate(0deg) scale(1.5);
+  }
+  to {
+    transform: rotate(360deg) scale(1.5);
+  }
+}
+
+
