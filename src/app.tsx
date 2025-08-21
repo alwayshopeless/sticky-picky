@@ -25,16 +25,9 @@ export function App() {
     };
 
     useEffect(() => {
-        sendAuthRequest();
         widget.on('capabilities', (data) => {
             window.parent.postMessage({...data, response: {capabilities: ["m.sticker"]}}, "*");
         });
-
-        setTimeout(() => {
-            if (stickerPicker.userData == null) {
-                sendAuthRequest();
-            }
-        }, 1000)
 
         widget.on('openid_credentials', (event) => {
             console.log("access token got");
@@ -63,10 +56,11 @@ export function App() {
     }, []);
 
     return <>
-        <div style={"padding: 0.1rem;"}>
-            <button class={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Connect</button>
+        {stickerPicker.userData == null ? <div style={"padding: 0.1rem;"}>
+            <button className={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Connect
+            </button>
+        </div> : null}
 
-        </div>
         <div class={"main"}>
             <div className="top-nav">
                 <div

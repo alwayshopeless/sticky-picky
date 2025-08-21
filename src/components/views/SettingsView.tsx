@@ -1,5 +1,7 @@
 import {useState} from 'preact/hooks';
 import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
+import {themes} from "../../config/themes.ts";
+import type {ThemeName} from "../../types/themes.ts";
 
 export function SettingsView() {
     const [repoName, setRepoName] = useState('');
@@ -10,7 +12,7 @@ export function SettingsView() {
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
     const {sentStickerSize, setSentStickerSize} = stickerPicker;
 
-    const handleThemeChange = (value: 'light' | 'dark') => {
+    const handleThemeChange = (value: ThemeName) => {
         setTheme(value);
     };
 
@@ -22,21 +24,22 @@ export function SettingsView() {
 
     return (
         <div className="settings-view">
-            <h2>Themes</h2>
+            <h4>Themes</h4>
             <div className="theme-selector">
-                <div
-                    className={`theme-circle ${theme === 'light' ? 'active' : ''}`}
-                    style={{backgroundColor: '#fff', border: '3px solid #000'}}
-                    onClick={() => handleThemeChange('light')}
-                />
-                <div
-                    className={`theme-circle ${theme === 'dark' ? 'active' : ''}`}
-                    style={{backgroundColor: '#000', border: '3px solid #fff'}}
-                    onClick={() => handleThemeChange('dark')}
-                />
+                {Object.keys(themes).map((themeKey: ThemeName) => (
+                    <div
+                        key={themeKey}
+                        className={`theme-circle ${theme === themeKey ? 'active' : ''}`}
+                        style={{
+                            background: `linear-gradient(135deg, ${themes[themeKey].bgMain} 50%, ${themes[themeKey].textMain} 50%)`,
+                            border: `3px solid ${themes[themeKey].bgSecondary}`
+                        }}
+                        onClick={() => handleThemeChange(themeKey)}
+                    />
+                ))}
             </div>
 
-            <h2>Sent stickers size: <span>{sentStickerSize}</span></h2>
+            <h4>Sent stickers size: <span>{sentStickerSize}</span></h4>
             <div className="input-slider-cont">
                 <div className={'input-slider-cont__label'}>
                     64
@@ -45,7 +48,7 @@ export function SettingsView() {
                     className={"input-slider"}
                     type="range"
                     min={64}
-                    max={255}
+                    max={256}
                     step={8}
                     value={sentStickerSize}
                     onInput={(e: any) => setSentStickerSize(parseInt(e.target.value))}
@@ -55,7 +58,7 @@ export function SettingsView() {
                 </div>
             </div>
 
-            <h2>Stickers per row: <span>{stickersPerRow}</span></h2>
+            <h4>Stickers per row: <span>{stickersPerRow}</span></h4>
             <div className={"input-slider-cont"}>
                 <div className={'input-slider-cont__label'}>
                     1
@@ -65,6 +68,7 @@ export function SettingsView() {
                     type="range"
                     min={1}
                     max={16}
+                    step={1}
                     value={stickersPerRow}
                     onInput={(e: any) => setStickersPerRow(parseInt(e.target.value))}
                 />
@@ -73,19 +77,12 @@ export function SettingsView() {
                 </div>
             </div>
 
-            <h2>Add repository</h2>
+            <h4>Import repository with stickers</h4>
+
             <div className="field">
                 <input
                     className="field__input"
-                    placeholder="Название репозитория"
-                    value={repoName}
-                    onInput={(e: any) => setRepoName(e.target.value)}
-                />
-            </div>
-            <div className="field">
-                <input
-                    className="field__input"
-                    placeholder="Ссылка на стикер"
+                    placeholder="Repository link"
                     value={stickerUrl}
                     onInput={(e: any) => setStickerUrl(e.target.value)}
                 />

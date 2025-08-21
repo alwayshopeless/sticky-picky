@@ -21,6 +21,64 @@
   --loading-gradient-1: #1c242b;
   --loading-gradient-2: #7745cd;
   --loading-gradient-3: rgba(26, 26, 26, 0.85);
+}
 
+.sunrise {
+  --bg-main: #fff8f0;
+  --bg-secondary: #ffe0b2;
+  --bg-third: #ff9800;
+  --text-main: #3e2723;
+  --icon-color: #3e272350;
+  --success: #c8e6c9;
+  --loading-gradient-1: #fff3e0;
+  --loading-gradient-2: #ffb74d;
+  --loading-gradient-3: #ffe0b2;
+}
 
+.cyberpunk {
+  --bg-main: #0a0a0f;
+  --bg-secondary: #1a1a26;
+  --bg-third: #ff00ff;
+  --text-main: #00fff7;
+  --icon-color: #00fff750;
+  --success: #1aff66;
+  --loading-gradient-1: #111122;
+  --loading-gradient-2: #ff0080;
+  --loading-gradient-3: #00e5ff;
+}
+
+.mint {
+  --bg-main: #f0fff7;
+  --bg-secondary: #d0f5e3;
+  --bg-third: #00b894;
+  --text-main: #004d40;
+  --icon-color: #004d4050;
+  --success: #a7ffeb;
+  --loading-gradient-1: #e0fff7;
+  --loading-gradient-2: #1de9b6;
+  --loading-gradient-3: #b2fef7;
+}
+
+.retro {
+  --bg-main: #fff0f6;
+  --bg-secondary: #ffdeeb;
+  --bg-third: #ff6ec7;
+  --text-main: #2e003e;
+  --icon-color: #2e003e50;
+  --success: #ffd6ff;
+  --loading-gradient-1: #ffe0f7;
+  --loading-gradient-2: #ff85a2;
+  --loading-gradient-3: #ffdeeb;
+}
+
+.autumn {
+  --bg-main: #fffaf0;
+  --bg-secondary: #f5deb3;
+  --bg-third: #d2691e;
+  --text-main: #4e342e;
+  --icon-color: #4e342e50;
+  --success: #c5e1a5;
+  --loading-gradient-1: #ffebcd;
+  --loading-gradient-2: #ffb74d;
+  --loading-gradient-3: #d7ccc8;
 }
