@@ -5,6 +5,7 @@ You can use this version in local development in web version Matrix Element
 # Run vite
 ``pnpm run dev --host=m-stickers.loc``
 It will run with https for except mixed content problem.
+
 **Warning: visit host first for accept self-signed certificate**
 
 # Other
