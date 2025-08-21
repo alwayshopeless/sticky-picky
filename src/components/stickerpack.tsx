@@ -1,25 +1,15 @@
-import {useEffect, useState} from "preact/hooks";
+import {useEffect} from "preact/hooks";
 import {Sticker} from "./sticker.tsx";
 import {X} from "lucide-preact";
 import {apiRequest} from "../api/backend-api.ts";
 import {useStickerPicker} from "../contexts/sticker-picker-context.tsx";
 
-export function Stickerpack({stickerpack}: { stickerpack: any, saved?: boolean }) {
+export function Stickerpack({stickerpack, stickers = []}: { stickerpack: any, stickers: [] }) {
 
     const stickerPicker = useStickerPicker();
-    const [stickers, setStickers] = useState([]);
 
     useEffect(() => {
-        let stickerpackUrl = "";
-        if (stickerpack.type == 'maunium') {
-            stickerpackUrl = stickerpack.repository + "/packs/" + stickerpack.internal_name;
-        }
-        fetch(stickerpackUrl).then(async (response: Response) => {
-            if (response.status == 200) {
-                let data = await response.json();
-                setStickers(data.stickers);
-            }
-        });
+
     }, []);
 
 
