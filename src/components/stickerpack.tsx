@@ -1,19 +1,32 @@
-import {useEffect} from "preact/hooks";
+import {useEffect, useMemo} from "preact/hooks";
 import {Sticker} from "./sticker.tsx";
 import {X} from "lucide-preact";
 import {apiRequest} from "../api/backend-api.ts";
 import {useStickerPicker} from "../contexts/sticker-picker-context.tsx";
+import {useStickerCollections} from "../contexts/sticker-collections-context.tsx";
 
-export function Stickerpack({stickerpack, stickers = []}: { stickerpack: any, stickers: [] }) {
+interface StickerpackProps {
+    stickerpack: any,
+    stickers: []
+    compact?: boolean,
+}
+
+export function Stickerpack({stickerpack, stickers = [], compact = false}: StickerpackProps) {
 
     const stickerPicker = useStickerPicker();
+    const stickerCollections = useStickerCollections();
 
     useEffect(() => {
 
     }, []);
 
+    const isInternalType = useMemo(() => {
+        return stickerpack.spType == 'favorites' || stickerpack.spType == 'recent';
+    }, [stickerpack.spType]);
 
     const removeStickerpack = () => {
+        let tmpSaved = stickerCollections.savedStickerpacks.filter((item: any) => item != stickerpack.id);
+        stickerCollections.setSavedStickerpacks([...tmpSaved]);
         apiRequest('user/stickerpacks/remove', {
             method: "POST",
             body: JSON.stringify({
@@ -25,9 +38,13 @@ export function Stickerpack({stickerpack, stickers = []}: { stickerpack: any, st
             },
         }).then((response: Response) => {
             if (response.status == 200) {
-                let tmpSaved = stickerPicker.savedStickerpacks.filter((item: any) => item != stickerpack.id);
-                stickerPicker.setSavedStickerpacks([...tmpSaved]);
+                let tmpSaved = stickerCollections.savedStickerpacks.filter((item: any) => item != stickerpack.id);
+                stickerCollections.setSavedStickerpacks([...tmpSaved]);
             }
+        }).catch(_e => {
+            let tmpPacks = new Set([...stickerCollections.savedStickerpacks]);
+            tmpPacks.add(stickerpack.id);
+            stickerCollections.setSavedStickerpacks([...tmpPacks]);
         })
     }
 
@@ -44,13 +61,13 @@ export function Stickerpack({stickerpack, stickers = []}: { stickerpack: any, st
             },
         }).then((response: Response) => {
             if (response.status == 200) {
-                stickerPicker.setSavedStickerpacks([...stickerPicker.savedStickerpacks, stickerpack.id])
+                stickerCollections.setSavedStickerpacks([...stickerCollections.savedStickerpacks, stickerpack.id])
             }
         })
     }
-
+    stickerPicker.stickersPerRow
     const isSaved = () => {
-        return stickerPicker.savedStickerpacks.includes(stickerpack.id);
+        return stickerCollections.savedStickerpacks.includes(stickerpack.id);
     };
 
     return <div className={"stickerpack"} id={`spack-${stickerpack.id}`}>
@@ -58,13 +75,20 @@ export function Stickerpack({stickerpack, stickers = []}: { stickerpack: any, st
             <div>
                 {stickerpack.name}
             </div>
-            {isSaved() ? <X onClick={removeStickerpack} class={'ico stickerpack__x'}/> : null}
-            {!isSaved() ? <button onClick={addStickerpack} class={"btn btn--add-stick"}>Save</button> : null}
+            {isSaved() && !isInternalType ? <X onClick={removeStickerpack} class={'ico stickerpack__x'}/> : null}
+            {!isSaved() && !isInternalType ?
+                <button onClick={addStickerpack} class={"btn btn--add-stick"}>Save</button> : null}
 
         </div>
         <div className={"stickerpack__body"}>
-            {stickers.map((sticker: any) =>
-                (<Sticker key={sticker.url} repository={stickerpack.repository} sticker={sticker}/>)
+            {(compact ? stickers.slice(0, stickerPicker.stickersPerRow) : stickers).map(
+                (sticker: any) => (
+                    <Sticker
+                        key={sticker.url}
+                        repository={isInternalType ? sticker.repository : stickerpack.repository}
+                        sticker={sticker}
+                    />
+                )
             )}
         </div>
     </div>;

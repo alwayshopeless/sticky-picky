@@ -2,10 +2,12 @@ import {useEffect, useMemo, useRef, useState} from "preact/hooks";
 import {useMatrix} from "../contexts/matrix-widget-api-context.tsx";
 import {useStickerPreview} from "../contexts/sticker-preview-context.tsx";
 import {useStickerPicker} from "../contexts/sticker-picker-context.tsx";
+import {useStickerCollections} from "../contexts/sticker-collections-context.tsx";
 
 export function Sticker({sticker, repository}: { sticker: any; repository: string }) {
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
+    const stickerCollections = useStickerCollections();
     const buildThumbnailUrl = () =>
         `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`;
 
@@ -17,7 +19,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
 
     useEffect(() => {
         if (!elRef.current) return;
-        registerSticker({sticker, src, element: elRef.current});
+        registerSticker({sticker: {...sticker, repository}, src, element: elRef.current});
         return () => {
             if (elRef.current) unregisterSticker(elRef.current);
         };
@@ -28,6 +30,17 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
         img.src = src;
         img.onload = () => setLoaded(true);
     }, []);
+
+    const addStickerToRecent = () => {
+        //TODO: Make function for clear event from unused sticker data
+        let tmpSticker = {
+            ...sticker,
+            repository,
+        };
+        delete tmpSticker["net.maunium.telegram.sticker"];
+        delete tmpSticker["id"];
+        stickerCollections.addToRecent(tmpSticker);
+    }
 
     const sendSticker = () => {
         widget.sendMessage({
@@ -47,6 +60,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                 name: sticker.body,
             },
         });
+        addStickerToRecent();
     };
 
     return (

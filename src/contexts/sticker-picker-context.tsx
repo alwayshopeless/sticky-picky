@@ -3,7 +3,6 @@ import {useContext, useEffect, useMemo, useState} from 'preact/hooks';
 import {applyTheme} from "../utils/themes.ts";
 import type {ThemeName} from "../types/themes.ts";
 
-
 export type BackendAuthData = {
     matrixUserId: string;
     token: string;
@@ -13,8 +12,8 @@ export type StickerPickerSettings = {
     stickersPerRow: number;
     theme: ThemeName | string | null;
     userData: BackendAuthData | null;
-    savedStickerpacks: number[];
-    sentStickerSize: number; // новое поле
+    sentStickerSize: number;
+    compactViewInExplore: boolean;
 };
 
 export type StickerPickerContextValue = Omit<StickerPickerSettings, 'userData'> & {
@@ -22,25 +21,25 @@ export type StickerPickerContextValue = Omit<StickerPickerSettings, 'userData'> 
     setUserData: (data: BackendAuthData | null) => void;
     setStickersPerRow: (n: number) => void;
     setTheme: (t: ThemeName | string | null) => void;
-    setSavedStickerpacks: (val: number[]) => void;
-    setSentStickerSize: (size: number) => void; // новая функция
+    setSentStickerSize: (size: number) => void;
+    setCompactViewInExplore: (val: boolean) => void;
 };
 
 const DEFAULT_VALUE: StickerPickerContextValue = {
     stickersPerRow: 6,
     theme: 'light',
     userData: null,
-    savedStickerpacks: [],
-    sentStickerSize: 128, // дефолтный размер
+    sentStickerSize: 128,
+    compactViewInExplore: false,
     setStickersPerRow: () => {
     },
     setTheme: () => {
     },
     setUserData: () => {
     },
-    setSavedStickerpacks: () => {
-    },
     setSentStickerSize: () => {
+    },
+    setCompactViewInExplore: () => {
     },
 };
 
@@ -53,7 +52,8 @@ export type StickerPickerProviderProps = {
     minPerRow?: number;
     maxPerRow?: number;
     storageKey?: string;
-    initialSentStickerSize?: number; // новый проп
+    initialSentStickerSize?: number;
+    initialCompactViewInExplore?: boolean;
 };
 
 export function StickerPickerProvider({
@@ -63,7 +63,8 @@ export function StickerPickerProvider({
                                           minPerRow = 1,
                                           maxPerRow = 16,
                                           storageKey = 'stickerPickerSettings',
-                                          initialSentStickerSize = 128, // дефолтный размер
+                                          initialSentStickerSize = 128,
+                                          initialCompactViewInExplore = false,
                                       }: StickerPickerProviderProps) {
     const clamp = (n: number) => Math.max(minPerRow, Math.min(maxPerRow, Math.floor(n)));
 
@@ -83,19 +84,27 @@ export function StickerPickerProvider({
     );
     const [theme, _setTheme] = useState<ThemeName | string | null>(stored?.theme || initialTheme);
     const [userData, setUserData] = useState<BackendAuthData | null>(stored?.userData || null);
-    const [savedStickerpacks, setSavedStickerpacks] = useState<number[]>(stored?.savedStickerpacks || []);
     const [sentStickerSize, setSentStickerSize] = useState<number>(stored?.sentStickerSize || initialSentStickerSize);
+    const [compactViewInExplore, setCompactViewInExplore] = useState<boolean>(
+        stored?.compactViewInExplore ?? initialCompactViewInExplore
+    );
 
     const setStickersPerRow = (n: number) => _setStickersPerRow(clamp(n));
     const setTheme = (t: ThemeName | string | null) => _setTheme(t);
 
     useEffect(() => {
         try {
-            const data: StickerPickerSettings = {stickersPerRow, theme, userData, savedStickerpacks, sentStickerSize};
+            const data: StickerPickerSettings = {
+                stickersPerRow,
+                theme,
+                userData,
+                sentStickerSize,
+                compactViewInExplore,
+            };
             localStorage.setItem(storageKey, JSON.stringify(data));
         } catch {
         }
-    }, [stickersPerRow, theme, userData, savedStickerpacks, sentStickerSize, storageKey]);
+    }, [stickersPerRow, theme, userData, sentStickerSize, compactViewInExplore, storageKey]);
 
     useEffect(() => {
         applyTheme(theme);
@@ -106,14 +115,16 @@ export function StickerPickerProvider({
     }, [stickersPerRow]);
 
     const value = useMemo<StickerPickerContextValue>(
-        () => ({
-            stickersPerRow, setStickersPerRow,
-            theme, setTheme,
-            userData, setUserData,
-            savedStickerpacks, setSavedStickerpacks,
-            sentStickerSize, setSentStickerSize
-        }),
-        [stickersPerRow, theme, userData, savedStickerpacks, sentStickerSize]
+        () => {
+            return {
+                stickersPerRow, setStickersPerRow,
+                theme, setTheme,
+                userData, setUserData,
+                sentStickerSize, setSentStickerSize,
+                compactViewInExplore, setCompactViewInExplore,
+            };
+        },
+        [stickersPerRow, theme, userData, sentStickerSize, compactViewInExplore]
     );
 
     return (

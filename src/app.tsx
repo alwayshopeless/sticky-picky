@@ -60,7 +60,6 @@ export function App() {
             <button className={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Connect
             </button>
         </div> : null}
-
         <div class={"main"}>
             <div className="top-nav">
                 <div

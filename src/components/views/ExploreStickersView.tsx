@@ -76,13 +76,12 @@ export function ExploreStickersView() {
                 <div style={{
                     marginBottom: "1rem",
                 }}>
-                    You have not stickers yet...
+                    Have not stickers yet...
                 </div>
-                <button class={'btn'}>
-                    Explore!
-                </button>
             </div> : null}
+
             {stickerpacks.map((stickerpack: any) => (<Stickerpack
+                compact={stickerPicker.compactViewInExplore}
                 key={stickerpack.name}
                 stickerpack={stickerpack}
                 stickers={stickerpacksData[stickerpack.id]}

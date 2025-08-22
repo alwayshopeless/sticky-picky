@@ -1,5 +1,6 @@
-import { createContext } from "preact";
-import { useState, useRef, useEffect, useContext } from "preact/hooks";
+import {createContext, createRef} from "preact";
+import {useContext, useEffect, useRef, useState} from "preact/hooks";
+import {PreviewTooltips} from "../components/preview/preview-toolips.tsx";
 
 type StickerData = {
     sticker: any;
@@ -13,15 +14,20 @@ type StickerPreviewContextType = {
     startPress: () => void;
     cancelPress: () => void;
     currentSrc: string | null;
+    setCurrentSrc: (val: string | null) => void;
+    currentStickerData: StickerData | null;
 };
 
 const StickerPreviewContext = createContext<StickerPreviewContextType | null>(null);
 
-export function StickerPreviewProvider({ children }: { children: any }) {
+
+export function StickerPreviewProvider({children}: { children: any }) {
     const [currentSrc, setCurrentSrc] = useState<string | null>(null);
+    const [currentStickerData, setCurrentStickerData] = useState<StickerData | null>(null);
     const stickers = useRef<StickerData[]>([]);
     const pressing = useRef(false);
-    const timer = useRef<number | null>(null);
+
+    const tooltipsRef = createRef<HTMLDivElement>();
 
     const registerSticker = (data: StickerData) => {
         stickers.current.push(data);
@@ -33,20 +39,6 @@ export function StickerPreviewProvider({ children }: { children: any }) {
 
     const startPress = () => {
         pressing.current = true;
-        timer.current = window.setTimeout(() => {
-            if (pressing.current) setCurrentSrc(null); // показываем пустую модалку сразу
-        }, 200); // задержка long press
-    };
-
-    const cancelPress = () => {
-        pressing.current = false;
-        if (timer.current) clearTimeout(timer.current);
-        timer.current = null;
-        setCurrentSrc(null);
-    };
-
-    useEffect(() => {
-        const handlePointerUp = () => cancelPress();
 
         const handlePointerMove = (e: PointerEvent) => {
             if (!pressing.current) return;
@@ -61,49 +53,65 @@ export function StickerPreviewProvider({ children }: { children: any }) {
                 ) {
                     if (currentSrc !== s.src) {
                         setCurrentSrc(s.src);
+                        setCurrentStickerData(s);
                     }
                     break;
                 }
             }
         };
 
-        document.addEventListener("pointerup", handlePointerUp);
-        document.addEventListener("pointermove", handlePointerMove);
-
-        return () => {
-            document.removeEventListener("pointerup", handlePointerUp);
+        const handlePointerUp = () => {
+            pressing.current = false;
             document.removeEventListener("pointermove", handlePointerMove);
+            document.removeEventListener("pointerup", handlePointerUp);
+        };
+
+        document.addEventListener("pointermove", handlePointerMove);
+        document.addEventListener("pointerup", handlePointerUp);
+    };
+
+    const cancelPress = () => {
+        pressing.current = false;
+    };
+
+    // Обработчик клика вне модалки
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (
+                currentSrc &&
+                tooltipsRef.current &&
+                !tooltipsRef.current.contains(e.target as Node)
+            ) {
+                setCurrentSrc(null);
+                setCurrentStickerData(null);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [currentSrc]);
 
     return (
         <StickerPreviewContext.Provider
-            value={{ registerSticker, unregisterSticker, startPress, cancelPress, currentSrc }}
+            value={{
+                registerSticker,
+                unregisterSticker,
+                startPress,
+                cancelPress,
+                currentSrc,
+                currentStickerData,
+                setCurrentSrc
+            }}
         >
             {children}
             {currentSrc && (
                 <div className="sticker-preview-modal">
-                    <img src={currentSrc} alt="" className="sticker-preview-img" />
-                    <style>
-                        {`
-                        .sticker-preview-modal {
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            background: rgba(0,0,0,0.5);
-                            z-index: 9999;
-                        }
-                        .sticker-preview-img {
-                            max-width: 90%;
-                            max-height: 90%;
-                        }
-                        `}
-                    </style>
+                    <img src={currentSrc} alt="" className="sticker-preview-img"/>
+                    <div ref={tooltipsRef}>
+                        <PreviewTooltips/>
+                    </div>
                 </div>
             )}
         </StickerPreviewContext.Provider>

@@ -11,6 +11,7 @@ export function SettingsView() {
     const {theme, setTheme} = stickerPicker;
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
     const {sentStickerSize, setSentStickerSize} = stickerPicker;
+    const {compactViewInExplore, setCompactViewInExplore} = stickerPicker;
 
     const handleThemeChange = (value: ThemeName) => {
         setTheme(value);
@@ -24,18 +25,37 @@ export function SettingsView() {
 
     return (
         <div className="settings-view">
-            <h4>Themes</h4>
+            <h4>Theme: <span class={"capitalize"}>{theme}</span></h4>
             <div className="theme-selector">
                 {Object.keys(themes).map((themeKey: ThemeName) => (
                     <div
                         key={themeKey}
-                        className={`theme-circle ${theme === themeKey ? 'active' : ''}`}
+                        className={`theme-circle-wrapper ${theme === themeKey ? 'active' : ''}`}
                         style={{
-                            background: `linear-gradient(135deg, ${themes[themeKey].bgMain} 50%, ${themes[themeKey].textMain} 50%)`,
-                            border: `3px solid ${themes[themeKey].bgSecondary}`
+                            borderRadius: '50%',
+                            overflow: 'hidden',
+                            width: '30px',
+                            height: '30px',
+                            cursor: 'pointer',
+                            display: 'inline-block'
                         }}
                         onClick={() => handleThemeChange(themeKey)}
-                    />
+                    >
+                        <div
+                            style={{
+                                background: themes[themeKey].bgSecondary,
+                                width: '100%',
+                                height: '100%'
+                            }}
+                        />
+                        <div
+                            style={{
+                                background: `${themes[themeKey].textMain}`,
+                                width: '100%',
+                                height: '100%'
+                            }}
+                        />
+                    </div>
                 ))}
             </div>
 
@@ -77,8 +97,24 @@ export function SettingsView() {
                 </div>
             </div>
 
-            <h4>Import repository with stickers</h4>
+            <h4>Compact view in explore</h4>
+            <label className="switch">
+                <input
+                    type="checkbox"
+                    checked={compactViewInExplore}
+                    onChange={(e: any) => setCompactViewInExplore(e.target.checked)}
+                />
+                <span
+                    className="slider"
+                    style={{
+                        background: compactViewInExplore
+                            ? themes[theme ?? 'dark'].bgThird
+                            : themes[theme ?? 'dark'].bgSecondary,
+                    }}
+                />
+            </label>
 
+            <h4>Import repository with stickers</h4>
             <div className="field">
                 <input
                     className="field__input"
@@ -87,7 +123,7 @@ export function SettingsView() {
                     onInput={(e: any) => setStickerUrl(e.target.value)}
                 />
             </div>
-            <button class="btn" onClick={handleAddRepo}>Добавить</button>
+            <button class="btn" onClick={handleAddRepo}>Import</button>
 
             <style>
                 {`
@@ -106,6 +142,42 @@ export function SettingsView() {
                     border: 3px solid #007bff;
                 }
 
+                .switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 50px;
+                    height: 28px;
+                }
+                .switch input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 34px;
+                    transition: .3s;
+                }
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 20px;
+                    width: 20px;
+                    left: 4px;
+                    bottom: 4px;
+                    background: ${themes[theme].bgMain};
+                    transition: .3s;
+                    border-radius: 50%;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                }
+                input:checked + .slider:before {
+                    transform: translateX(22px);
+                }
                 `}
             </style>
         </div>

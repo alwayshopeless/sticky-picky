@@ -3,8 +3,9 @@
 @use "components/stickerpack";
 @use "components/field";
 
+
 body {
-  background-color: var(--bg-main);
+  background: var(--bg-main);
   color: var(--text-main);
   font-family: "Noto Sans";
   width: 100vw;
@@ -47,7 +48,7 @@ body {
     cursor: pointer;
     flex: 1;
     text-align: center;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
     padding: 2px 5px;
     border-radius: 5px;
     overflow: hidden;
@@ -61,7 +62,7 @@ body {
     }
 
     &:hover {
-      background-color: var(--bg-secondary);
+      background: var(--bg-secondary);
       color: var(--text-main);
     }
   }
@@ -85,33 +86,47 @@ body {
   display: flex;
   text-align: center;
   justify-content: center;
+  align-items: center;
   padding: 1rem;
   border-radius: 10px;
   border: none;
   appearance: none;
-  background-color: var(--bg-secondary);
+  background: var(--bg-secondary);
   color: var(--text-main);
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  filter: brightness(0.95);
 
   &:hover {
-    filter: brightness(0.8);
+    filter: brightness(1.0);
+  }
+
+  &--flat {
+    gap: 10px;
+    border-radius: 0;
+    justify-content: flex-start;
+  }
+
+  &--tooltip {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.15);
   }
 
   &--add-stick {
     width: 100px;
     text-align: center;
-    background-color: var(--success);
+    background: var(--success);
     color: var(--text-main);
   }
 }
 
 .stickerpacks-nav {
   position: sticky;
+  margin-bottom: 5px;
   top: 0;
   left: 0;
-  background-color: var(--bg-main);
+  border-radius: 5px;
+  background: var(--bg-main);
   display: flex;
   flex-flow: row nowrap;
   gap: 10px;
@@ -157,8 +172,11 @@ body {
 }
 
 .sticker-preview-img {
+  margin-bottom: 10px;
   max-width: 90%;
   max-height: 90%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .stickerpack, .sticker {
@@ -193,16 +211,61 @@ body {
   &::-webkit-slider-thumb, &::-moz-range-thumb {
     appearance: none;
     border: none;
-    background-color: var(--bg-third);
+    background: var(--bg-third);
     box-shadow: none;
   }
 
   &:focus::-webkit-slider-runnable-track, &::-webkit-slider-runnable-track, &::-moz-range-track {
-    background-color: var(--bg-secondary);
+    background: var(--bg-secondary);
   }
 }
 
 .theme-selector {
   display: flex;
   flex-flow: row wrap;
+}
+
+.sticker-preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  backdrop-filter: blur(30px);
+}
+
+.sticker-preview-img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.tooltip-buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
