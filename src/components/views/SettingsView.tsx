@@ -2,6 +2,7 @@ import {useState} from 'preact/hooks';
 import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
 import {themes} from "../../config/themes.ts";
 import type {ThemeName} from "../../types/themes.ts";
+import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
 
 export function SettingsView() {
     const [repoName, setRepoName] = useState('');
@@ -114,16 +115,7 @@ export function SettingsView() {
                 />
             </label>
 
-            <h4>Import repository with stickers</h4>
-            <div className="field">
-                <input
-                    className="field__input"
-                    placeholder="Repository link"
-                    value={stickerUrl}
-                    onInput={(e: any) => setStickerUrl(e.target.value)}
-                />
-            </div>
-            <button class="btn" onClick={handleAddRepo}>Import</button>
+            <ImportRepositoryForm/>
 
             <style>
                 {`

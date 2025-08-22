@@ -2,11 +2,8 @@ import {Heart, SendHorizonal, X} from "lucide-preact";
 import {useStickerPreview} from "../../contexts/sticker-preview-context.tsx";
 import {useStickerCollections} from "../../contexts/sticker-collections-context.tsx";
 
-interface PreviewTooltips {
 
-}
-
-export function PreviewTooltips({}) {
+export function PreviewTooltips() {
     const previewContext = useStickerPreview();
     const stickerCollections = useStickerCollections();
     return <div className={'tooltip-buttons'}>

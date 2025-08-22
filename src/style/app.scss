@@ -97,6 +97,7 @@ body {
   cursor: pointer;
   transition: 0.3s;
   filter: brightness(0.95);
+  gap: 10px;
 
   &:hover {
     filter: brightness(1.0);
@@ -268,4 +269,24 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.rotation {
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.mb-1{
+  margin-bottom: 1rem;
 }
