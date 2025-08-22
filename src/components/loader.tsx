@@ -1,6 +1,6 @@
-import {useStickerPicker} from "../contexts/sticker-picker-context.tsx";
 import {themes} from "../config/themes.ts";
 import type {Theme} from "../types/themes.ts";
+import {useStickerPicker} from "../stores/sticker-picker.tsx";
 
 export function Loader() {
     const {theme} = useStickerPicker();
@@ -60,7 +60,7 @@ export function Loader() {
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
-                    background: ${currentTheme ? currentTheme.bgPrimary : '#1a1a2e'};
+                    background: ${currentTheme ? currentTheme?.bgMain : '#1a1a2e'};
                     position: relative;
                     display: flex;
                     align-items: center;

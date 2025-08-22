@@ -2,12 +2,12 @@ import {useEffect, useMemo} from "preact/hooks";
 import {Sticker} from "./sticker.tsx";
 import {X} from "lucide-preact";
 import {apiRequest} from "../api/backend-api.ts";
-import {useStickerPicker} from "../contexts/sticker-picker-context.tsx";
-import {useStickerCollections} from "../contexts/sticker-collections-context.tsx";
+import {useStickerPicker} from "../stores/sticker-picker.tsx";
+import {useStickerCollections} from "../stores/sticker-collections.tsx";
 
 interface StickerpackProps {
     stickerpack: any,
-    stickers: []
+    stickers: any[]
     compact?: boolean,
 }
 

@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useRef, useState} from "preact/hooks";
 import {useMatrix} from "../contexts/matrix-widget-api-context.tsx";
 import {useStickerPreview} from "../contexts/sticker-preview-context.tsx";
-import {useStickerPicker} from "../contexts/sticker-picker-context.tsx";
-import {useStickerCollections} from "../contexts/sticker-collections-context.tsx";
+import {useStickerPicker} from "../stores/sticker-picker.tsx";
+import {useStickerCollections} from "../stores/sticker-collections.tsx";
 
 export function Sticker({sticker, repository}: { sticker: any; repository: string }) {
     const widget = useMatrix();

@@ -1,10 +1,10 @@
 import {useMatrix} from "../../contexts/matrix-widget-api-context.tsx";
 import {useEffect, useState} from "preact/hooks";
-import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
 import {apiRequest} from "../../api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
 import type {IStickerpack} from "../../types/stickerpack.ts";
 import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx";
+import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 
 export function ExploreStickersView() {
     //@ts-ignore

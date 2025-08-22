@@ -1,7 +1,7 @@
 import {Heart, HeartOff, SendHorizonal, Trash2, X} from "lucide-preact";
 import {useStickerPreview} from "../../contexts/sticker-preview-context.tsx";
-import {useStickerCollections} from "../../contexts/sticker-collections-context.tsx";
 import {useMemo} from "preact/hooks";
+import {useStickerCollections} from "../../stores/sticker-collections.tsx";
 
 
 export function PreviewTooltips() {
@@ -22,9 +22,9 @@ export function PreviewTooltips() {
         <button className={"btn btn--flat btn--tooltip"}
                 onClick={() => {
                     if (isFavorite) {
-                        stickerCollections.removeFromFavorites(previewContext.currentStickerData.sticker);
+                        stickerCollections.removeFromFavorites(previewContext?.currentStickerData?.sticker);
                     } else {
-                        stickerCollections.addToFavorites(previewContext.currentStickerData.sticker);
+                        stickerCollections.addToFavorites(previewContext?.currentStickerData?.sticker);
                     }
                     previewContext.setCurrentSrc(null);
                 }}
@@ -36,7 +36,7 @@ export function PreviewTooltips() {
         {isRecently ? <button className={"btn btn--flat btn--tooltip"}
                               onClick={() => {
                                   if (isRecently) {
-                                      stickerCollections.removeFromRecent(previewContext.currentStickerData.sticker);
+                                      stickerCollections.removeFromRecent(previewContext?.currentStickerData?.sticker);
                                   }
                                   previewContext.setCurrentSrc(null);
                               }}

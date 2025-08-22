@@ -1,11 +1,10 @@
-import {Loader2} from "lucide-preact";
-import {h} from "preact";
-import JSX = h.JSX;
+import { Loader2 } from "lucide-preact";
+import {type JSX } from "preact";
 
-interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+type ButtonProps = Omit<JSX.HTMLAttributes<HTMLButtonElement>, 'disabled'> & {
     loading?: boolean;
     disabled?: boolean;
-}
+};
 
 export function Button({loading = false, children, disabled, class: className, ...rest}: ButtonProps) {
     const buttonClass = className;

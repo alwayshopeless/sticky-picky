@@ -1,13 +1,9 @@
-import {useState} from 'preact/hooks';
-import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
 import {themes} from "../../config/themes.ts";
 import type {ThemeName} from "../../types/themes.ts";
 import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
+import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 
 export function SettingsView() {
-    const [repoName, setRepoName] = useState('');
-    const [stickerUrl, setStickerUrl] = useState('');
-
     const stickerPicker = useStickerPicker();
     const {theme, setTheme} = stickerPicker;
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
@@ -16,12 +12,6 @@ export function SettingsView() {
 
     const handleThemeChange = (value: ThemeName) => {
         setTheme(value);
-    };
-
-    const handleAddRepo = () => {
-        console.log('Добавляем репозиторий:', {repoName, stickerUrl});
-        setRepoName('');
-        setStickerUrl('');
     };
 
     return (
@@ -162,7 +152,7 @@ export function SettingsView() {
                     width: 20px;
                     left: 4px;
                     bottom: 4px;
-                    background: ${themes[theme].bgMain};
+                    background: ${themes[theme ?? "dark"].bgMain};
                     transition: .3s;
                     border-radius: 50%;
                     box-shadow: 0 2px 4px rgba(0,0,0,0.2);

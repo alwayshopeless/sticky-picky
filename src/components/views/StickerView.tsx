@@ -1,6 +1,5 @@
 import {useMatrix} from "../../contexts/matrix-widget-api-context.tsx";
 import {useEffect, useState} from "preact/hooks";
-import {useStickerPicker} from "../../contexts/sticker-picker-context.tsx";
 import {apiRequest} from "../../api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
 import type {IStickerpack} from "../../types/stickerpack.ts";
@@ -8,7 +7,8 @@ import {buildThumbnailUrl} from "../../utils/stickers.ts";
 import {Clock, Heart} from "lucide-preact";
 import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx";
 import {Loader} from "../loader.tsx";
-import {useStickerCollections} from "../../contexts/sticker-collections-context.tsx";
+import {useStickerPicker} from "../../stores/sticker-picker.tsx";
+import {useStickerCollections} from "../../stores/sticker-collections.tsx";
 
 
 interface StickerViewNavProps {
@@ -76,7 +76,7 @@ export function StickerView({explore}: { explore: any }) {
         apiRequest('user/stickerpacks', {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${stickerPicker.userData.token}`
+                Authorization: `Bearer ${stickerPicker?.userData?.token}`
             },
         }).then(async (response: Response) => {
             if (response.status == 200) {
@@ -98,7 +98,7 @@ export function StickerView({explore}: { explore: any }) {
         apiRequest('user/stickers', {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${stickerPicker.userData.token}`
+                Authorization: `Bearer ${stickerPicker?.userData?.token}`
             },
         }).then(async (response: Response) => {
             if (response.status == 200) {

@@ -2,10 +2,10 @@ import {useEffect, useState} from "preact/hooks";
 import {StickerView} from "./components/views/StickerView.tsx";
 import {Globe, Settings} from "lucide-preact";
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
-import {useStickerPicker} from "./contexts/sticker-picker-context.tsx";
 import {apiRequest} from "./api/backend-api.ts";
 import {ExploreStickersView} from "./components/views/ExploreStickersView.tsx";
 import {SettingsView} from "./components/views/SettingsView.tsx";
+import {useStickerPicker} from "./stores/sticker-picker.tsx";
 
 export function App() {
     const [currentView, setCurrentView] = useState('stickers');
