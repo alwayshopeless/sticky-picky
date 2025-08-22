@@ -15,6 +15,8 @@ export type StickerCollectionsContextValue = StickerCollectionsData & {
     setRecentStickers: (stickers: any[]) => void;
     addToRecent: (sticker: any) => void;
     addToFavorites: (sticker: any) => void;
+    removeFromFavorites: (sticker: any) => void;
+    removeFromRecent: (sticker: any) => void;
 };
 
 const DEFAULT_VALUE: StickerCollectionsContextValue = {
@@ -122,7 +124,62 @@ export function StickerCollectionsProvider({
                 console.log("Errror: Cant add sticker to favorites");
             }
         })
+    };
 
+    const removeFromFavorites = (sticker: any) => {
+        apiRequest('user/stickers/favorites/remove', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${stickerPicker.userData.token}`
+            },
+            body: JSON.stringify({
+                spUid: sticker.spUid,
+            }),
+
+        }).then(async (response: Response) => {
+            if (response.status == 200) {
+                // let _data = await response.json();
+                setFavoriteStickers((prev: any[]) => {
+                    let tempFavs = prev.filter((item: any) => item.url != sticker.url);
+                    let newFavs = [
+                        ...tempFavs,
+                    ];
+                    newFavs = newFavs.slice(0, 20);
+                    return newFavs
+                });
+            } else {
+                console.log("Errror: Cant remove sticker from favorites");
+            }
+        })
+    };
+
+    const removeFromRecent = (sticker: any) => {
+        apiRequest('user/stickers/recent/remove', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${stickerPicker.userData.token}`
+            },
+            body: JSON.stringify({
+                spUid: sticker.spUid,
+            }),
+
+        }).then(async (response: Response) => {
+            if (response.status == 200) {
+                // let data = await response.json();
+                setRecentStickers((prev: any[]) => {
+                    let tempRecents = prev.filter((item: any) => item.url != sticker.url);
+                    let newRecents = [
+                        ...tempRecents,
+                    ];
+                    newRecents = newRecents.slice(0, 20);
+                    return newRecents
+                });
+            } else {
+                console.log("Errror: Cant remove sticker from recents");
+            }
+        })
     };
 
 
@@ -136,6 +193,8 @@ export function StickerCollectionsProvider({
             setRecentStickers,
             addToRecent,
             addToFavorites,
+            removeFromFavorites,
+            removeFromRecent,
         }),
         [savedStickerpacks, favoriteStickers, recentStickers]
     );
