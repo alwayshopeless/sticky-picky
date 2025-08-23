@@ -6,6 +6,7 @@ type StickerData = {
     sticker: any;
     src: string;
     element: HTMLElement;
+    sendSticker: () => void,
 };
 
 type StickerPreviewContextType = {
@@ -108,9 +109,13 @@ export function StickerPreviewProvider({children}: { children: any }) {
             {children}
             {currentSrc && (
                 <div className="sticker-preview-modal">
+                    <div style={"font-size: 2rem;"}>
+                        {currentStickerData?.sticker.body}
+                    </div>
                     <img src={currentSrc} alt="" className="sticker-preview-img"/>
                     <div ref={tooltipsRef}>
-                        <PreviewTooltips/>
+                        <PreviewTooltips sendSticker={currentStickerData?.sendSticker ?? (() => {
+                        })}/>
                     </div>
                 </div>
             )}

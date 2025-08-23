@@ -6,3 +6,7 @@ export function getAllUrlParams() {
     }
     return result;
 }
+
+export function buildHttpQuery(values: Record<string, string>) {
+    return new URLSearchParams(values);
+}

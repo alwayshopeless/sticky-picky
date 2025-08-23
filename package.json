@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "emoji-from-word": "^1.2.13",
+    "emojibase-data": "^16.0.3",
     "lucide-preact": "^0.540.0",
     "preact": "^10.27.0",
     "zustand": "^5.0.8"

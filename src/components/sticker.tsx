@@ -19,7 +19,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
 
     useEffect(() => {
         if (!elRef.current) return;
-        registerSticker({sticker: {...sticker, repository}, src, element: elRef.current});
+        registerSticker({sticker: {...sticker, repository}, sendSticker, src, element: elRef.current});
         return () => {
             if (elRef.current) unregisterSticker(elRef.current);
         };

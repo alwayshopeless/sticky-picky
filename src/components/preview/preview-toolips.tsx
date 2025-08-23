@@ -4,7 +4,9 @@ import {useMemo} from "preact/hooks";
 import {useStickerCollections} from "../../stores/sticker-collections.tsx";
 
 
-export function PreviewTooltips() {
+export function PreviewTooltips({sendSticker}: {
+    sendSticker: () => void,
+}) {
     const previewContext = useStickerPreview();
     const stickerCollections = useStickerCollections();
     const isFavorite = useMemo(() => {
@@ -15,6 +17,10 @@ export function PreviewTooltips() {
     }, [previewContext.currentStickerData?.sticker?.id])
     return <div className={'tooltip-buttons'}>
         <button className={"btn btn--flat btn--tooltip"}
+                onClick={() => {
+                    sendSticker();
+                    previewContext.setCurrentSrc(null);
+                }}
         >
             <SendHorizonal size={14}/>
             Send

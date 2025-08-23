@@ -1,11 +1,11 @@
 import {useEffect, useState} from "preact/hooks";
 import {StickerView} from "./components/views/StickerView.tsx";
-import {Globe, Settings} from "lucide-preact";
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
 import {apiRequest} from "./api/backend-api.ts";
 import {ExploreStickersView} from "./components/views/ExploreStickersView.tsx";
 import {SettingsView} from "./components/views/SettingsView.tsx";
 import {useStickerPicker} from "./stores/sticker-picker.tsx";
+import {TopNav} from "./components/top-nav.tsx";
 
 export function App() {
     const [currentView, setCurrentView] = useState('stickers');
@@ -61,41 +61,12 @@ export function App() {
             </button>
         </div> : null}
         <div class={"main"}>
-            <div className="top-nav">
-                <div
-                    onClick={() => {
-                        setCurrentView('gifs');
-                    }}
-                    data-selected={currentView == 'gifs'}
-                    className={"top-nav__item"}>GIF
-                </div>
-                <div
-                    onClick={() => {
-                        setCurrentView('stickers');
-                    }}
-                    data-selected={currentView == 'stickers'}
-                    className={"top-nav__item selected"}>Stickers
-                </div>
-                <div
-                    onClick={() => {
-                        setCurrentView('explore');
-                    }}
-                    data-selected={currentView == 'explore'}
-                    className={"top-nav__item ico"}><Globe/></div>
-                <div
-                    onClick={() => {
-                        setCurrentView('settings');
-                    }}
-                    data-selected={currentView == 'settings'}
-                    className={"top-nav__item ico"}><Settings/></div>
-            </div>
-            <div class={"view"}>
-                {currentView == 'stickers' ? <StickerView explore={() => {
-                    setCurrentView('explore');
-                }}/> : null}
-                {currentView == 'explore' ? <ExploreStickersView/> : null}
-                {currentView == 'settings' ? <SettingsView/> : null}
-            </div>
+            <TopNav view={currentView} setView={setCurrentView}/>
+            {currentView == 'stickers' ? <StickerView explore={() => {
+                setCurrentView('explore');
+            }}/> : null}
+            {currentView == 'explore' ? <ExploreStickersView/> : null}
+            {currentView == 'settings' ? <SettingsView/> : null}
         </div>
     </>
 }

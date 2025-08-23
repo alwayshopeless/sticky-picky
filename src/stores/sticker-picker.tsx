@@ -48,7 +48,7 @@ export const createStickerPickerStore = (
         persist(
             (set) => ({
                 stickersPerRow: clamp(initial?.stickersPerRow ?? 6),
-                theme: initial?.theme ?? 'light',
+                theme: initial?.theme ?? 'ligth',
                 userData: initial?.userData ?? null,
                 sentStickerSize: initial?.sentStickerSize ?? 128,
                 compactViewInExplore: initial?.compactViewInExplore ?? false,
