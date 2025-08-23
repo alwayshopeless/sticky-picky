@@ -148,7 +148,7 @@ export function ExploreStickersView() {
     };
 
     useEffect(() => {
-        if (stickerPicker.userData != null) {
+        if (true) {
             const cachedStickerpacks = stickerCollections.getExploreStickerpacks();
             if (cachedStickerpacks.length > 0 && stickerCollections.isExploreCacheValid() && !isSearch) {
                 console.log("Cache is valid, initializing from cache");

@@ -6,6 +6,7 @@ import {ExploreStickersView} from "./components/views/ExploreStickersView.tsx";
 import {SettingsView} from "./components/views/SettingsView.tsx";
 import {useStickerPicker} from "./stores/sticker-picker.tsx";
 import {TopNav} from "./components/top-nav.tsx";
+import {ConnectForm} from "./components/forms/connect-form.tsx";
 
 export function App() {
     const [currentView, setCurrentView] = useState('stickers');
@@ -57,10 +58,7 @@ export function App() {
 
 
     return <>
-        {stickerPicker.userData == null ? <div style={"padding: 0.1rem;"}>
-            <button className={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Connect
-            </button>
-        </div> : null}
+        {stickerPicker.userData == null ? <ConnectForm sendAuthRequest={sendAuthRequest}/> : null}
         {/*{isDebug ? <button onClick={() => {*/}
         {/*    localStorage.setItem('stickerCollections', '');*/}
         {/*}}>*/}

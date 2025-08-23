@@ -19,7 +19,7 @@ export function SettingsView() {
         <div class="view">
             <div className="settings-view">
 
-                <h4>Theme: <span class={"capitalize"}>{theme}</span></h4>
+                <h4>Theme: <span className={"capitalize"}>{theme}</span></h4>
                 <div className="theme-selector">
                     {Object.keys(themes).map((themeKey: ThemeName) => (
                         <div
@@ -109,6 +109,14 @@ export function SettingsView() {
                 </label>
 
                 <ImportRepositoryForm/>
+
+                <h4>Export keys</h4>
+                <div>
+                    <button class="btn" onClick={() => {
+                        navigator.clipboard.writeText(JSON.stringify(stickerPicker.userData));
+                    }}>Export keys
+                    </button>
+                </div>
 
             </div>
         </div>
