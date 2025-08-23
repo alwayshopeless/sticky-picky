@@ -61,10 +61,10 @@ export type StickerCollectionsStore = StickerCollectionsData & {
     addStickerpack: (stickerpack: IStickerpack) => void;
     removeStickerpack: (id: number) => void;
 
-    addToRecent: (sticker: any, token?: string) => Promise<void>;
-    addToFavorites: (sticker: any, token?: string) => Promise<void>;
-    removeFromFavorites: (sticker: any, token?: string) => Promise<void>;
-    removeFromRecent: (sticker: any, token?: string) => Promise<void>;
+    addToRecent: (sticker: any) => Promise<void>;
+    addToFavorites: (sticker: any) => Promise<void>;
+    removeFromFavorites: (sticker: any) => Promise<void>;
+    removeFromRecent: (sticker: any) => Promise<void>;
 };
 
 
@@ -188,13 +188,13 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                 });
             },
 
-            addToRecent: async (sticker, token) => {
+            addToRecent: async (sticker) => {
                 try {
                     const response = await apiRequest("user/stickers/recent/add", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`
+
                         },
                         body: JSON.stringify(sticker),
                     });
@@ -216,13 +216,13 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                 }
             },
 
-            addToFavorites: async (sticker, token) => {
+            addToFavorites: async (sticker) => {
                 try {
                     const response = await apiRequest("user/stickers/favorites/add", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`
+
                         },
                         body: JSON.stringify(sticker),
                     });
@@ -244,13 +244,13 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                 }
             },
 
-            removeFromFavorites: async (sticker, token) => {
+            removeFromFavorites: async (sticker) => {
                 try {
                     const response = await apiRequest("user/stickers/favorites/remove", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`
+
                         },
                         body: JSON.stringify({spUid: sticker.spUid}),
                     });
@@ -270,13 +270,13 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                 }
             },
 
-            removeFromRecent: async (sticker, token) => {
+            removeFromRecent: async (sticker) => {
                 try {
                     const response = await apiRequest("user/stickers/recent/remove", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`
+
                         },
                         body: JSON.stringify({spUid: sticker.spUid}),
                     });

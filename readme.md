@@ -1,3 +1,11 @@
+# I just want use it
+Just type in chat
+`/addwidget https://sticky-picky.kekpower.dev/?roomId=$matrix_room_id&matrix_room_id=$matrix_room_id&widgetId=$matrix_widget_id`
+and this widget will be added to your chat extensions.
+Also, it support work from standard Stickers widget in Matrix.
+
+[//]: # (# I just want use it in standard Stickers button)
+
 # Info
 You can use this version in local development in web version Matrix Element
 # Add widget in chat
@@ -12,3 +20,4 @@ It will run with https for except mixed content problem.
 ...
 Backend:
 https://github.com/alwayshopeless/sticky-picky-server
+
