@@ -1,0 +1,3566 @@
+{
+  "title": "струс дупи",
+  "id": "tg-1898137758262624261",
+  "net.maunium.telegram.pack": {
+    "short_name": "Sotryasenieochka",
+    "hash": "-767138832"
+  },
+  "stickers": [
+    {
+      "body": "😁",
+      "url": "mxc://exarius.org/VnlDBfqYXLUHkTSPDpQdiZmk",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 212577,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/VnlDBfqYXLUHkTSPDpQdiZmk",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 212577,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624321",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624321",
+        "emoticons": [
+          "😁",
+          "🤣",
+          "😂",
+          "😀"
+        ]
+      }
+    },
+    {
+      "body": "😥",
+      "url": "mxc://exarius.org/KZiAtRwrAgYbwFUGhfxwhbji",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 157786,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/KZiAtRwrAgYbwFUGhfxwhbji",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 157786,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624579",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624579",
+        "emoticons": [
+          "😥",
+          "😢",
+          "😅",
+          "😭",
+          "😰",
+          "😨",
+          "😓"
+        ]
+      }
+    },
+    {
+      "body": "😎",
+      "url": "mxc://exarius.org/pIlYMDdUNXxaTWtycRNdPOhv",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 180583,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/pIlYMDdUNXxaTWtycRNdPOhv",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 180583,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624367",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624367",
+        "emoticons": [
+          "😎"
+        ]
+      }
+    },
+    {
+      "body": "😍",
+      "url": "mxc://exarius.org/UKeNRzsnSHiAFfFeAeyjyKCU",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 161234,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/UKeNRzsnSHiAFfFeAeyjyKCU",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 161234,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624369",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624369",
+        "emoticons": [
+          "😍"
+        ]
+      }
+    },
+    {
+      "body": "😊",
+      "url": "mxc://exarius.org/qOKNXTWcoatficCGHnmhighu",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 246043,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/qOKNXTWcoatficCGHnmhighu",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 246043,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624529",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624529",
+        "emoticons": [
+          "😊",
+          "🙂",
+          "🙃"
+        ]
+      }
+    },
+    {
+      "body": "🙂",
+      "url": "mxc://exarius.org/EaZULWBVGicPowfqQghFushd",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 159292,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/EaZULWBVGicPowfqQghFushd",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 159292,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624576",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624576",
+        "emoticons": [
+          "😊",
+          "🙂",
+          "🙃",
+          "😌",
+          "😉",
+          "☺"
+        ]
+      }
+    },
+    {
+      "body": "☺️",
+      "url": "mxc://exarius.org/NvAfMvYVoShxTuhGIljEToKU",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 166231,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/NvAfMvYVoShxTuhGIljEToKU",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 166231,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624573",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624573",
+        "emoticons": [
+          "😊",
+          "☺",
+          "😚",
+          "🤗"
+        ]
+      }
+    },
+    {
+      "body": "😳",
+      "url": "mxc://exarius.org/iAHVjjyyXfRgTHWGTzHzCIcV",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 162610,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/iAHVjjyyXfRgTHWGTzHzCIcV",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 162610,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624374",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624374",
+        "emoticons": [
+          "😳"
+        ]
+      }
+    },
+    {
+      "body": "🧐",
+      "url": "mxc://exarius.org/qaELABZtwWfUFJdCrulmvwdg",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 172403,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/qaELABZtwWfUFJdCrulmvwdg",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 172403,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624375",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624375",
+        "emoticons": [
+          "🧐"
+        ]
+      }
+    },
+    {
+      "body": "😒",
+      "url": "mxc://exarius.org/oFNhhwqOutITizTQZTbSNjWl",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 144822,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/oFNhhwqOutITizTQZTbSNjWl",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 144822,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624365",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624365",
+        "emoticons": [
+          "😒",
+          "😕"
+        ]
+      }
+    },
+    {
+      "body": "😉",
+      "url": "mxc://exarius.org/DlMzukuAMQLHarsZSOISdgmj",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 228026,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/DlMzukuAMQLHarsZSOISdgmj",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 228026,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624540",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624540",
+        "emoticons": [
+          "🙂",
+          "😉"
+        ]
+      }
+    },
+    {
+      "body": "😳",
+      "url": "mxc://exarius.org/mZeJhpnNYBSHcdXAgbxdqbrO",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 188675,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/mZeJhpnNYBSHcdXAgbxdqbrO",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 188675,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624368",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624368",
+        "emoticons": [
+          "😳",
+          "🤯",
+          "😬"
+        ]
+      }
+    },
+    {
+      "body": "😋",
+      "url": "mxc://exarius.org/RsbqzCrsbGatVlNYdfUhDSlQ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 171182,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/RsbqzCrsbGatVlNYdfUhDSlQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 171182,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624528",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624528",
+        "emoticons": [
+          "😋",
+          "😛",
+          "😜",
+          "🤪"
+        ]
+      }
+    },
+    {
+      "body": "😃",
+      "url": "mxc://exarius.org/nzCmyWGgOkhJlXXiGNJdlJOA",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 177249,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/nzCmyWGgOkhJlXXiGNJdlJOA",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 177249,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624572",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624572",
+        "emoticons": [
+          "😁",
+          "🤣",
+          "😂",
+          "😃",
+          "😄",
+          "😆",
+          "👍"
+        ]
+      }
+    },
+    {
+      "body": "😮",
+      "url": "mxc://exarius.org/PyBDtskQsTnkfOlnDdbCSWYR",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 159301,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/PyBDtskQsTnkfOlnDdbCSWYR",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 159301,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624371",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624371",
+        "emoticons": [
+          "😋",
+          "😮"
+        ]
+      }
+    },
+    {
+      "body": "😖",
+      "url": "mxc://exarius.org/zDfTNzpXmFYzqPSslkcTBMTn",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 180041,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/zDfTNzpXmFYzqPSslkcTBMTn",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 180041,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624372",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624372",
+        "emoticons": [
+          "😖"
+        ]
+      }
+    },
+    {
+      "body": "😴",
+      "url": "mxc://exarius.org/ttHcgpKtIAPkPhwvHGiAGslN",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 170121,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ttHcgpKtIAPkPhwvHGiAGslN",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 170121,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624370",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624370",
+        "emoticons": [
+          "😖",
+          "😴",
+          "😞"
+        ]
+      }
+    },
+    {
+      "body": "🥴",
+      "url": "mxc://exarius.org/ZPoFyijrnKiPxiiExRZsvUpg",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 169308,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ZPoFyijrnKiPxiiExRZsvUpg",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 169308,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624373",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624373",
+        "emoticons": [
+          "😬",
+          "🥴"
+        ]
+      }
+    },
+    {
+      "body": "🤨",
+      "url": "mxc://exarius.org/HCeBeCVapnFyNkKUBYWuAjCq",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 217573,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/HCeBeCVapnFyNkKUBYWuAjCq",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 217573,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624526",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624526",
+        "emoticons": [
+          "🤨",
+          "😠"
+        ]
+      }
+    },
+    {
+      "body": "😮",
+      "url": "mxc://exarius.org/nDQVEeKDGskyheBUHYHSOHnQ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 231943,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/nDQVEeKDGskyheBUHYHSOHnQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 231943,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624527",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624527",
+        "emoticons": [
+          "😳",
+          "😮",
+          "😧",
+          "😲"
+        ]
+      }
+    },
+    {
+      "body": "😵",
+      "url": "mxc://exarius.org/TnGVTcUECwkUGeSbFzSqmmmy",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 141709,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/TnGVTcUECwkUGeSbFzSqmmmy",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 141709,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624571",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624571",
+        "emoticons": [
+          "😮",
+          "😵",
+          "🥱",
+          "😯"
+        ]
+      }
+    },
+    {
+      "body": "☹️",
+      "url": "mxc://exarius.org/oQxqpbJmCSqFLTFxSmzwyRzA",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 168732,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/oQxqpbJmCSqFLTFxSmzwyRzA",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 168732,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624574",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624574",
+        "emoticons": [
+          "😒",
+          "😕",
+          "😞",
+          "☹",
+          "🙁",
+          "😔"
+        ]
+      }
+    },
+    {
+      "body": "🙁",
+      "url": "mxc://exarius.org/uiHJXXITliDRkXNBfMbHqFjH",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 154490,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/uiHJXXITliDRkXNBfMbHqFjH",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 154490,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624575",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624575",
+        "emoticons": [
+          "😕",
+          "😞",
+          "☹",
+          "🙁",
+          "😔",
+          "😟"
+        ]
+      }
+    },
+    {
+      "body": "🤨",
+      "url": "mxc://exarius.org/fUxBRtgsqfIUserwbUpYQtAP",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 152964,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/fUxBRtgsqfIUserwbUpYQtAP",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 152964,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624577",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624577",
+        "emoticons": [
+          "😖",
+          "🥴",
+          "🤨",
+          "😣",
+          "😑"
+        ]
+      }
+    },
+    {
+      "body": "😒",
+      "url": "mxc://exarius.org/sXkGjMeNaRSUjZZFfdrjsFOT",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 140983,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/sXkGjMeNaRSUjZZFfdrjsFOT",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 140983,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624578",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624578",
+        "emoticons": [
+          "😒"
+        ]
+      }
+    },
+    {
+      "body": "😯",
+      "url": "mxc://exarius.org/wXkdgGfYbOkSbrvDULQIokrq",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 169895,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/wXkdgGfYbOkSbrvDULQIokrq",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 169895,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5235974723380189526",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5235974723380189526",
+        "emoticons": [
+          "😳",
+          "😮",
+          "😧",
+          "😯",
+          "😦"
+        ]
+      }
+    },
+    {
+      "body": "😳",
+      "url": "mxc://exarius.org/IysDcuTzdwCUNNjPReexwPZp",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 270393,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/IysDcuTzdwCUNNjPReexwPZp",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 270393,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624488",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624488",
+        "emoticons": [
+          "😳",
+          "🤬",
+          "😡",
+          "🥵",
+          "👊"
+        ]
+      }
+    },
+    {
+      "body": "😳",
+      "url": "mxc://exarius.org/TvffDCBRDSGuoXPtYlZfCSez",
+      "info": {
+        "w": 240,
+        "h": 256,
+        "size": 135625,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/TvffDCBRDSGuoXPtYlZfCSez",
+        "thumbnail_info": {
+          "w": 240,
+          "h": 256,
+          "size": 135625,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256015942726463482",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256015942726463482",
+        "emoticons": [
+          "😳",
+          "🤯"
+        ]
+      }
+    },
+    {
+      "body": "🤣",
+      "url": "mxc://exarius.org/zXZAYHMQnxMqQyHKjBYyBXIe",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 164906,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/zXZAYHMQnxMqQyHKjBYyBXIe",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 164906,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5253873982406403801",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5253873982406403801",
+        "emoticons": [
+          "🤣",
+          "😂",
+          "👍"
+        ]
+      }
+    },
+    {
+      "body": "😳",
+      "url": "mxc://exarius.org/GBcajkHuzBcNVNpJXzHXRqoT",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 242376,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/GBcajkHuzBcNVNpJXzHXRqoT",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 242376,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624494",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624494",
+        "emoticons": [
+          "😳"
+        ]
+      }
+    },
+    {
+      "body": "😫",
+      "url": "mxc://exarius.org/XvFOkFltNVgciQINVUviLbGP",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 204519,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/XvFOkFltNVgciQINVUviLbGP",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 204519,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5339266114163586161",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5339266114163586161",
+        "emoticons": [
+          "🤯",
+          "🤬",
+          "😫",
+          "😩"
+        ]
+      }
+    },
+    {
+      "body": "😘",
+      "url": "mxc://exarius.org/ALCGWuQqMVnhbmfGpJhfJEPh",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 211956,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ALCGWuQqMVnhbmfGpJhfJEPh",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 211956,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5389105275443626526",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5389105275443626526",
+        "emoticons": [
+          "😍",
+          "😘",
+          "🥰",
+          "😏"
+        ]
+      }
+    },
+    {
+      "body": "🙃",
+      "url": "mxc://exarius.org/uyCGXgzOxyRGWQcVmnNwuvGD",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 140352,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/uyCGXgzOxyRGWQcVmnNwuvGD",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 140352,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5341781298551729067",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5341781298551729067",
+        "emoticons": [
+          "😊",
+          "🙂",
+          "🙃"
+        ]
+      }
+    },
+    {
+      "body": "🤯",
+      "url": "mxc://exarius.org/aGQXqNGTgEFcihAIQMmurPQl",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 192773,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/aGQXqNGTgEFcihAIQMmurPQl",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 192773,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256215834799387277",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256215834799387277",
+        "emoticons": [
+          "😨",
+          "😳",
+          "🤯",
+          "😧",
+          "😱"
+        ]
+      }
+    },
+    {
+      "body": "💪",
+      "url": "mxc://exarius.org/mRGVDasJNpSVmcFAfEoZxqvQ",
+      "info": {
+        "w": 256,
+        "h": 230,
+        "size": 148056,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/mRGVDasJNpSVmcFAfEoZxqvQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 230,
+          "size": 148056,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5300745922580329654",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5300745922580329654",
+        "emoticons": [
+          "😎",
+          "💪",
+          "💋"
+        ]
+      }
+    },
+    {
+      "body": "🍌",
+      "url": "mxc://exarius.org/ZkEIMfBrPMbnVYujNGjSgyNW",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 165926,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ZkEIMfBrPMbnVYujNGjSgyNW",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 165926,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5298821042792314528",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5298821042792314528",
+        "emoticons": [
+          "🍌",
+          "🍆",
+          "💦"
+        ]
+      }
+    },
+    {
+      "body": "🤮",
+      "url": "mxc://exarius.org/sucqcVkZiZWoCsaoUAkgGRRC",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 225421,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/sucqcVkZiZWoCsaoUAkgGRRC",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 225421,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5253948517268862896",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5253948517268862896",
+        "emoticons": [
+          "😌",
+          "🍆",
+          "🤮",
+          "🥚"
+        ]
+      }
+    },
+    {
+      "body": "🍑",
+      "url": "mxc://exarius.org/pyNoJeYFPZsHVSmFakwbTkTw",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 188631,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/pyNoJeYFPZsHVSmFakwbTkTw",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 188631,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5391012979657420468",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5391012979657420468",
+        "emoticons": [
+          "😔",
+          "🍑"
+        ]
+      }
+    },
+    {
+      "body": "😋",
+      "url": "mxc://exarius.org/ZjpMunEmoknPSDpbUBJZLguh",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 108444,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ZjpMunEmoknPSDpbUBJZLguh",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 108444,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624489",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624489",
+        "emoticons": [
+          "😳",
+          "🤯",
+          "😋",
+          "🥵",
+          "🔞"
+        ]
+      }
+    },
+    {
+      "body": "🤯",
+      "url": "mxc://exarius.org/WtqsuLiGftVqbpSxlJdeinQB",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 144764,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/WtqsuLiGftVqbpSxlJdeinQB",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 144764,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5255915010995007569",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5255915010995007569",
+        "emoticons": [
+          "😳",
+          "🤯",
+          "🫠"
+        ]
+      }
+    },
+    {
+      "body": "🤣",
+      "url": "mxc://exarius.org/VdsXYWEQkPfbzuTkFHZVQxzE",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 137307,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/VdsXYWEQkPfbzuTkFHZVQxzE",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 137307,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5255864510769542238",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5255864510769542238",
+        "emoticons": [
+          "😁",
+          "🤣",
+          "😂",
+          "🤪"
+        ]
+      }
+    },
+    {
+      "body": "🥺",
+      "url": "mxc://exarius.org/DBWdaNsmKcxMdnJlTezRItFR",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 143275,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/DBWdaNsmKcxMdnJlTezRItFR",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 143275,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5298988958833719141",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5298988958833719141",
+        "emoticons": [
+          "🥺",
+          "🥹",
+          "🤓"
+        ]
+      }
+    },
+    {
+      "body": "😔",
+      "url": "mxc://exarius.org/bgiTGGdjrHZUbJfgKdlmnPgs",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 151346,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/bgiTGGdjrHZUbJfgKdlmnPgs",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 151346,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5301007335764800642",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5301007335764800642",
+        "emoticons": [
+          "🙁",
+          "😔",
+          "😟"
+        ]
+      }
+    },
+    {
+      "body": "🤝",
+      "url": "mxc://exarius.org/CJCNrMkAUCALTMYyYWivKsoa",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 195097,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/CJCNrMkAUCALTMYyYWivKsoa",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 195097,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5298631385626458029",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5298631385626458029",
+        "emoticons": [
+          "👍",
+          "🤝",
+          "👌"
+        ]
+      }
+    },
+    {
+      "body": "😎",
+      "url": "mxc://exarius.org/JnZoRKKGqCLleKElrLuKJUOp",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 177397,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/JnZoRKKGqCLleKElrLuKJUOp",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 177397,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624492",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624492",
+        "emoticons": [
+          "😎",
+          "😏",
+          "🚬"
+        ]
+      }
+    },
+    {
+      "body": "😊",
+      "url": "mxc://exarius.org/WLQDVDMzUsyYOspEpWQJyOaA",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 224074,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/WLQDVDMzUsyYOspEpWQJyOaA",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 224074,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5422746637581688586",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5422746637581688586",
+        "emoticons": [
+          "😊",
+          "☺",
+          "🔫",
+          "👈"
+        ]
+      }
+    },
+    {
+      "body": "🔫",
+      "url": "mxc://exarius.org/DiaenPdOmbXHFXNUcPOlaqwU",
+      "info": {
+        "w": 168,
+        "h": 256,
+        "size": 182752,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/DiaenPdOmbXHFXNUcPOlaqwU",
+        "thumbnail_info": {
+          "w": 168,
+          "h": 256,
+          "size": 182752,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5301120770146052821",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5301120770146052821",
+        "emoticons": [
+          "🤯",
+          "🤬",
+          "😡",
+          "🔫"
+        ]
+      }
+    },
+    {
+      "body": "☠",
+      "url": "mxc://exarius.org/DdfJllpDJVzTNfjuVuBqVUfb",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 77008,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/DdfJllpDJVzTNfjuVuBqVUfb",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 77008,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5255747618939607966",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5255747618939607966",
+        "emoticons": [
+          "☠",
+          "💀",
+          "⚰"
+        ]
+      }
+    },
+    {
+      "body": "💉",
+      "url": "mxc://exarius.org/qggPlJvrCQtlQHCqOYVrfImA",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 113427,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/qggPlJvrCQtlQHCqOYVrfImA",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 113427,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5282923573533483731",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5282923573533483731",
+        "emoticons": [
+          "😋",
+          "🥰",
+          "💉",
+          "💊"
+        ]
+      }
+    },
+    {
+      "body": "😫",
+      "url": "mxc://exarius.org/JWcnTUqXQvxMeuaHSkZWcTLE",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 407598,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/JWcnTUqXQvxMeuaHSkZWcTLE",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 407598,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256101601554209155",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256101601554209155",
+        "emoticons": [
+          "😢",
+          "😭",
+          "😡",
+          "😫",
+          "😩"
+        ]
+      }
+    },
+    {
+      "body": "🤟",
+      "url": "mxc://exarius.org/SxtPdtAJcKPFzHGbomNodgCe",
+      "info": {
+        "w": 256,
+        "h": 180,
+        "size": 95699,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/SxtPdtAJcKPFzHGbomNodgCe",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 180,
+          "size": 95699,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624456",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624456",
+        "emoticons": [
+          "🤪",
+          "👍",
+          "🤟",
+          "🤙"
+        ]
+      }
+    },
+    {
+      "body": "🙂",
+      "url": "mxc://exarius.org/SZYOGZTdGvoVNxXmZsXVDHak",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 228605,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/SZYOGZTdGvoVNxXmZsXVDHak",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 228605,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624438",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624438",
+        "emoticons": [
+          "😁",
+          "😂",
+          "🙂"
+        ]
+      }
+    },
+    {
+      "body": "😭",
+      "url": "mxc://exarius.org/LPzmbtqWpAJEgRMKjZJavudX",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 239057,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/LPzmbtqWpAJEgRMKjZJavudX",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 239057,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624446",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624446",
+        "emoticons": [
+          "😭"
+        ]
+      }
+    },
+    {
+      "body": "😎",
+      "url": "mxc://exarius.org/hgINwExHXJngtJkdfLdRezmL",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 208064,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/hgINwExHXJngtJkdfLdRezmL",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 208064,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5276038255626696491",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5276038255626696491",
+        "emoticons": [
+          "😎",
+          "🤑",
+          "🐒"
+        ]
+      }
+    },
+    {
+      "body": "🖕",
+      "url": "mxc://exarius.org/QzbtTipcSKdOhxnFcdxOxfTU",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 237606,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/QzbtTipcSKdOhxnFcdxOxfTU",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 237606,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624502",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624502",
+        "emoticons": [
+          "🖕"
+        ]
+      }
+    },
+    {
+      "body": "😊",
+      "url": "mxc://exarius.org/xImTAVSoMIZIuYPLCsExgGDN",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 216456,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/xImTAVSoMIZIuYPLCsExgGDN",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 216456,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5283034117401748862",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5283034117401748862",
+        "emoticons": [
+          "😍",
+          "😊",
+          "🥰",
+          "🤙",
+          "🌿"
+        ]
+      }
+    },
+    {
+      "body": "👨‍❤️‍💋‍👨",
+      "url": "mxc://exarius.org/LJsOqgcoBgvLHjohHxSUsPIb",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 112994,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/LJsOqgcoBgvLHjohHxSUsPIb",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 112994,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624376",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624376",
+        "emoticons": [
+          "👨‍❤‍💋‍👨",
+          "⚽"
+        ]
+      }
+    },
+    {
+      "body": "🙂",
+      "url": "mxc://exarius.org/GKDIsPRctJiNoFsoeZknwEzQ",
+      "info": {
+        "w": 256,
+        "h": 231,
+        "size": 123204,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/GKDIsPRctJiNoFsoeZknwEzQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 231,
+          "size": 123204,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5389041254661110011",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5389041254661110011",
+        "emoticons": [
+          "😊",
+          "🙂",
+          "🙃",
+          "👍",
+          "🙏"
+        ]
+      }
+    },
+    {
+      "body": "😴",
+      "url": "mxc://exarius.org/iLkaXJUBeCFkKrRDGwPWGUtj",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 201124,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/iLkaXJUBeCFkKrRDGwPWGUtj",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 201124,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256100068250889474",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256100068250889474",
+        "emoticons": [
+          "😴",
+          "🍑",
+          "🛌"
+        ]
+      }
+    },
+    {
+      "body": "🍆",
+      "url": "mxc://exarius.org/qnEwiuYsihMrOeeyCFFZSZUv",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 352272,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/qnEwiuYsihMrOeeyCFFZSZUv",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 352272,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5415758300589332736",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5415758300589332736",
+        "emoticons": [
+          "🍆",
+          "❄",
+          "⛄"
+        ]
+      }
+    },
+    {
+      "body": "😫",
+      "url": "mxc://exarius.org/MWThaPlrRVaBTwZXZYKwnQrs",
+      "info": {
+        "w": 256,
+        "h": 253,
+        "size": 263464,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/MWThaPlrRVaBTwZXZYKwnQrs",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 253,
+          "size": 263464,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5278297923820465495",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5278297923820465495",
+        "emoticons": [
+          "😞",
+          "😫",
+          "🫠"
+        ]
+      }
+    },
+    {
+      "body": "🥒",
+      "url": "mxc://exarius.org/fjfRVtjPWFATujmnhTzUzcTZ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 124188,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/fjfRVtjPWFATujmnhTzUzcTZ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 124188,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5402287741255823658",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5402287741255823658",
+        "emoticons": [
+          "🍌",
+          "🥒"
+        ]
+      }
+    },
+    {
+      "body": "👌",
+      "url": "mxc://exarius.org/ZymOYkWOrGCFAqctsUzbnfGj",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 497603,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ZymOYkWOrGCFAqctsUzbnfGj",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 497603,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5388565582738110835",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5388565582738110835",
+        "emoticons": [
+          "👍",
+          "👌",
+          "👁‍🗨",
+          "🆗"
+        ]
+      }
+    },
+    {
+      "body": "💪",
+      "url": "mxc://exarius.org/CuRncBEcsYfplgvXTtlpSnqf",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 206880,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/CuRncBEcsYfplgvXTtlpSnqf",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 206880,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5402231893796074664",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5402231893796074664",
+        "emoticons": [
+          "💪",
+          "🍌",
+          "🍆",
+          "🫃",
+          "👬"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/hNNXqPQRXnKeEcSaOlWhkgeb",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 142532,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/hNNXqPQRXnKeEcSaOlWhkgeb",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 142532,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624491",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624491",
+        "emoticons": [
+          "😎",
+          "🤟",
+          "🇺🇦",
+          "🏳‍🌈"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/vBuYXDKBRRohKXJksbRFXPtQ",
+      "info": {
+        "w": 256,
+        "h": 244,
+        "size": 111924,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/vBuYXDKBRRohKXJksbRFXPtQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 244,
+          "size": 111924,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256066915398332161",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256066915398332161",
+        "emoticons": [
+          "🍌",
+          "🍆",
+          "🇺🇦"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/oBUYleoiqczrWCpVtzTMdaGH",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 105482,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/oBUYleoiqczrWCpVtzTMdaGH",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 105482,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5402429707104825075",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5402429707104825075",
+        "emoticons": [
+          "🇺🇦",
+          "🙋‍♂",
+          "☀",
+          "👋"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/ojmGLDQXWzkAHJfJKlGQdCPP",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 317225,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ojmGLDQXWzkAHJfJKlGQdCPP",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 317225,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256091431071652841",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256091431071652841",
+        "emoticons": [
+          "🐒",
+          "🇺🇦",
+          "💩",
+          "🦍",
+          "🦧"
+        ]
+      }
+    },
+    {
+      "body": "⚰",
+      "url": "mxc://exarius.org/GSJITxqCbsYCDCGTQgNSIxZN",
+      "info": {
+        "w": 256,
+        "h": 225,
+        "size": 266475,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/GSJITxqCbsYCDCGTQgNSIxZN",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 225,
+          "size": 266475,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5258021181352581017",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5258021181352581017",
+        "emoticons": [
+          "😃",
+          "☠",
+          "💀",
+          "⚰"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/WbibFKgstfykNISVNIhwLYNT",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 179063,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/WbibFKgstfykNISVNIhwLYNT",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 179063,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5255985925200024912",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5255985925200024912",
+        "emoticons": [
+          "🇺🇦"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/fQzqrmKUEegGzRHZkGZmBbrd",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 312240,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/fQzqrmKUEegGzRHZkGZmBbrd",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 312240,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256191868881869141",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256191868881869141",
+        "emoticons": [
+          "💪",
+          "🇺🇦",
+          "🦾"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/wPraOAKALINCBktunqqsBrZR",
+      "info": {
+        "w": 256,
+        "h": 232,
+        "size": 303877,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/wPraOAKALINCBktunqqsBrZR",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 232,
+          "size": 303877,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5253717469503173875",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5253717469503173875",
+        "emoticons": [
+          "🇺🇦",
+          "👋"
+        ]
+      }
+    },
+    {
+      "body": "🤪",
+      "url": "mxc://exarius.org/cYilfHOWAdkhaEkWzoJVZXQW",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 129408,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/cYilfHOWAdkhaEkWzoJVZXQW",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 129408,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5402568181145419696",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5402568181145419696",
+        "emoticons": [
+          "🤣",
+          "😳",
+          "🤪",
+          "🤫"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/MddVNzbmyYOOYnOxMuRUPDWq",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 304701,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/MddVNzbmyYOOYnOxMuRUPDWq",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 304701,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5402098736924994210",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5402098736924994210",
+        "emoticons": [
+          "🇺🇦",
+          "🫡"
+        ]
+      }
+    },
+    {
+      "body": "🙋‍♂",
+      "url": "mxc://exarius.org/OMtjroWUnJkfEewhCqDfHYAE",
+      "info": {
+        "w": 256,
+        "h": 250,
+        "size": 345570,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/OMtjroWUnJkfEewhCqDfHYAE",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 250,
+          "size": 345570,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5339025626059781244",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5339025626059781244",
+        "emoticons": [
+          "🇺🇦",
+          "🙋‍♂"
+        ]
+      }
+    },
+    {
+      "body": "🐷",
+      "url": "mxc://exarius.org/WEfuSLADTIhKYxUfUyuBHgtA",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 169556,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/WEfuSLADTIhKYxUfUyuBHgtA",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 169556,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5422499097141583757",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5422499097141583757",
+        "emoticons": [
+          "🐷",
+          "🐖",
+          "🥓"
+        ]
+      }
+    },
+    {
+      "body": "⚰",
+      "url": "mxc://exarius.org/qzLqiJQJccPdaHIYUWviWDKW",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 288225,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/qzLqiJQJccPdaHIYUWviWDKW",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 288225,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5415831985048262094",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5415831985048262094",
+        "emoticons": [
+          "☠",
+          "💀",
+          "⚰"
+        ]
+      }
+    },
+    {
+      "body": "🤯",
+      "url": "mxc://exarius.org/cOnkDhBRcZfKldqgzZQMbEfz",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 282709,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/cOnkDhBRcZfKldqgzZQMbEfz",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 282709,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5285477133454417413",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5285477133454417413",
+        "emoticons": [
+          "😍",
+          "🤯",
+          "🥰",
+          "🔥",
+          "💣",
+          "💥"
+        ]
+      }
+    },
+    {
+      "body": "🏳‍🌈",
+      "url": "mxc://exarius.org/legFqDWsVJmCNxATXIrJJTJD",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 474725,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/legFqDWsVJmCNxATXIrJJTJD",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 474725,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5258135960058600529",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5258135960058600529",
+        "emoticons": [
+          "👬",
+          "🏳‍🌈",
+          "🐏",
+          "🐑"
+        ]
+      }
+    },
+    {
+      "body": "🌅",
+      "url": "mxc://exarius.org/YEzPKsOlUidNCkSZeGQdEabk",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 187414,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/YEzPKsOlUidNCkSZeGQdEabk",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 187414,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5339513615948985733",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5339513615948985733",
+        "emoticons": [
+          "😍",
+          "😴",
+          "🌅",
+          "⏰",
+          "🌞"
+        ]
+      }
+    },
+    {
+      "body": "🤡",
+      "url": "mxc://exarius.org/iwvDtjzRSWqPrxQsPXeQgoYh",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 190274,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/iwvDtjzRSWqPrxQsPXeQgoYh",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 190274,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5285215265003412776",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5285215265003412776",
+        "emoticons": [
+          "🤡",
+          "😾",
+          "🐈‍⬛",
+          "🐈"
+        ]
+      }
+    },
+    {
+      "body": "😎",
+      "url": "mxc://exarius.org/uxAJejVadXRHvgIvakSKPfDw",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 181817,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/uxAJejVadXRHvgIvakSKPfDw",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 181817,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5389063077389940544",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5389063077389940544",
+        "emoticons": [
+          "😨",
+          "😎",
+          "🤯",
+          "😫",
+          "💩"
+        ]
+      }
+    },
+    {
+      "body": "🦶",
+      "url": "mxc://exarius.org/xHVxgDtFOInfOMkqCAYHbOJM",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 287570,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/xHVxgDtFOInfOMkqCAYHbOJM",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 287570,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5415743401347784218",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5415743401347784218",
+        "emoticons": [
+          "🦶",
+          "🎂",
+          "🥳",
+          "🎁"
+        ]
+      }
+    },
+    {
+      "body": "🤪",
+      "url": "mxc://exarius.org/cIyoqnPsFvDjlWvytebePYSV",
+      "info": {
+        "w": 256,
+        "h": 254,
+        "size": 273366,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/cIyoqnPsFvDjlWvytebePYSV",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 254,
+          "size": 273366,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5256207850455177813",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5256207850455177813",
+        "emoticons": [
+          "😁",
+          "🙂",
+          "🤪",
+          "😆",
+          "🥱"
+        ]
+      }
+    },
+    {
+      "body": "😴",
+      "url": "mxc://exarius.org/VFPOcFfyJAAFjNDKsoVraZCB",
+      "info": {
+        "w": 256,
+        "h": 192,
+        "size": 208562,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/VFPOcFfyJAAFjNDKsoVraZCB",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 192,
+          "size": 208562,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5258411774268414185",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5258411774268414185",
+        "emoticons": [
+          "😴",
+          "🛌",
+          "🛏",
+          "🌙"
+        ]
+      }
+    },
+    {
+      "body": "🛏",
+      "url": "mxc://exarius.org/UrLVselZEsoOMRtwDmPfDtgC",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 288050,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/UrLVselZEsoOMRtwDmPfDtgC",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 288050,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624605",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624605",
+        "emoticons": [
+          "😴",
+          "🥱",
+          "🛌",
+          "🌞",
+          "🛏",
+          "💤"
+        ]
+      }
+    },
+    {
+      "body": "🙏",
+      "url": "mxc://exarius.org/gnRrqZNkxQqUNubyQIsKVcYW",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 413420,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/gnRrqZNkxQqUNubyQIsKVcYW",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 413420,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624518",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624518",
+        "emoticons": [
+          "😊",
+          "🙂",
+          "🙏"
+        ]
+      }
+    },
+    {
+      "body": "🥵",
+      "url": "mxc://exarius.org/OvobOolEvPsCaVFGkiJMmbMG",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 207231,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/OvobOolEvPsCaVFGkiJMmbMG",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 207231,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624483",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624483",
+        "emoticons": [
+          "🤯",
+          "🤬",
+          "🥵"
+        ]
+      }
+    },
+    {
+      "body": "🕯",
+      "url": "mxc://exarius.org/gnFxbKVYYvBntHbYvSJilGmA",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 228988,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/gnFxbKVYYvBntHbYvSJilGmA",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 228988,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624497",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624497",
+        "emoticons": [
+          "🥵",
+          "🕯",
+          "🥀"
+        ]
+      }
+    },
+    {
+      "body": "🤣",
+      "url": "mxc://exarius.org/xCMCKlvDGTGubcxqjvUNZKOQ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 492541,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/xCMCKlvDGTGubcxqjvUNZKOQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 492541,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5285292003184090998",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5285292003184090998",
+        "emoticons": [
+          "😁",
+          "🤣",
+          "😂",
+          "🤪"
+        ]
+      }
+    },
+    {
+      "body": "🤯",
+      "url": "mxc://exarius.org/wYqWeOsWpzcApXZgOBYflwUK",
+      "info": {
+        "w": 256,
+        "h": 185,
+        "size": 181207,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/wYqWeOsWpzcApXZgOBYflwUK",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 185,
+          "size": 181207,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624451",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624451",
+        "emoticons": [
+          "🤯",
+          "🤨"
+        ]
+      }
+    },
+    {
+      "body": "🍆",
+      "url": "mxc://exarius.org/DemiNIBkOfHxocLDuBpjxAwR",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 203138,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/DemiNIBkOfHxocLDuBpjxAwR",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 203138,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624467",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624467",
+        "emoticons": [
+          "😋",
+          "🍆"
+        ]
+      }
+    },
+    {
+      "body": "🤔",
+      "url": "mxc://exarius.org/rfhQRordFyGgfHONmtGdxMZf",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 212765,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/rfhQRordFyGgfHONmtGdxMZf",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 212765,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624516",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624516",
+        "emoticons": [
+          "🥵",
+          "🤔",
+          "🇪🇬"
+        ]
+      }
+    },
+    {
+      "body": "🇪🇬",
+      "url": "mxc://exarius.org/MtizPnqNFQvmfBYUnzsGcjNb",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 322586,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/MtizPnqNFQvmfBYUnzsGcjNb",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 322586,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624517",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624517",
+        "emoticons": [
+          "🤪",
+          "🤬",
+          "😡",
+          "🇪🇬"
+        ]
+      }
+    },
+    {
+      "body": "🤷‍♂",
+      "url": "mxc://exarius.org/hDVPfxOgvKMHDtcCzwLmUmtQ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 159902,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/hDVPfxOgvKMHDtcCzwLmUmtQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 159902,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624520",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624520",
+        "emoticons": [
+          "🤷‍♂",
+          "🤷‍♀"
+        ]
+      }
+    },
+    {
+      "body": "😴",
+      "url": "mxc://exarius.org/leZgfJsGJAoDwQVcrFqvufAF",
+      "info": {
+        "w": 256,
+        "h": 130,
+        "size": 177405,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/leZgfJsGJAoDwQVcrFqvufAF",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 130,
+          "size": 177405,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624532",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624532",
+        "emoticons": [
+          "😴",
+          "🥱",
+          "🛏",
+          "💤",
+          "⚫"
+        ]
+      }
+    },
+    {
+      "body": "😋",
+      "url": "mxc://exarius.org/vBFQQOxUnjSfYcbNoGoSFhbD",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 247482,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/vBFQQOxUnjSfYcbNoGoSFhbD",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 247482,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624596",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624596",
+        "emoticons": [
+          "🤣",
+          "😂",
+          "😋",
+          "🤤"
+        ]
+      }
+    },
+    {
+      "body": "🤙",
+      "url": "mxc://exarius.org/AHDmBoLZkTvhgVgaWhOrptOQ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 187766,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/AHDmBoLZkTvhgVgaWhOrptOQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 187766,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-1898137758262624615",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "1898137758262624615",
+        "emoticons": [
+          "😎",
+          "🤯",
+          "👍",
+          "💪",
+          "🤟",
+          "🤙"
+        ]
+      }
+    },
+    {
+      "body": "🤬",
+      "url": "mxc://exarius.org/PGHzUZZGqXKdjDfijswXvoVc",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 369500,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/PGHzUZZGqXKdjDfijswXvoVc",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 369500,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5391070377600355713",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5391070377600355713",
+        "emoticons": [
+          "🤬",
+          "😡",
+          "💪"
+        ]
+      }
+    },
+    {
+      "body": "🐈",
+      "url": "mxc://exarius.org/rJNljQJSbsfJXkfHxTQhgrUP",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 174234,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/rJNljQJSbsfJXkfHxTQhgrUP",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 174234,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5413558547189342144",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5413558547189342144",
+        "emoticons": [
+          "🤣",
+          "😂",
+          "😃",
+          "🐈‍⬛",
+          "🐈"
+        ]
+      }
+    },
+    {
+      "body": "😞",
+      "url": "mxc://exarius.org/yicFfZqrwMJULjXYeosUQUhP",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 304652,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/yicFfZqrwMJULjXYeosUQUhP",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 304652,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5424932565481952772",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5424932565481952772",
+        "emoticons": [
+          "😢",
+          "😕",
+          "😞",
+          "😔",
+          "😫"
+        ]
+      }
+    },
+    {
+      "body": "🔞",
+      "url": "mxc://exarius.org/UxSyPLVnJLnBaMGqzyIBBOcF",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 219899,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/UxSyPLVnJLnBaMGqzyIBBOcF",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 219899,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5285084917040946315",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5285084917040946315",
+        "emoticons": [
+          "🍌",
+          "🍆",
+          "🍑",
+          "🔞",
+          "🐈",
+          "🍓"
+        ]
+      }
+    },
+    {
+      "body": "🌹",
+      "url": "mxc://exarius.org/xedmNLBWWWgdLlgZrtZwkOYh",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 131919,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/xedmNLBWWWgdLlgZrtZwkOYh",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 131919,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5386796928090517979",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5386796928090517979",
+        "emoticons": [
+          "🥰",
+          "😏",
+          "🥀",
+          "🌹"
+        ]
+      }
+    },
+    {
+      "body": "🔫",
+      "url": "mxc://exarius.org/KpUFJnibwxotvpxrWApuqVNk",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 260097,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/KpUFJnibwxotvpxrWApuqVNk",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 260097,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5436222252091716460",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5436222252091716460",
+        "emoticons": [
+          "🔫",
+          "🪖"
+        ]
+      }
+    },
+    {
+      "body": "😐",
+      "url": "mxc://exarius.org/eFrsEbIgWZevFzyCDyVCJYKT",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 241633,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/eFrsEbIgWZevFzyCDyVCJYKT",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 241633,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5440614040835469487",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5440614040835469487",
+        "emoticons": [
+          "😏",
+          "😐"
+        ]
+      }
+    },
+    {
+      "body": "😐",
+      "url": "mxc://exarius.org/EvPXXjWIRhmgINUvhNKRgqpc",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 53308,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/EvPXXjWIRhmgINUvhNKRgqpc",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 53308,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5438119369211131923",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5438119369211131923",
+        "emoticons": [
+          "😧",
+          "😔",
+          "😐",
+          "🫥"
+        ]
+      }
+    },
+    {
+      "body": "💩",
+      "url": "mxc://exarius.org/VBrxeaJQHOTJnXDFMQIGIJzW",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 253022,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/VBrxeaJQHOTJnXDFMQIGIJzW",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 253022,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5368338047710542577",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5368338047710542577",
+        "emoticons": [
+          "💩",
+          "🤼‍♂"
+        ]
+      }
+    },
+    {
+      "body": "🇺🇦",
+      "url": "mxc://exarius.org/ruVFtRGQLUMAnxDJDKBARgOh",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 107699,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/ruVFtRGQLUMAnxDJDKBARgOh",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 107699,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5366167998304367964",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5366167998304367964",
+        "emoticons": [
+          "🇺🇦",
+          "🤫"
+        ]
+      }
+    },
+    {
+      "body": "🖕",
+      "url": "mxc://exarius.org/wvrZXdYoBBWkEeJBcgPiDPhQ",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 115041,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/wvrZXdYoBBWkEeJBcgPiDPhQ",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 115041,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5366415023348397486",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5366415023348397486",
+        "emoticons": [
+          "🤬",
+          "😡",
+          "🖕",
+          "🇺🇦"
+        ]
+      }
+    },
+    {
+      "body": "👍",
+      "url": "mxc://exarius.org/CPhhHRyOzBUWrdBehqGFxpqE",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 237500,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/CPhhHRyOzBUWrdBehqGFxpqE",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 237500,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5368830276732467148",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5368830276732467148",
+        "emoticons": [
+          "😁",
+          "👍"
+        ]
+      }
+    },
+    {
+      "body": "😮",
+      "url": "mxc://exarius.org/fQoorXeAJXlRuRyNGqjmzHWu",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 203226,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/fQoorXeAJXlRuRyNGqjmzHWu",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 203226,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5366056144471079146",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5366056144471079146",
+        "emoticons": [
+          "😮",
+          "😧",
+          "😯",
+          "😦"
+        ]
+      }
+    },
+    {
+      "body": "😃",
+      "url": "mxc://exarius.org/UursXXupQPPnklVNGVayZjQS",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 188312,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/UursXXupQPPnklVNGVayZjQS",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 188312,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5366532228710939630",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5366532228710939630",
+        "emoticons": [
+          "😁",
+          "😃",
+          "😄",
+          "😆"
+        ]
+      }
+    },
+    {
+      "body": "😳",
+      "url": "mxc://exarius.org/eBgMbsMBWSEquxwOwZIiskxh",
+      "info": {
+        "w": 256,
+        "h": 256,
+        "size": 193790,
+        "mimetype": "image/png",
+        "thumbnail_url": "mxc://exarius.org/eBgMbsMBWSEquxwOwZIiskxh",
+        "thumbnail_info": {
+          "w": 256,
+          "h": 256,
+          "size": 193790,
+          "mimetype": "image/png"
+        }
+      },
+      "msgtype": "m.sticker",
+      "id": "tg-5366152665271121269",
+      "net.maunium.telegram.sticker": {
+        "pack": {
+          "id": "1898137758262624261",
+          "short_name": "Sotryasenieochka"
+        },
+        "id": "5366152665271121269",
+        "emoticons": [
+          "😳",
+          "😦",
+          "☠",
+          "💀",
+          "🫣"
+        ]
+      }
+    }
+  ]
+}
