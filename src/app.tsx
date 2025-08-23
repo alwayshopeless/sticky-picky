@@ -55,11 +55,17 @@ export function App() {
         });
     }, []);
 
+
     return <>
         {stickerPicker.userData == null ? <div style={"padding: 0.1rem;"}>
             <button className={'btn'} style={"width: 100%; text-align:center;"} onClick={sendAuthRequest}>Connect
             </button>
         </div> : null}
+        {/*{isDebug ? <button onClick={() => {*/}
+        {/*    localStorage.setItem('stickerCollections', '');*/}
+        {/*}}>*/}
+        {/*    Clear cache*/}
+        {/*</button> : null}*/}
         <div class={"main"}>
             <TopNav view={currentView} setView={setCurrentView}/>
             {currentView == 'stickers' ? <StickerView explore={() => {
@@ -67,6 +73,9 @@ export function App() {
             }}/> : null}
             {currentView == 'explore' ? <ExploreStickersView/> : null}
             {currentView == 'settings' ? <SettingsView/> : null}
+            {currentView == 'gifs' ? <div class={"view center"}>
+                Coming soon... or not
+            </div> : null}
         </div>
     </>
 }

@@ -110,61 +110,6 @@ export function SettingsView() {
 
                 <ImportRepositoryForm/>
 
-                <style>
-                    {`
-                .theme-selector {
-                    display: flex;
-                    gap: 10px;
-                    margin-bottom: 20px;
-                }
-                .theme-circle {
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                }
-                .theme-circle.active {
-                    border: 3px solid #007bff;
-                }
-
-                .switch {
-                    position: relative;
-                    display: inline-block;
-                    width: 50px;
-                    height: 28px;
-                }
-                .switch input {
-                    opacity: 0;
-                    width: 0;
-                    height: 0;
-                }
-                .slider {
-                    position: absolute;
-                    cursor: pointer;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border-radius: 34px;
-                    transition: .3s;
-                }
-                .slider:before {
-                    position: absolute;
-                    content: "";
-                    height: 20px;
-                    width: 20px;
-                    left: 4px;
-                    bottom: 4px;
-                    background: ${themes[theme ?? "dark"]?.bgMain};
-                    transition: .3s;
-                    border-radius: 50%;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                }
-                input:checked + .slider:before {
-                    transform: translateX(22px);
-                }
-                `}
-                </style>
             </div>
         </div>
 

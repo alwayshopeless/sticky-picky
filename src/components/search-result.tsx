@@ -4,11 +4,12 @@ import {Stickerpack} from "./stickerpack.tsx";
 import emojiFromWord from "emoji-from-word";
 import {Sticker} from "./sticker.tsx";
 import {emojisDict} from "../data/emojis-dict.ts";
+import type {StickerpacksDataType} from "../stores/sticker-collections.tsx";
 
 interface SearchResultProps {
     searchText: string;
     stickerpacks: Record<number, IStickerpack>;
-    stickerpacksData: any[];
+    stickerpacksData: StickerpacksDataType;
     setEmoji: (s: string) => void;
 }
 

@@ -7,10 +7,10 @@ import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../../stores/sticker-collections.tsx";
 import {Loader} from "../loader.tsx";
+import {SearchResult} from "../search-result.tsx";
 import {buildHttpQuery} from "../../utils/url.ts";
 import {loadStickerpack} from "../../utils/stickers.ts";
 
-//TODO: oh my god, I fucking hate this. Need refactor, but I want not it more
 export function ExploreStickersView() {
     //@ts-ignore
     const widget = useMatrix();
@@ -23,6 +23,11 @@ export function ExploreStickersView() {
     const [hasMoreData, setHasMoreData] = useState<boolean>(true);
     const [initialLoadDone, setInitialLoadDone] = useState<boolean>(false);
 
+    const [searchText, setSearchText] = useState<string>("");
+    const isSearch = useMemo(() => {
+        return searchText.trim() !== "";
+    }, [searchText]);
+
     const ITEMS_PER_PAGE = 2;
 
     const checkHasMoreData = async () => {
@@ -32,7 +37,7 @@ export function ExploreStickersView() {
         try {
             const response = await apiRequest(`stickerpacks/all?${buildHttpQuery({
                 offset: currentOffset.toString(),
-                limit: ITEMS_PER_PAGE.toString(),
+                limit: '1',
             })}`);
 
             if (response.status === 200) {
@@ -60,7 +65,7 @@ export function ExploreStickersView() {
     };
 
     const loadExploreStickerpacks = async () => {
-        if (!hasMoreData) {
+        if (!hasMoreData && !isSearch) {
             console.log("No more data to load");
             return;
         }
@@ -76,14 +81,16 @@ export function ExploreStickersView() {
             const offset = page * ITEMS_PER_PAGE;
 
             const response = await apiRequest(`stickerpacks/all?${buildHttpQuery({
-                offset: offset.toString(),
-                limit: ITEMS_PER_PAGE.toString(),
+                offset: isSearch ? "0" : offset.toString(),
+                limit: isSearch ? "100" : ITEMS_PER_PAGE.toString(),
+                search: searchText,
             })}`);
 
             if (response.status === 200) {
                 const data = await response.json();
                 const fetchedPacks = data.stickerpacks;
-
+                console.log("Resarch result by " + searchText);
+                console.log(data.stickerpacks);
                 setHasMoreData(data.hasMore);
 
                 if (!fetchedPacks || Object.keys(fetchedPacks).length === 0) {
@@ -103,7 +110,7 @@ export function ExploreStickersView() {
                 if (packsToLoadIds.length > 0) {
                     const loadPromises = packsToLoadIds.map(async (item) => {
                         console.log(`Loading pack ${item}`);
-                        await loadStickerpack(fetchedPacks[item], false, true);
+                        await loadStickerpack(fetchedPacks[item]);
                         return fetchedPacks[item];
                     });
 
@@ -122,7 +129,6 @@ export function ExploreStickersView() {
                     console.log("All fetched packs are already loaded");
                 }
 
-                // Увеличиваем номер страницы только после успешной загрузки
                 setPage(prevPage => prevPage + 1);
                 stickerCollections.updateExploreLoadTime();
                 setStickersLoaded(true);
@@ -141,12 +147,10 @@ export function ExploreStickersView() {
         }
     };
 
-    // Инициализация состояния при загрузке компонента
     useEffect(() => {
         if (stickerPicker.userData != null) {
-            // Проверяем кэш и инициализируем пагинацию
             const cachedStickerpacks = stickerCollections.getExploreStickerpacks();
-            if (cachedStickerpacks.length > 0 && stickerCollections.isExploreCacheValid()) {
+            if (cachedStickerpacks.length > 0 && stickerCollections.isExploreCacheValid() && !isSearch) {
                 console.log("Cache is valid, initializing from cache");
                 initializePaginationFromCache();
             } else {
@@ -154,103 +158,33 @@ export function ExploreStickersView() {
                 loadExploreStickerpacks();
             }
         }
-    }, [stickerPicker.userData]);
+    }, [stickerPicker.userData, searchText]);
 
     const getStickerpacksArray = (): IStickerpack[] => {
         return stickerCollections.getExploreStickerpacks();
     };
 
     const getStickerpackData = (id: number) => {
-        return stickerCollections.exploreStickersData[id] || stickerCollections.stickerpacksData[id];
+        return stickerCollections.stickerpacksData[id];
     };
 
     const currentStickerpacks = getStickerpacksArray();
 
-    const [searchText, setSearchText] = useState<string>("");
-    const [searchResults, setSearchResults] = useState<IStickerpack[]>([]);
-    const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
-    const [searchError, setSearchError] = useState<string>("");
-
-    const isSearch = useMemo(() => {
-        return searchText.trim() !== "";
-    }, [searchText]);
 
     const [emoji, setEmoji] = useState<string>("");
     const _setEmoji = (s: string) => {
         setEmoji(s);
     };
 
-    const searchStickerpacks = async (query: string) => {
-        if (!query.trim()) {
-            setSearchResults([]);
-            return;
-        }
-
-        setIsSearchLoading(true);
-        setSearchError("");
-
-        try {
-            const response = await apiRequest(`stickerpacks/all?${buildHttpQuery({
-                search: query.trim(),
-                limit: '50',
-                offset: '0'
-            })}`);
-
-            if (response.status === 200) {
-                const data = await response.json();
-                const fetchedPacks = data.stickerpacks;
-
-                if (fetchedPacks) {
-                    const searchResultsArray = Object.values(fetchedPacks) as IStickerpack[];
-                    setSearchResults(searchResultsArray);
-
-                    const loadPromises = searchResultsArray.map(async (pack) => {
-                        const existingData = getStickerpackData(pack.id);
-                        if (!existingData) {
-                            await loadStickerpack(pack, false, true);
-                        }
-                    });
-
-                    await Promise.allSettled(loadPromises);
-                } else {
-                    setSearchResults([]);
-                }
-            } else {
-                console.error("Error searching stickerpacks, status:", response.status);
-                setSearchError("Error searching stickerpacks");
-            }
-        } catch (error) {
-            console.error("Error searching stickerpacks:", error);
-            setSearchError("Error searching stickerpacks");
-        } finally {
-            setIsSearchLoading(false);
-        }
-    };
-
-    // Debounced поиск
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            if (searchText.trim()) {
-                searchStickerpacks(searchText);
-            } else {
-                setSearchResults([]);
-            }
-        }, 300); // Задержка 300ms
-
-        return () => clearTimeout(timeoutId);
-    }, [searchText]);
-
     const sentinelRef = useRef(null);
     const rootRef = useRef(null);
 
-    // Настройка IntersectionObserver
     useEffect(() => {
         if (!sentinelRef.current || isSearch) return;
 
         const observer = new IntersectionObserver(
             (entries) => {
                 const entry = entries[0];
-                // Проверяем что элемент действительно пересекается И мы не в режиме поиска
                 if (entry.isIntersecting && hasMoreData && !isLoading && initialLoadDone) {
                     console.log("Sentinel intersecting - loading more data");
                     loadExploreStickerpacks();
@@ -290,49 +224,16 @@ export function ExploreStickersView() {
                         </div>
                     </div>
 
-                    {isSearch && (
-                        <div>
-                            {isSearchLoading && <Loader/>}
-
-                            {searchError && (
-                                <div className="center" style="padding: 1rem; color: #f44336;">
-                                    {searchError}
-                                </div>
-                            )}
-
-                            {!isSearchLoading && !searchError && searchResults.length === 0 && searchText.trim() && (
-                                <div className="center" style="padding: 1rem; color: #666;">
-                                    No stickerpacks found for "{searchText}"
-                                </div>
-                            )}
-
-                            {!isSearchLoading && searchResults.length > 0 && (
-                                <div>
-                                    <div style="padding: 0.5rem 1rem; color: #666; font-size: 0.9rem;">
-                                        Found {searchResults.length} stickerpack{searchResults.length !== 1 ? 's' : ''}
-                                    </div>
-                                    {searchResults.map((stickerpack: IStickerpack) => {
-                                        const stickerData = getStickerpackData(stickerpack.id);
-
-                                        if (!stickerData) return (
-                                            <div key={stickerpack.id} style="padding: 1rem;">
-                                                <Loader/>
-                                            </div>
-                                        );
-
-                                        return (
-                                            <Stickerpack
-                                                compact={stickerPicker.compactViewInExplore}
-                                                key={stickerpack.id}
-                                                stickerpack={stickerpack}
-                                                stickers={stickerData}
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            )}
-                        </div>
-                    )}
+                    {isSearch ? (
+                        <SearchResult
+                            setEmoji={_setEmoji}
+                            searchText={searchText}
+                            stickerpacks={stickerCollections.exploreStickerpacks}
+                            stickerpacksData={{
+                                ...stickerCollections.stickerpacksData,
+                            }}
+                        />
+                    ) : null}
 
                     {!isSearch && currentStickerpacks.length === 0 && stickersLoaded && !isLoading && (
                         <div className={"center"}>
@@ -347,16 +248,12 @@ export function ExploreStickersView() {
                     {!isSearch && currentStickerpacks.map((stickerpack: IStickerpack) => {
                         const stickerData = getStickerpackData(stickerpack.id);
 
-                        if (!stickerData) return <div key={stickerpack.id}>
-                            Cant load stickerpack data
-                        </div>;
-
                         return (
                             <Stickerpack
                                 compact={stickerPicker.compactViewInExplore}
                                 key={stickerpack.id}
                                 stickerpack={stickerpack}
-                                stickers={stickerData}
+                                stickers={stickerData ?? []}
                             />
                         );
                     })}
@@ -370,6 +267,7 @@ export function ExploreStickersView() {
                             {isLoading && initialLoadDone ? <Loader/> : null}
                         </div>
                     )}
+
 
                     {!isSearch && !hasMoreData && currentStickerpacks.length > 0 && (
                         <div className={"center"} style="padding: 2rem;">

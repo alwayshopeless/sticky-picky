@@ -1,9 +1,10 @@
 import {useEffect, useMemo} from "preact/hooks";
 import {Sticker} from "./sticker.tsx";
-import {CircleFadingPlus, X} from "lucide-preact";
+import {CircleFadingPlus, RefreshCcw, X} from "lucide-preact";
 import {apiRequest} from "../api/backend-api.ts";
 import {useStickerPicker} from "../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../stores/sticker-collections.tsx";
+import {loadStickerpack} from "../utils/stickers.ts";
 
 interface StickerpackProps {
     stickerpack: any,
@@ -84,11 +85,16 @@ export function Stickerpack({stickerpack, stickers = [], compact = false}: Stick
             <div>
                 {stickerpack.name}
             </div>
-            {isSaved() && !isInternalType ? <X onClick={removeStickerpack} class={'ico stickerpack__x'}/> : null}
-            {!isSaved() && !isInternalType ?
-                <button onClick={addStickerpack} class={"btn btn--add-stick"}><CircleFadingPlus size={16}/>
-                </button> : null}
-            {/*<button onClick={addStickerpack} class={"btn btn--add-stick"}><SmilePlus size={16}/></button> : null}*/}
+            <div class={"stickerpack__header-btns"}>
+                {!isInternalType ? <RefreshCcw onClick={() => {
+                    loadStickerpack(stickerpack);
+                }} class={'ico stickerpack__x'}/> : null}
+                {isSaved() && !isInternalType ? <X onClick={removeStickerpack} class={'ico stickerpack__x'}/> : null}
+                {!isSaved() && !isInternalType ?
+                    <button onClick={addStickerpack} class={"btn btn--add-stick"}><CircleFadingPlus size={16}/>
+                    </button> : null}
+                {/*<button onClick={addStickerpack} class={"btn btn--add-stick"}><SmilePlus size={16}/></button> : null}*/}
+            </div>
 
         </div>
         <div className={"stickerpack__body"}>

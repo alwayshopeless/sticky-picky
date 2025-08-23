@@ -3,6 +3,8 @@ import {persist} from "zustand/middleware";
 import {apiRequest} from "../api/backend-api.ts";
 import type {IStickerpack} from "../types/stickerpack.ts";
 
+export type StickerpacksDataType = Record<string, any>;
+
 // TODO: So large store, need refactor
 export type StickerCollectionsData = {
     // saved by user stickerpacks map
@@ -12,12 +14,13 @@ export type StickerCollectionsData = {
 
     // Sticker storage for Stickers section(saved by user)
     stickerpacks: Record<number, IStickerpack>;
-    stickerpacksData: any;
+
+    // Common stickerpacks data, contains all stickers {stickerId: {...stickerData}}
+    stickerpacksData: StickerpacksDataType;
 
 
     // Sticker storage for Explore section
     exploreStickerpacks: Record<number, IStickerpack>;
-    exploreStickersData: any;
     lastExploreLoad: number | null;
 
 
@@ -40,7 +43,6 @@ export type StickerCollectionsStore = StickerCollectionsData & {
     isStickerpackDataCached: (id: number) => boolean;
 
     setExploreStickerpacks: (stickerpacks: IStickerpack[]) => void;
-    setExploreStickersData: (data: any) => void;
     isExploreCacheValid: () => boolean;
     updateExploreLoadTime: () => void;
     getExploreStickerpacks: () => IStickerpack[];
@@ -65,6 +67,7 @@ export type StickerCollectionsStore = StickerCollectionsData & {
     removeFromRecent: (sticker: any, token?: string) => Promise<void>;
 };
 
+
 export const useStickerCollections = create<StickerCollectionsStore>()(
     persist(
         (set, getState) => ({
@@ -74,9 +77,7 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
             stickerpacks: {},
             stickerpacksData: {},
 
-            // Explore данные
             exploreStickerpacks: {},
-            exploreStickersData: {},
             lastExploreLoad: null,
 
             lastStickerpacksLoad: null,
@@ -88,33 +89,30 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
             setSavedStickerpacks: (val) => {
                 const savedObj: Record<number, boolean> = {};
                 val.forEach(id => savedObj[id] = true);
-                set({savedStickerpacks: savedObj});
+                set({savedStickerpacks: savedObj, lastStickerpacksLoad: Date.now()});
             },
 
-            setFavoriteStickers: (stickers) => set({favoriteStickers: stickers}),
-            setRecentStickers: (stickers) => set({recentStickers: stickers}),
+            setFavoriteStickers: (stickers) => set({favoriteStickers: stickers, lastFavoritesLoad: Date.now()}),
+            setRecentStickers: (stickers) => set({recentStickers: stickers, lastRecentLoad: Date.now()}),
 
             setStickerpacks: (packs) => {
                 const packsObj: Record<number, IStickerpack> = {};
                 packs.forEach(pack => packsObj[pack.id] = pack);
-                set({stickerpacks: packsObj});
+                set({stickerpacks: packsObj, lastStickerpacksLoad: Date.now()});
             },
 
-            setStickerpacksData: (data) => set({stickerpacksData: data}),
+            setStickerpacksData: (data) => set({stickerpacksData: data, lastStickerpacksLoad: Date.now()}),
 
             isStickerpackDataCached: (id: number) => {
-                const {stickerpacksData, exploreStickersData} = getState();
-                return stickerpacksData[id] !== undefined || exploreStickersData[id] !== undefined;
+                const {stickerpacksData} = getState();
+                return stickerpacksData[id] !== undefined;
             },
 
-            // Методы для explore
             setExploreStickerpacks: (packs) => {
                 const packsObj: Record<number, IStickerpack> = {};
                 packs.forEach(pack => packsObj[pack.id] = pack);
-                set({exploreStickerpacks: packsObj});
+                set({exploreStickerpacks: packsObj, lastExploreLoad: Date.now()});
             },
-
-            setExploreStickersData: (data) => set({exploreStickersData: data}),
 
             isExploreCacheValid: () => {
                 const {lastExploreLoad, exploreCacheTimeout} = getState();
@@ -129,7 +127,6 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                 return Object.values(exploreStickerpacks);
             },
 
-            // Методы проверки актуальности кеша
             isStickerpacksCacheValid: () => {
                 const {lastStickerpacksLoad, cacheTimeout} = getState();
                 if (!lastStickerpacksLoad) return false;
@@ -171,7 +168,8 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                     savedStickerpacks: {
                         ...state.savedStickerpacks,
                         [stickerpack.id]: true
-                    }
+                    },
+                    lastStickerpacksLoad: Date.now()
                 }));
             },
 
@@ -184,7 +182,8 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
 
                     return {
                         stickerpacks: newStickerpacks,
-                        savedStickerpacks: newSavedStickerpacks
+                        savedStickerpacks: newSavedStickerpacks,
+                        lastStickerpacksLoad: Date.now()
                     };
                 });
             },

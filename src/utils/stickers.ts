@@ -5,7 +5,7 @@ export function buildThumbnailUrl(repository: string, sticker: any) {
     return `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`;
 }
 
-export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = false, isExplore: boolean = false) {
+export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = false) {
     const stickerCollections = useStickerCollections;
 
     if (stickerCollections.getState().isStickerpackDataCached(stickerpack.id)) {
@@ -29,25 +29,12 @@ export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = f
         if (response.status == 200) {
             let data = await response.json();
 
-
-            if (isExplore) {
-                console.log("Spack loading:");
-                console.log(isExplore);
-                console.log(stickerpack);
-                stickerCollections.setState((state) => ({
-                    exploreStickersData: {
-                        ...state.exploreStickersData,
-                        [stickerpack.id]: data.stickers,
-                    },
-                }));
-            } else {
-                stickerCollections.setState((state) => ({
-                    stickerpacksData: {
-                        ...state.stickerpacksData,
-                        [stickerpack.id]: data.stickers,
-                    },
-                }));
-            }
+            stickerCollections.setState((state) => ({
+                stickerpacksData: {
+                    ...state.stickerpacksData,
+                    [stickerpack.id]: data.stickers,
+                },
+            }));
 
         }
     })
