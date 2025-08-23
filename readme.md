@@ -1,4 +1,8 @@
 # Demo
+
+[![Screenshot](https://raw.githubusercontent.com/alwayshopeless/sticky-picky/refs/heads/master/screenshots/sticky-picky-demo.png)](https://www.youtube.com/watch?v=CBU_-gFRFmw "Sticky Picky demo")
+
+
 [Video demonstration](https://www.youtube.com/watch?v=CBU_-gFRFmw)
 # I just want use it
 Just type in chat
