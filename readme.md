@@ -1,3 +1,5 @@
+# Demo
+[Video demonstration](https://www.youtube.com/watch?v=CBU_-gFRFmw)
 # I just want use it
 Just type in chat
 `/addwidget https://sticky-picky.kekpower.dev/?roomId=$matrix_room_id&matrix_room_id=$matrix_room_id&widgetId=$matrix_widget_id`
