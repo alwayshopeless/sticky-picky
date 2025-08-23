@@ -4,7 +4,7 @@ Just type in chat
 and this widget will be added to your chat extensions.
 Also, it support work from standard Stickers widget in Matrix.
 # I just want use it in standard Stickers button
-[Guide here](https://github.com/alwayshopeless/sticky-picky/blob/master/readme.md)
+[Guide here](https://github.com/alwayshopeless/sticky-picky/blob/master/use-guide.md)
 # Info
 You can use this version in local development in web version Matrix Element
 # Add widget in chat
