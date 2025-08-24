@@ -12,7 +12,7 @@ interface StickerpackProps {
     compact?: boolean,
 }
 
-export function Stickerpack({stickerpack, stickers = [], compact = false}: StickerpackProps) {
+export function Stickerpack({stickerpack, stickers = [], compact = true}: StickerpackProps) {
 
     const stickerPicker = useStickerPicker();
     const stickerCollections = useStickerCollections();

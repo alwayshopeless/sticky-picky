@@ -9,7 +9,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     const stickerPicker = useStickerPicker();
     const stickerCollections = useStickerCollections();
     const buildThumbnailUrl = () =>
-        `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`;
+        `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`.replace("http://", 'https://');
 
     const [loaded, setLoaded] = useState(false);
     const src = useMemo(() => buildThumbnailUrl(), []);
