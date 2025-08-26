@@ -15,7 +15,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     const src = useMemo(() => buildThumbnailUrl(), []);
     const elRef = useRef<HTMLDivElement>(null);
 
-    const {registerSticker, unregisterSticker, startPress} = useStickerPreview();
+    const {registerSticker, unregisterSticker, startPress, cancelPress} = useStickerPreview();
 
     useEffect(() => {
         if (!elRef.current) return;
@@ -67,7 +67,9 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
         <div
             ref={elRef}
             class={"sticker " + (!loaded ? " loading" : "")}
-            onPointerDown={startPress}
+            onPointerDown={(e) => startPress(e)}
+            onPointerUp={cancelPress}
+            onPointerLeave={cancelPress}
             onClick={sendSticker}
         >
             {loaded && <img className="sticker__img" src={src} alt=""/>}

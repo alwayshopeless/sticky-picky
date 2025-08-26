@@ -99,7 +99,7 @@ export function SettingsView() {
                         onChange={(e: any) => setCompactViewInExplore(e.target.checked)}
                     />
                     <span
-                        className="slider"
+                        class={"slider " + (compactViewInExplore ? "slider--active" : "")}
                         style={{
                             background: compactViewInExplore
                                 ? themes[theme ?? 'dark']?.bgThird

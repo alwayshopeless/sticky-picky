@@ -211,6 +211,7 @@ export function StickerView({explore}: { explore: any }) {
 
                     {stickersLoaded && !isSearch && currentStickerpacks.map((stickerpack: any) => (
                         <Stickerpack
+                            compact={false}
                             key={stickerpack.id}
                             stickerpack={stickerpack}
                             stickers={stickerCollections.stickerpacksData[stickerpack.id]}

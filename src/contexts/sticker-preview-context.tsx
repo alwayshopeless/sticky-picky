@@ -1,4 +1,4 @@
-import {createContext, createRef} from "preact";
+import {createContext} from "preact";
 import {useContext, useEffect, useRef, useState} from "preact/hooks";
 import {PreviewTooltips} from "../components/preview/preview-toolips.tsx";
 
@@ -12,7 +12,7 @@ type StickerData = {
 type StickerPreviewContextType = {
     registerSticker: (data: StickerData) => void;
     unregisterSticker: (element: HTMLElement) => void;
-    startPress: () => void;
+    startPress: (e: PointerEvent) => void;
     cancelPress: () => void;
     currentSrc: string | null;
     setCurrentSrc: (val: string | null) => void;
@@ -27,8 +27,11 @@ export function StickerPreviewProvider({children}: { children: any }) {
     const [currentStickerData, setCurrentStickerData] = useState<StickerData | null>(null);
     const stickers = useRef<StickerData[]>([]);
     const pressing = useRef(false);
+    const pressTimeout = useRef<number | null>(null);
+    const longPressReady = useRef(false);
 
-    const tooltipsRef = createRef<HTMLDivElement>();
+
+    const tooltipsRef = useRef<any>(null);
 
     const registerSticker = (data: StickerData) => {
         stickers.current.push(data);
@@ -38,19 +41,23 @@ export function StickerPreviewProvider({children}: { children: any }) {
         stickers.current = stickers.current.filter(s => s.element !== element);
     };
 
-    const startPress = () => {
-        pressing.current = true;
 
-        const handlePointerMove = (e: PointerEvent) => {
-            if (!pressing.current) return;
+    const startPress = (e: PointerEvent) => {
+        if (e.button === 2) return;
+
+        pressing.current = true;
+        longPressReady.current = false;
+
+        const handlePointerMove = (moveEvent: PointerEvent) => {
+            if (!pressing.current || !longPressReady.current) return;
 
             for (const s of stickers.current) {
                 const rect = s.element.getBoundingClientRect();
                 if (
-                    e.clientX >= rect.left &&
-                    e.clientX <= rect.right &&
-                    e.clientY >= rect.top &&
-                    e.clientY <= rect.bottom
+                    moveEvent.clientX >= rect.left &&
+                    moveEvent.clientX <= rect.right &&
+                    moveEvent.clientY >= rect.top &&
+                    moveEvent.clientY <= rect.bottom
                 ) {
                     if (currentSrc !== s.src) {
                         setCurrentSrc(s.src);
@@ -63,29 +70,56 @@ export function StickerPreviewProvider({children}: { children: any }) {
 
         const handlePointerUp = () => {
             pressing.current = false;
+            longPressReady.current = false;
+
+            if (pressTimeout.current !== null) {
+                clearTimeout(pressTimeout.current);
+                pressTimeout.current = null;
+            }
+
             document.removeEventListener("pointermove", handlePointerMove);
             document.removeEventListener("pointerup", handlePointerUp);
+
+            // setCurrentSrc(null);
+            // setCurrentStickerData(null);
         };
 
-        document.addEventListener("pointermove", handlePointerMove);
+        document.addEventListener("pointermove", handlePointerMove, {passive: true});
         document.addEventListener("pointerup", handlePointerUp);
+
+        // Таймер для долгого нажатия
+        pressTimeout.current = window.setTimeout(() => {
+            if (!pressing.current) return;
+            longPressReady.current = true;
+            pressTimeout.current = null;
+        }, 300);
     };
 
     const cancelPress = () => {
         pressing.current = false;
+        longPressReady.current = false;
+
+        if (pressTimeout.current !== null) {
+            clearTimeout(pressTimeout.current);
+            pressTimeout.current = null;
+        }
+
+
+        // setCurrentSrc(null);
+        // setCurrentStickerData(null);
     };
 
-    // Обработчик клика вне модалки
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (
-                currentSrc &&
-                tooltipsRef.current &&
-                !tooltipsRef.current.contains(e.target as Node)
+                currentSrc
+                && tooltipsRef.current
+                && !tooltipsRef.current.contains(e.target as Node)
             ) {
                 setCurrentSrc(null);
                 setCurrentStickerData(null);
             }
+
         };
 
         document.addEventListener("mousedown", handleClickOutside);

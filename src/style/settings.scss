@@ -37,6 +37,25 @@
   bottom: 0;
   border-radius: 34px;
   transition: .3s;
+  background: var(--bg-secondary);
+
+  &--active {
+    background: var(--bg-third);
+  }
+}
+
+
+.slider.slider--active:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background: var(--bg-main);
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .slider:before {
@@ -46,7 +65,7 @@
   width: 20px;
   left: 4px;
   bottom: 4px;
-  background: var(--bg-main);
+  background: var(--bg-third);
   transition: .3s;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
