@@ -111,6 +111,9 @@ export function StickerView({explore}: { explore: any }) {
                     stickerCollections.setRecentStickers(data.recent || []);
                     stickerCollections.updateRecentLoadTime();
                 }
+            } else if (response.status == 401) {
+                // TODO: Need refactor. Behavior
+                stickerPicker.setUserData(null);
             } else {
                 console.log("Error: Can't load favorites and recent stickers");
             }

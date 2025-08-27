@@ -2,6 +2,7 @@ import {themes} from "../../config/themes.ts";
 import type {ThemeName} from "../../types/themes.ts";
 import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
+import {SetMatrixAccessTokenForm} from "../forms/set-matrix-access-token-form.tsx";
 
 export function SettingsView() {
     const stickerPicker = useStickerPicker();
@@ -109,6 +110,8 @@ export function SettingsView() {
                 </label>
 
                 <ImportRepositoryForm/>
+
+                <SetMatrixAccessTokenForm/>
 
                 <h4>Export keys</h4>
                 <div>
