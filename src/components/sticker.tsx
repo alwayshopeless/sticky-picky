@@ -23,29 +23,45 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
 
     const fetchMatrixThumbnail = async (mxcUrl: string, width = 100, height = 100) => {
         if (isLoading) return;
-        if (!stickerPicker.matrixAuthData?.accessToken) return;
-
         setIsLoading(true);
 
         try {
-            const mxcMatch = mxcUrl.match(/^mxc:\/\/([^/]+)\/(.+)$/);
-            if (!mxcMatch) return;
-            const [, homeserver = "", mediaId] = mxcMatch;
-            if (!homeserver) return;
-
-            const matrixUrl = `https://${stickerPicker.matrixAuthData.homeserver}/_matrix/client/v1/media/thumbnail/${homeserver}/${mediaId}?width=${width}&height=${height}&method=scale&allow_redirect=true`;
-
-            const response = await fetch(matrixUrl, {
-                headers: {Authorization: `Bearer ${stickerPicker.matrixAuthData.accessToken}`},
+            const requestId = `mxc-request-${Date.now()}+${mxcUrl}`;
+            widget.sendMessage({
+                api: "fromWidget",
+                action: "org.matrix.msc4039.download_file",
+                requestId,
+                widgetId: widget.widgetId,
+                data: {content_uri: mxcUrl, timeout_ms: 20000},
             });
 
+            const handler = (event: any) => {
+                if (event.action === 'org.matrix.msc4039.download_file' && event.requestId == requestId && event.response?.file) {
+                    const url = URL.createObjectURL(event.response.file);
+                    if (url !== src) setSrc(url);
+                    setLoaded(true);
+                }
+            };
+
+            widget.on("org.matrix.msc4039.download_file", handler);
+            return () => {
+                // widget.off("org.matrix.msc4039.download_file", handler)
+            };
+
+            /*
+            // Download with legacy
+            const mxcMatch = mxcUrl.match(/^mxc:\/\/([^/]+)\/(.+)$/);
+            if (!mxcMatch || !stickerPicker.matrixAuthData?.accessToken) return;
+            const [, homeserver, mediaId] = mxcMatch;
+            const matrixUrl = `https://${stickerPicker.matrixAuthData.homeserver}/_matrix/client/v1/media/thumbnail/${homeserver}/${mediaId}?width=${width}&height=${height}&method=scale&allow_redirect=true`;
+            const response = await fetch(matrixUrl, {
+                headers: { Authorization: `Bearer ${stickerPicker.matrixAuthData.accessToken}` },
+            });
             if (!response.ok) throw new Error("Failed to fetch matrix thumbnail");
             const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-
-            if (url !== src) {
-                setSrc(url);
-            }
+            setSrc(URL.createObjectURL(blob));
+            setLoaded(true);
+            */
         } catch (err) {
             console.error("Matrix thumbnail fetch failed", err);
         } finally {
@@ -59,14 +75,12 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
 
         registerSticker({sticker: {...sticker, repository}, sendSticker, src, element});
 
-        return () => {
-            unregisterSticker(element);
-        };
+        return () => unregisterSticker(element);
     }, [src, sticker, repository]);
 
     useEffect(() => {
         if (ALWAYS_FETCH_MXC && sticker.url.startsWith("mxc://")) {
-            fetchMatrixThumbnail(sticker.url).then(() => setLoaded(true));
+            fetchMatrixThumbnail(sticker.url);
             return;
         }
 
@@ -74,11 +88,9 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
         img.src = src;
         img.onload = () => setLoaded(true);
         img.onerror = () => {
-            if (sticker.url.startsWith("mxc://")) {
-                fetchMatrixThumbnail(sticker.url).then(() => setLoaded(true));
-            }
+            if (sticker.url.startsWith("mxc://")) fetchMatrixThumbnail(sticker.url);
         };
-    }, [sticker.url]); // Убираем src из зависимостей чтобы избежать лишних перезапусков
+    }, [sticker.url]);
 
     const addStickerToRecent = () => {
         const tmpSticker = {...sticker, repository};

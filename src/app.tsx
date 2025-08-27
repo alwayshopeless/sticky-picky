@@ -27,7 +27,16 @@ export function App() {
 
     useEffect(() => {
         widget.on('capabilities', (data) => {
-            window.parent.postMessage({...data, response: {capabilities: ["m.sticker"]}}, "*");
+            window.parent.postMessage({
+                ...data, response: {
+                    capabilities: [
+                        "m.sticker",
+                        "m.download_file",
+                        "org.matrix.msc4039.download_file",
+
+                    ]
+                }
+            }, "*");
         });
 
         widget.on('openid_credentials', (event) => {
@@ -71,6 +80,7 @@ export function App() {
             }}/> : null}
             {currentView == 'explore' ? <ExploreStickersView/> : null}
             {currentView == 'settings' ? <SettingsView/> : null}
+            {/*{currentView == 'settings' ? <MxcImageExample/> : null}*/}
             {currentView == 'gifs' ? <div class={"view center"}>
                 Coming soon... or not
             </div> : null}

@@ -41,6 +41,8 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
 
             const data = event.data as MatrixEvent;
             setMessages((prev) => [...prev, data]);
+            console.log("А тут листенеры типа выполучаются, да")
+            console.log(data.action);
             if (data.action && listeners.current[data.action]) {
                 listeners.current[data.action].forEach((cb) => cb(data));
             }
@@ -61,7 +63,8 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
     const on = <T = any>(type: string, callback: (payload: T) => void) => {
         if (!listeners.current[type]) listeners.current[type] = [];
         listeners.current[type].push(callback);
-
+        console.log('чёта пошла моча да');
+        console.log(type);
         return () => {
             listeners.current[type] = listeners.current[type].filter((cb) => cb !== callback);
         };
