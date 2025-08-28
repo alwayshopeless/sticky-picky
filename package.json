@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",
+    "@types/node": "^24.3.0",
     "@vitejs/plugin-basic-ssl": "^2.1.0",
     "sass-embedded": "^1.90.0",
     "typescript": "~5.8.3",

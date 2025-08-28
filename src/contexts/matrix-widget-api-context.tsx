@@ -41,8 +41,9 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
 
             const data = event.data as MatrixEvent;
             setMessages((prev) => [...prev, data]);
-            console.log("А тут листенеры типа выполучаются, да")
-            console.log(data.action);
+            // TODO: refactor
+            // console.log("А тут листенеры типа выполучаются, да")
+            // console.log(data.action);
             if (data.action && listeners.current[data.action]) {
                 listeners.current[data.action].forEach((cb) => cb(data));
             }

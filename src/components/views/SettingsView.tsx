@@ -3,9 +3,12 @@ import type {ThemeName} from "../../types/themes.ts";
 import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {SetMatrixAccessTokenForm} from "../forms/set-matrix-access-token-form.tsx";
+import {Button} from "../ui/button.tsx";
+import {useSimpleRouter} from "../../stores/simple-router.tsx";
 
 export function SettingsView() {
     const stickerPicker = useStickerPicker();
+    const {setView} = useSimpleRouter();
     const {theme, setTheme} = stickerPicker;
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
     const {sentStickerSize, setSentStickerSize} = stickerPicker;
@@ -19,6 +22,9 @@ export function SettingsView() {
 
         <div class="view">
             <div className="settings-view">
+                <Button onClick={() => {
+                    setView('manage-stickerpacks');
+                }}>Manage stickerpacks</Button>
 
                 <h4>Theme: <span className={"capitalize"}>{theme}</span></h4>
                 <div className="theme-selector">

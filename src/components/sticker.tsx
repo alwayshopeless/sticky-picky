@@ -21,6 +21,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     const [src, setSrc] = useState(buildThumbnailUrl());
     const [isLoading, setIsLoading] = useState(false);
 
+    //@ts-ignore
     const fetchMatrixThumbnail = async (mxcUrl: string, width = 100, height = 100) => {
         if (isLoading) return;
         setIsLoading(true);

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "preact/hooks";
+import {useEffect} from "preact/hooks";
 import {StickerView} from "./components/views/StickerView.tsx";
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
 import {apiRequest} from "./api/backend-api.ts";
@@ -7,9 +7,12 @@ import {SettingsView} from "./components/views/SettingsView.tsx";
 import {useStickerPicker} from "./stores/sticker-picker.tsx";
 import {TopNav} from "./components/top-nav.tsx";
 import {ConnectForm} from "./components/forms/connect-form.tsx";
+import {useSimpleRouter} from "./stores/simple-router.tsx";
+import {ManageStickerpacks} from "@/components/views/manage-stickerpacks/manage-stickerpacks.tsx";
+import {CreateStickerpackView} from "@/components/views/manage-stickerpacks/create-stickerpack-view.tsx";
 
 export function App() {
-    const [currentView, setCurrentView] = useState('stickers');
+    const {currentView, setView} = useSimpleRouter();
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
 
@@ -65,25 +68,23 @@ export function App() {
         });
     }, []);
 
-
     return <>
         {stickerPicker.userData == null ? <ConnectForm sendAuthRequest={sendAuthRequest}/> : null}
+
         {/*{isDebug ? <button onClick={() => {*/}
         {/*    localStorage.setItem('stickerCollections', '');*/}
         {/*}}>*/}
         {/*    Clear cache*/}
         {/*</button> : null}*/}
+
         <div class={"main"}>
-            <TopNav view={currentView} setView={setCurrentView}/>
-            {currentView == 'stickers' ? <StickerView explore={() => {
-                setCurrentView('explore');
-            }}/> : null}
-            {currentView == 'explore' ? <ExploreStickersView/> : null}
-            {currentView == 'settings' ? <SettingsView/> : null}
-            {/*{currentView == 'settings' ? <MxcImageExample/> : null}*/}
-            {currentView == 'gifs' ? <div class={"view center"}>
-                Coming soon... or not
-            </div> : null}
+            <TopNav/>
+            {currentView === "stickers" && <StickerView explore={() => setView("explore")}/>}
+            {currentView === "explore" && <ExploreStickersView/>}
+            {currentView === "settings" && <SettingsView/>}
+            {currentView === "manage-stickerpacks" && <ManageStickerpacks/>}
+            {currentView === "create-stickerpack" && <CreateStickerpackView/>}
+            {currentView === "gifs" && <div class={"view center"}>Coming soon... or not</div>}
         </div>
-    </>
+    </>;
 }
