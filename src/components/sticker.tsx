@@ -130,6 +130,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
             onPointerLeave={cancelPress}
             onClick={sendSticker}
         >
+
             {loaded && <img className="sticker__img" src={src} alt=""/>}
         </div>
     );

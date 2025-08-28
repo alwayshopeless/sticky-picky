@@ -1,8 +1,8 @@
 import type {IStickerpack} from "../types/stickerpack.ts";
 import {useStickerCollections} from "../stores/sticker-collections.tsx";
 import {BACKEND_URL} from "../config/main.ts";
+import {apiRequest} from "@/api/backend-api.ts";
 
-// const CORS_PROXY = "https://corsproxy.io/?url=";
 const parsedUrl = new URL(BACKEND_URL);
 let CORS_PROXY = `https://${parsedUrl.hostname}/cors/`;
 
@@ -10,44 +10,50 @@ export function buildThumbnailUrl(repository: string, sticker: any) {
     return `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`;
 }
 
-export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = false) {
+export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = false, token?: string) {
     const stickerCollections = useStickerCollections;
 
     if (stickerCollections.getState().isStickerpackDataCached(stickerpack.id)) {
-        console.debug(`${stickerpack.id} already cached. Request skip.`)
+        console.debug(`${stickerpack.id} already cached. Request skip.`);
         return true;
     }
     console.log(`${stickerpack.id} loading`);
 
-    let stickerpackUrl = "";
-    if (stickerpack.type == 'maunium') {
-        stickerpackUrl = stickerpack.repository + "/packs/" + stickerpack.internal_name;
+    let fetchPromise: Promise<any>;
+
+    if (stickerpack.type === "maunium") {
+        let stickerpackUrl = `${stickerpack.repository}/packs/${stickerpack.internal_name}`;
+        if (useProxy) {
+            stickerpackUrl = CORS_PROXY + stickerpackUrl;
+        }
+        fetchPromise = fetch(stickerpackUrl).then((res) => res.json());
+    } else if (stickerpack.type === "user_owned") {
+        fetchPromise = apiRequest(`stickerpacks/${stickerpack.id}/stickers`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token ?? ""}`,
+            },
+        });
+    } else {
+        return false;
     }
 
-
-    if (useProxy) {
-        stickerpackUrl = CORS_PROXY + stickerpackUrl;
-    }
-
-    fetch(stickerpackUrl).then(async (response: Response) => {
-        if (response.status == 200) {
+    fetchPromise
+        .then(async (response) => {
             let data = await response.json();
-
+            if (!data || !data.stickers) return;
             stickerCollections.setState((state) => ({
                 stickerpacksData: {
                     ...state.stickerpacksData,
                     [stickerpack.id]: data.stickers,
                 },
             }));
-
-        }
-    })
-        .catch((_err: Error) => {
-            // Handle CORS error request, if repository not set CORS headers
-            // I use public CORS proxy, but need add other proxies or replace it to
-            // self-hosted solution or smth else
-            if (!useProxy) {
-                loadStickerpack(stickerpack, true);
+        })
+        .catch((err: Error) => {
+            console.error("Stickerpack load failed:", err);
+            if (stickerpack.type === "maunium" && !useProxy) {
+                loadStickerpack(stickerpack, true, token);
             }
         });
 }
@@ -55,7 +61,8 @@ export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = f
 
 export async function loadStickerpackRaw(
     stickerpack: IStickerpack,
-    useProxy: boolean = false
+    useProxy: boolean = false,
+    token?: string
 ): Promise<any[] | null> {
     const stickerCollectionsState = useStickerCollections.getState();
 
@@ -65,31 +72,34 @@ export async function loadStickerpackRaw(
     }
     console.log(`${stickerpack.id} loading`);
 
-    let stickerpackUrl = "";
-    if (stickerpack.type === "maunium") {
-        stickerpackUrl = `${stickerpack.repository}/packs/${stickerpack.internal_name}`;
-    }
-
-    if (useProxy) {
-        stickerpackUrl = CORS_PROXY + stickerpackUrl;
-    }
-
     try {
-        const response = await fetch(stickerpackUrl);
-
-        if (response.status === 200) {
-            const data = await response.json();
-            return data.stickers;
-        } else {
+        if (stickerpack.type === "maunium") {
+            let stickerpackUrl = `${stickerpack.repository}/packs/${stickerpack.internal_name}`;
+            if (useProxy) {
+                stickerpackUrl = CORS_PROXY + stickerpackUrl;
+            }
+            const response = await fetch(stickerpackUrl);
+            if (response.status === 200) {
+                const data = await response.json();
+                return data.stickers;
+            }
             return null;
+        } else if (stickerpack.type === "user_owned") {
+            const res = await apiRequest(`stickerpacks/${stickerpack.id}/stickers`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log("laoded sticks:");
+            console.log(res);
+            return res?.stickers ?? null;
         }
+        return null;
     } catch (err) {
-        // Handle CORS error request, if repository not set CORS headers
-        // I use public CORS proxy, but need add other proxies or replace it to
-        // self-hosted solution or smth else
-
-        if (!useProxy) {
-            return loadStickerpackRaw(stickerpack, true);
+        console.error("Stickerpack load failed:", err);
+        if (stickerpack.type === "maunium" && !useProxy) {
+            return loadStickerpackRaw(stickerpack, true, token);
         }
         return null;
     }

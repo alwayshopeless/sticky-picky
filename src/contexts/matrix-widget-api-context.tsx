@@ -64,8 +64,7 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
     const on = <T = any>(type: string, callback: (payload: T) => void) => {
         if (!listeners.current[type]) listeners.current[type] = [];
         listeners.current[type].push(callback);
-        console.log('чёта пошла моча да');
-        console.log(type);
+        console.log(`Event ${type} received. Meow.`);
         return () => {
             listeners.current[type] = listeners.current[type].filter((cb) => cb !== callback);
         };

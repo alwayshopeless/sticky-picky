@@ -1,7 +1,10 @@
-import {useRef, useState} from 'preact/hooks';
-import {type JSX} from "preact";
-import {Button} from "@/components/ui/button.tsx";
-import {Check, Loader, X} from "lucide-preact";
+import {useEffect, useRef, useState} from 'preact/hooks';
+import {type JSX} from 'preact';
+import {Button} from '@/components/ui/button.tsx';
+import {Check, Loader, X} from 'lucide-preact';
+import {useMatrix} from '@/contexts/matrix-widget-api-context.tsx';
+import {apiRequest} from "@/api/backend-api.ts";
+
 
 interface CreateStickerDto {
     id: number;
@@ -10,15 +13,14 @@ interface CreateStickerDto {
     emoji: string;
     uploading: boolean;
     uploaded: boolean;
-    uploadedPath: string | null;
+    uploadedPath: string | null; // mxc:// url after Matrix upload
 }
 
-interface StickerData {
-    emoji: string;
-    uploadedPath: string;
+interface StickerDataOut {
+    body: string; // emoji or short text
+    url: string;  // mxc:// url
 }
 
-// утилита: ресайз до 512×512
 async function resizeImage(file: File, maxSize = 512): Promise<File> {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -28,50 +30,116 @@ async function resizeImage(file: File, maxSize = 512): Promise<File> {
             width = Math.round(width * scale);
             height = Math.round(height * scale);
 
-            const canvas = document.createElement("canvas");
+            const canvas = document.createElement('canvas');
             canvas.width = width;
             canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            if (!ctx) return reject(new Error("Canvas not supported"));
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return reject(new Error('Canvas not supported'));
 
             ctx.drawImage(img, 0, 0, width, height);
-            canvas.toBlob(blob => {
-                if (!blob) return reject(new Error("Canvas toBlob failed"));
-                const resizedFile = new File([blob], file.name, { type: "image/webp" });
-                resolve(resizedFile);
-            }, "image/webp", 0.9);
+            canvas.toBlob(
+                (blob) => {
+                    if (!blob) return reject(new Error('Canvas toBlob failed'));
+                    const resizedFile = new File([blob], file.name.replace(/\.[^.]+$/, '') + '.webp', {
+                        type: 'image/webp',
+                    });
+                    resolve(resizedFile);
+                },
+                'image/webp',
+                0.9,
+            );
         };
         img.onerror = (err) => reject(err);
         img.src = URL.createObjectURL(file);
     });
 }
 
-export function CreateStickerpackView(): JSX.Element {
+// Helper to wait for a single Matrix upload response matching requestId
+function useMatrixUploader() {
+    const widget = useMatrix();
+
+    const uploadViaMatrix = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            if (!widget) return reject(new Error('Matrix widget is not available'));
+
+            const requestId = `mxc-request-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+            let timeoutId: number | undefined;
+
+            const cleanup = () => {
+                // @ts-ignore – some emitters use off, some use removeListener
+                if (typeof widget.off === 'function') widget.off('org.matrix.msc4039.upload_file', onResp);
+                // @ts-ignore
+                if (typeof widget.removeListener === 'function') widget.removeListener('org.matrix.msc4039.upload_file', onResp);
+                if (timeoutId) window.clearTimeout(timeoutId);
+            };
+
+            const onResp = (event: any) => {
+                try {
+                    if (!event) return;
+                    if (event.requestId !== requestId) return; // not our upload
+                    const uri = event?.response?.content_uri;
+                    if (uri && typeof uri === 'string') {
+                        cleanup();
+                        console.log(event);
+                        console.log(`onResp triggered: ${uri}`);
+                        resolve(uri);
+                    } else if (event?.response?.error) {
+                        cleanup();
+                        reject(new Error(event.response.error));
+                    }
+                } catch (e) {
+                    cleanup();
+                    reject(e as Error);
+                }
+            };
+
+            // @ts-ignore
+            widget.on('org.matrix.msc4039.upload_file', onResp);
+
+            widget.sendMessage({
+                api: 'fromWidget',
+                action: 'org.matrix.msc4039.upload_file',
+                requestId,
+                widgetId: widget.widgetId,
+                data: {file},
+            });
+
+            // safety timeout
+            timeoutId = window.setTimeout(() => {
+                cleanup();
+                reject(new Error('Matrix upload timed out'));
+            }, 60_000);
+        });
+    };
+
+    return {uploadViaMatrix};
+}
+
+export function CreateStickerpackView({token}: { token?: string }): JSX.Element {
     const [packName, setPackName] = useState<string>('');
     const [stickers, setStickers] = useState<CreateStickerDto[]>([]);
-    const [uploading, setUploading] = useState<boolean>(false);
+    const [submitting, setSubmitting] = useState<boolean>(false);
     const [uploadingFiles, setUploadingFiles] = useState<Set<number>>(new Set());
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const {uploadViaMatrix} = useMatrixUploader();
 
-    const uploadFile = async (file: File): Promise<string> => {
-        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 300));
-        return `uploaded_${Date.now()}_${file.name}`;
-    };
-
-    const submitStickerpack = async (packName: string, stickers: StickerData[]): Promise<void> => {
-        console.log('Submitting sticker pack:', {packName, stickers});
-    };
+    // Revoke previews on unmount
+    useEffect(() => {
+        return () => {
+            stickers.forEach((s) => s.preview && URL.revokeObjectURL(s.preview));
+        };
+    }, []);
 
     const handleFileSelect = async (files: FileList | null): Promise<void> => {
         if (!files) return;
-
         const fileArray = Array.from(files);
 
         for (const file of fileArray) {
             if (!file.type.startsWith('image/')) continue;
 
             const resizedFile = await resizeImage(file);
-
             const tempId = Date.now() + Math.random();
             const preview = URL.createObjectURL(resizedFile);
 
@@ -80,111 +148,127 @@ export function CreateStickerpackView(): JSX.Element {
                 file: resizedFile,
                 preview,
                 emoji: '😀',
-                uploading: true,
+                uploading: false, // not uploading immediately; will upload on submit
                 uploaded: false,
-                uploadedPath: null
+                uploadedPath: null,
             };
 
-            setStickers(prev => [...prev, newSticker]);
-            setUploadingFiles(prev => new Set([...prev, tempId]));
-
-            try {
-                const uploadedPath = await uploadFile(resizedFile);
-
-                setStickers(prev => prev.map(sticker =>
-                    sticker.id === tempId
-                        ? {...sticker, uploading: false, uploaded: true, uploadedPath}
-                        : sticker
-                ));
-            } catch (error) {
-                console.error('Upload error:', error);
-                setStickers(prev => prev.filter(sticker => sticker.id !== tempId));
-            } finally {
-                setUploadingFiles(prev => {
-                    const newSet = new Set(prev);
-                    newSet.delete(tempId);
-                    return newSet;
-                });
-            }
+            setStickers((prev) => [...prev, newSticker]);
         }
     };
 
     const updateStickerEmoji = (stickerId: number, emoji: string): void => {
-        setStickers(prev => prev.map(sticker =>
-            sticker.id === stickerId ? {...sticker, emoji} : sticker
-        ));
+        setStickers((prev) => prev.map((sticker) => (sticker.id === stickerId ? {...sticker, emoji} : sticker)));
     };
 
     const replaceSticker = async (stickerId: number, newFile: File): Promise<void> => {
         if (!newFile.type.startsWith('image/')) return;
-
         const resizedFile = await resizeImage(newFile);
         const preview = URL.createObjectURL(resizedFile);
 
-        setStickers(prev => prev.map(sticker =>
-            sticker.id === stickerId
-                ? {...sticker, file: resizedFile, preview, uploading: true, uploaded: false, uploadedPath: null}
-                : sticker
-        ));
-
-        setUploadingFiles(prev => new Set([...prev, stickerId]));
-
-        try {
-            const uploadedPath = await uploadFile(resizedFile);
-            setStickers(prev => prev.map(sticker =>
+        // Reset upload state because file changed
+        setStickers((prev) =>
+            prev.map((sticker) =>
                 sticker.id === stickerId
-                    ? {...sticker, uploading: false, uploaded: true, uploadedPath}
-                    : sticker
-            ));
-        } catch (error) {
-            console.error('Replace error:', error);
-            setStickers(prev => prev.filter(sticker => sticker.id !== stickerId));
-        } finally {
-            setUploadingFiles(prev => {
-                const newSet = new Set(prev);
-                newSet.delete(stickerId);
-                return newSet;
-            });
-        }
+                    ? {
+                        ...sticker,
+                        file: resizedFile,
+                        preview,
+                        uploading: false,
+                        uploaded: false,
+                        uploadedPath: null,
+                    }
+                    : sticker,
+            ),
+        );
     };
 
     const removeSticker = (stickerId: number): void => {
-        setStickers(prev => {
-            const sticker = prev.find(s => s.id === stickerId);
-            if (sticker && sticker.preview) {
-                URL.revokeObjectURL(sticker.preview);
-            }
-            return prev.filter(s => s.id !== stickerId);
+        setStickers((prev) => {
+            const sticker = prev.find((s) => s.id === stickerId);
+            if (sticker && sticker.preview) URL.revokeObjectURL(sticker.preview);
+            return prev.filter((s) => s.id !== stickerId);
         });
     };
 
+    // Upload all not-yet-uploaded stickers to Matrix and then create stickerpack via backend
     const handleSubmit = async (): Promise<void> => {
         if (!packName.trim() || stickers.length === 0) {
-            alert('Please enter pack name and add at least one sticker');
+            // TODO: change to set error
+            console.log('Please enter pack name and add at least one sticker');
             return;
         }
 
-        const uploadedStickers = stickers.filter(s => s.uploaded);
-        if (uploadedStickers.length === 0) {
-            alert('Please wait for all stickers to finish uploading');
-            return;
-        }
+        setSubmitting(true);
 
-        setUploading(true);
         try {
-            await submitStickerpack(packName, uploadedStickers.map(s => ({
-                emoji: s.emoji,
-                uploadedPath: s.uploadedPath!
-            })));
+            // 1) Upload all images to Matrix (only those not already uploaded)
+            const toUpload = stickers.filter((s) => !s.uploaded);
+            const uploadedResults: CreateStickerDto[] = [];
 
-            setPackName('');
-            setStickers([]);
-            alert('Sticker pack created successfully!');
-        } catch (error) {
+            for (const s of toUpload) {
+                setUploadingFiles((prev) => new Set([...prev, s.id]));
+                setStickers((prev) => prev.map((x) => (x.id === s.id ? {...x, uploading: true} : x)));
+
+                try {
+                    const mxcUrl = await uploadViaMatrix(s.file);
+                    const updatedSticker = {
+                        ...s,
+                        uploading: false,
+                        uploaded: true,
+                        uploadedPath: mxcUrl,
+                    };
+
+                    uploadedResults.push(updatedSticker);
+                    setStickers((prev) => prev.map((x) => (x.id === s.id ? updatedSticker : x)));
+                } catch (e) {
+                    console.error('Upload error:', e);
+                    setStickers((prev) => prev.map((x) => (x.id === s.id ? {...x, uploading: false} : x)));
+                    throw e;
+                } finally {
+                    setUploadingFiles((prev) => {
+                        const ns = new Set(prev);
+                        ns.delete(s.id);
+                        return ns;
+                    });
+                }
+            }
+
+            const finalStickers = stickers.map(
+                (s) => uploadedResults.find((u) => u.id === s.id) ?? s,
+            );
+
+
+            const payload = {
+                name: packName.trim(),
+                stickers: finalStickers.map((s) => ({body: s.emoji, url: s.uploadedPath!})),
+            };
+
+            const res = await apiRequest('stickerpacks/create', {
+                method: 'POST',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token ?? ''}`,
+                },
+            });
+
+            if (res?.status == 200) {
+                setPackName('');
+                stickers.forEach((s) => s.preview && URL.revokeObjectURL(s.preview));
+                setStickers([]);
+                setError(null);
+                setSuccess('Sticker pack created successfully');
+            } else {
+                const msg = res?.error || 'Error creating sticker pack';
+                setError(msg);
+                throw new Error(msg);
+            }
+        } catch (error: any) {
             console.error('Submit error:', error);
-            alert('Error creating sticker pack');
+            setError(error?.message || 'Error creating sticker pack');
         } finally {
-            setUploading(false);
+            setSubmitting(false);
         }
     };
 
@@ -203,7 +287,7 @@ export function CreateStickerpackView(): JSX.Element {
                 />
             </div>
 
-            <div>
+            <div class={"mb-1"}>
                 <input
                     ref={fileInputRef}
                     type="file"
@@ -212,33 +296,41 @@ export function CreateStickerpackView(): JSX.Element {
                     onChange={(e) => handleFileSelect((e.target as HTMLInputElement).files)}
                     style={{display: 'none'}}
                 />
-                <Button onClick={() => fileInputRef.current?.click()}>
-                    Add Stickers
-                </Button>
+                <Button onClick={() => fileInputRef.current?.click()}>Add Stickers</Button>
             </div>
 
             {stickers.length > 0 && (
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    gap: '20px',
-                    marginTop: '20px'
-                }}>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                        gap: '20px',
+                        marginTop: '20px',
+                    }}
+                >
                     {stickers.map((sticker) => (
-                        <div key={sticker.id} style={{
-                            background: '1px solid var(--bg-secondary)',
-
-                            borderRadius: '8px',
-                            padding: '15px',
-                            position: 'relative'
-                        }}>
-                            <div style={{
-                                position: 'absolute',
-                                top: '10px',
-                                right: '10px',
-                                fontSize: '12px'
-                            }}>
-                                {sticker.uploaded && <div><Check/></div>}
+                        <div
+                            key={sticker.id}
+                            style={{
+                                background: '1px solid var(--bg-secondary)',
+                                borderRadius: '8px',
+                                padding: '15px',
+                                position: 'relative',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '10px',
+                                    fontSize: '12px',
+                                }}
+                            >
+                                {sticker.uploaded && (
+                                    <div>
+                                        <Check/>
+                                    </div>
+                                )}
                                 {sticker.uploading && !sticker.uploaded && <Loader class={"loading"}/>}
                                 {!sticker.uploading && !sticker.uploaded && <X/>}
                             </div>
@@ -252,24 +344,25 @@ export function CreateStickerpackView(): JSX.Element {
                                         height: '100px',
                                         objectFit: 'cover',
                                         borderRadius: '4px',
-                                        opacity: sticker.uploading ? 0.6 : 1
+                                        opacity: sticker.uploading ? 0.6 : 1,
                                     }}
                                 />
                             </div>
 
-                            <div style={{marginBottom: "1rem"}}>
+                            <div style={{marginBottom: '1rem'}}>
                                 <div className="field">
                                     <input
                                         required
                                         type="text"
                                         value={sticker.emoji}
-                                        onChange={(e) => updateStickerEmoji(sticker.id, (e.target as HTMLInputElement).value)}
+                                        onChange={(e) =>
+                                            updateStickerEmoji(sticker.id, (e.target as HTMLInputElement).value)
+                                        }
                                         placeholder="😀"
                                         className="field__input"
                                         style={{textAlign: 'center'}}
                                     />
                                 </div>
-
                             </div>
 
                             <div style={{display: 'flex', gap: '8px'}}>
@@ -283,17 +376,11 @@ export function CreateStickerpackView(): JSX.Element {
                                     style={{display: 'none'}}
                                     id={`replace-${sticker.id}`}
                                 />
-                                <Button
-                                    onClick={() => document.getElementById(`replace-${sticker.id}`)?.click()}
-                                    disabled={sticker.uploading}
-                                >
+                                <Button onClick={() => document.getElementById(`replace-${sticker.id}`)?.click()}
+                                        disabled={sticker.uploading}>
                                     Replace
                                 </Button>
-                                <Button
-                                    onClick={() => removeSticker(sticker.id)}
-                                >
-                                    Remove
-                                </Button>
+                                <Button onClick={() => removeSticker(sticker.id)}>Remove</Button>
                             </div>
                         </div>
                     ))}
@@ -301,22 +388,24 @@ export function CreateStickerpackView(): JSX.Element {
             )}
 
             {stickers.length > 0 && (
-                <div style={{
-                    padding: '15px',
-                    borderRadius: '4px',
-                    margin: '20px 0'
-                }}>
+                <div
+                    style={{
+                        padding: '15px',
+                        borderRadius: '4px',
+                        margin: '20px 0',
+                    }}
+                >
                     <div>Total: {stickers.length}</div>
-                    <div>Uploaded: {stickers.filter(s => s.uploaded).length}</div>
-                    <div>Uploading: {uploadingFiles.size}</div>
+                    <div>Uploaded: {stickers.filter((s) => s.uploaded).length}</div>
+                    <div>Uploading now: {uploadingFiles.size}</div>
                 </div>
             )}
 
-            <Button
-                onClick={handleSubmit}
-                disabled={uploading || uploadingFiles.size > 0 || !packName.trim() || stickers.length === 0}
-            >
-                {uploading ? 'Creating...' : 'Create Sticker Pack'}
+            {error && <div class={"color-danger"}>{error}</div>}
+            {success && <div class={"color-success"}>{success}</div>}
+
+            <Button onClick={handleSubmit} disabled={submitting || !packName.trim() || stickers.length === 0}>
+                {submitting ? 'Creating...' : 'Create Sticker Pack'}
             </Button>
         </div>
     );

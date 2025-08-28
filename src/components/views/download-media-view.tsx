@@ -1,6 +1,8 @@
 import {useEffect, useState} from "preact/hooks";
-import {useMatrix} from "../../contexts/matrix-widget-api-context.tsx";
+import {useMatrix} from "@/contexts/matrix-widget-api-context.tsx";
 
+
+// TODO: Widget API test code, remove
 export function MxcImageExample() {
     const widget = useMatrix();
     const [blobUrl, setBlobUrl] = useState<string | null>(null);
@@ -9,7 +11,6 @@ export function MxcImageExample() {
         const requestId = `mxc-request-${Date.now()}`;
         const mxcUri = "mxc://exarius.org/EKqhtMmUmKcBwajkqeAAJMlQ";
 
-        // Запрос: получить файл как Blob
         widget.sendMessage({
             api: "fromWidget",
             action: "org.matrix.msc4039.download_file",

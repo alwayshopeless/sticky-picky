@@ -82,6 +82,7 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
 
     return <div className={"stickerpack"} id={`spack-${stickerpack.id}`}>
         <div className={"stickerpack__header"}>
+            {console.log(stickerCollections.stickerpacksData)}
             <div>
                 {stickerpack.name}
             </div>

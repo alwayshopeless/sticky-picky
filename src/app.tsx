@@ -1,15 +1,16 @@
 import {useEffect} from "preact/hooks";
-import {StickerView} from "./components/views/StickerView.tsx";
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
 import {apiRequest} from "./api/backend-api.ts";
-import {ExploreStickersView} from "./components/views/ExploreStickersView.tsx";
-import {SettingsView} from "./components/views/SettingsView.tsx";
+
 import {useStickerPicker} from "./stores/sticker-picker.tsx";
 import {TopNav} from "./components/top-nav.tsx";
 import {ConnectForm} from "./components/forms/connect-form.tsx";
 import {useSimpleRouter} from "./stores/simple-router.tsx";
 import {ManageStickerpacks} from "@/components/views/manage-stickerpacks/manage-stickerpacks.tsx";
 import {CreateStickerpackView} from "@/components/views/manage-stickerpacks/create-stickerpack-view.tsx";
+import {StickerView} from "@/components/views/sticker-view.tsx";
+import {ExploreStickersView} from "@/components/views/explore-stickers-view.tsx";
+import {SettingsView} from "@/components/views/settings-view.tsx";
 
 export function App() {
     const {currentView, setView} = useSimpleRouter();
@@ -36,7 +37,7 @@ export function App() {
                         "m.sticker",
                         "m.download_file",
                         "org.matrix.msc4039.download_file",
-
+                        "org.matrix.msc4039.upload_file",
                     ]
                 }
             }, "*");

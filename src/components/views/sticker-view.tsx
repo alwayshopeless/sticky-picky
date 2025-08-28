@@ -1,15 +1,15 @@
 import {useMatrix} from "../../contexts/matrix-widget-api-context.tsx";
 import {useEffect, useMemo, useState} from "preact/hooks";
-import {apiRequest} from "../../api/backend-api.ts";
+import {apiRequest} from "@/api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
-import type {IStickerpack} from "../../types/stickerpack.ts";
-import {loadStickerpack} from "../../utils/stickers.ts";
+import type {IStickerpack} from "@/types/stickerpack.ts";
+import {loadStickerpack} from "@/utils/stickers.ts";
 import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx";
-import {Loader} from "../loader.tsx";
+import {Loader} from "@/components/loader.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../../stores/sticker-collections.tsx";
-import {SearchResult} from "../search-result.tsx";
-import {StickerViewNav} from "./sticker-view/StickerViewNav.tsx";
+import {SearchResult} from "@/components/search-result.tsx";
+import {StickerViewNav} from "@/components/views/sticker-view/StickerViewNav.tsx";
 
 
 export function StickerView({explore}: { explore: any }) {

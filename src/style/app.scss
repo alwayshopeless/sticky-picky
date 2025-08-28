@@ -322,3 +322,11 @@ body {
   gap: 10px;
   align-items: center;
 }
+
+.color-success {
+  color: var(--success);
+}
+
+.color-danger {
+  color: var(--danger);
+}
