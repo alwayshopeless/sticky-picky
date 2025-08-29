@@ -42,14 +42,13 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                     let ni = new Image();
                     ni.src = url;
                     ni.onload = () => {
-                        console.log("BKADS");
                         setOriginalSize({
                             w: ni.naturalWidth,
                             h: ni.naturalHeight
                         })
+                        setLoaded(true);
                     };
                     if (url !== src) setSrc(url);
-                    setLoaded(true);
                 }
             };
 
