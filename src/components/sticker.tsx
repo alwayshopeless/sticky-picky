@@ -20,7 +20,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     const [loaded, setLoaded] = useState(false);
     const [src, setSrc] = useState(buildThumbnailUrl());
     const [isLoading, setIsLoading] = useState(false);
-
+    const [originalSize, setOriginalSize] = useState<{ w: number; h: number } | null>(null);
     //@ts-ignore
     const fetchMatrixThumbnail = async (mxcUrl: string, width = 100, height = 100) => {
         if (isLoading) return;
@@ -39,6 +39,15 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
             const handler = (event: any) => {
                 if (event.action === 'org.matrix.msc4039.download_file' && event.requestId == requestId && event.response?.file) {
                     const url = URL.createObjectURL(event.response.file);
+                    let ni = new Image();
+                    ni.src = url;
+                    ni.onload = () => {
+                        console.log("BKADS");
+                        setOriginalSize({
+                            w: ni.naturalWidth,
+                            h: ni.naturalHeight
+                        })
+                    };
                     if (url !== src) setSrc(url);
                     setLoaded(true);
                 }
@@ -87,10 +96,14 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
 
         const img = new Image();
         img.src = src;
-        img.onload = () => setLoaded(true);
+        img.onload = () => {
+            setOriginalSize({w: img.naturalWidth, h: img.naturalHeight});
+            setLoaded(true);
+        };
         img.onerror = () => {
             if (sticker.url.startsWith("mxc://")) fetchMatrixThumbnail(sticker.url);
         };
+
     }, [sticker.url]);
 
     const addStickerToRecent = () => {
@@ -101,6 +114,14 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     };
 
     const sendSticker = () => {
+        let width = stickerPicker.sentStickerSize;
+        let height = width;
+
+        if (originalSize) {
+            height = Math.round((originalSize.h / originalSize.w) * width);
+        }
+        console.log(originalSize)
+
         widget.sendMessage({
             widgetId: widget.widgetId,
             api: "fromWidget",
@@ -111,8 +132,8 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                     ...sticker,
                     info: {
                         ...sticker.info,
-                        w: stickerPicker.sentStickerSize,
-                        h: stickerPicker.sentStickerSize,
+                        w: width,
+                        h: height,
                     },
                 },
                 name: sticker.body,
@@ -130,7 +151,6 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
             onPointerLeave={cancelPress}
             onClick={sendSticker}
         >
-
             {loaded && <img className="sticker__img" src={src} alt=""/>}
         </div>
     );

@@ -3,8 +3,8 @@ import {useStickerPicker} from "@/stores/sticker-picker.tsx";
 import {useStickerCollections} from "@/stores/sticker-collections.tsx";
 import {apiRequest} from "@/api/backend-api.ts";
 import {Button} from "@/components/ui/button.tsx";
-import {useSimpleRouter} from "@/stores/simple-router.tsx";
 import {ExtraLayout} from "@/layouts/extra-layout.tsx";
+import {useLocation} from "preact-iso";
 
 interface StickerpacksListProps {
     onEdit: (id: string) => void,
@@ -13,8 +13,7 @@ interface StickerpacksListProps {
 export function StickerpacksList({onEdit}: StickerpacksListProps) {
     const stickerPicker = useStickerPicker();
     const stickerCollections = useStickerCollections();
-    const {setView} = useSimpleRouter();
-
+    const {route} = useLocation();
     const removeStickerpack = async (stickerpack: any) => {
         stickerCollections.removeStickerpack(stickerpack.id);
 
@@ -59,7 +58,7 @@ export function StickerpacksList({onEdit}: StickerpacksListProps) {
             ))}
             <div>
                 <Button onClick={() => {
-                    setView("create-stickerpack");
+                    route("/create-stickerpack");
                 }}>
                     Create stickerpack!
                 </Button>

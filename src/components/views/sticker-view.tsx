@@ -10,9 +10,11 @@ import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../../stores/sticker-collections.tsx";
 import {SearchResult} from "@/components/search-result.tsx";
 import {StickerViewNav} from "@/components/views/sticker-view/StickerViewNav.tsx";
+import {useLocation} from "preact-iso";
 
 
-export function StickerView({explore}: { explore: any }) {
+export function StickerView() {
+    const {route} = useLocation();
     //@ts-ignore
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
@@ -205,7 +207,9 @@ export function StickerView({explore}: { explore: any }) {
                             <div style={{marginBottom: "1rem"}}>
                                 You have no stickers yet...
                             </div>
-                            <button onClick={explore} class={'btn'}>
+                            <button onClick={() => {
+                                route('/explore');
+                            }} class={'btn'}>
                                 Explore!
                             </button>
                         </div>

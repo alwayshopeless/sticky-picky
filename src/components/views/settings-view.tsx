@@ -4,15 +4,15 @@ import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {SetMatrixAccessTokenForm} from "../forms/set-matrix-access-token-form.tsx";
 import {Button} from "../ui/button.tsx";
-import {useSimpleRouter} from "../../stores/simple-router.tsx";
+import {useLocation} from "preact-iso";
 
 export function SettingsView() {
     const stickerPicker = useStickerPicker();
-    const {setView} = useSimpleRouter();
     const {theme, setTheme} = stickerPicker;
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
     const {sentStickerSize, setSentStickerSize} = stickerPicker;
     const {compactViewInExplore, setCompactViewInExplore} = stickerPicker;
+    const {route} = useLocation();
 
     const handleThemeChange = (value: ThemeName) => {
         setTheme(value);
@@ -23,7 +23,7 @@ export function SettingsView() {
         <div class="view">
             <div className="settings-view">
                 <Button onClick={() => {
-                    setView('manage-stickerpacks');
+                    route('/manage-stickerpacks');
                 }}>Manage stickerpacks</Button>
 
                 <h4>Theme: <span className={"capitalize"}>{theme}</span></h4>

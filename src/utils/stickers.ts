@@ -26,7 +26,7 @@ export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = f
         if (useProxy) {
             stickerpackUrl = CORS_PROXY + stickerpackUrl;
         }
-        fetchPromise = fetch(stickerpackUrl).then((res) => res.json());
+        fetchPromise = fetch(stickerpackUrl);
     } else if (stickerpack.type === "user_owned") {
         fetchPromise = apiRequest(`stickerpacks/${stickerpack.id}/stickers`, {
             method: "GET",
@@ -91,9 +91,8 @@ export async function loadStickerpackRaw(
                     "Content-Type": "application/json",
                 },
             });
-            console.log("laoded sticks:");
-            console.log(res);
-            return res?.stickers ?? null;
+            let data = await res.json();
+            return data?.stickers ?? null;
         }
         return null;
     } catch (err) {

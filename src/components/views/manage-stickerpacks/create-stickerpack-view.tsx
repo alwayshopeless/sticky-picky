@@ -16,10 +16,10 @@ interface CreateStickerDto {
     uploadedPath: string | null; // mxc:// url after Matrix upload
 }
 
-interface StickerDataOut {
-    body: string; // emoji or short text
-    url: string;  // mxc:// url
-}
+// interface StickerDataOut {
+//     body: string; // emoji or short text
+//     url: string;  // mxc:// url
+// }
 
 async function resizeImage(file: File, maxSize = 512): Promise<File> {
     return new Promise((resolve, reject) => {
@@ -260,7 +260,8 @@ export function CreateStickerpackView({token}: { token?: string }): JSX.Element 
                 setError(null);
                 setSuccess('Sticker pack created successfully');
             } else {
-                const msg = res?.error || 'Error creating sticker pack';
+                let respData = await res.json();
+                const msg = respData?.message || 'Error creating sticker pack';
                 setError(msg);
                 throw new Error(msg);
             }

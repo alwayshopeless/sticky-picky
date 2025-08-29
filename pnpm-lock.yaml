@@ -20,6 +20,9 @@ importers:
       preact:
         specifier: ^10.27.0
         version: 10.27.1
+      preact-iso:
+        specifier: ^2.10.0
+        version: 2.10.0(preact-render-to-string@6.6.1(preact@10.27.1))(preact@10.27.1)
       zustand:
         specifier: ^5.0.8
         version: 5.0.8
@@ -749,6 +752,17 @@ packages:
   postcss@8.5.6:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
+
+  preact-iso@2.10.0:
+    resolution: {integrity: sha512-zQ0dZdgdZ+L+WmD0IgbPrgSajahbrbkNSuCbXG5ZDHaT6vDSaRRlvt3NIP5+w8iltMCBqj8YPROM3El/qIKjvA==}
+    peerDependencies:
+      preact: '>=10 || >= 11.0.0-0'
+      preact-render-to-string: '>=6.4.0'
+
+  preact-render-to-string@6.6.1:
+    resolution: {integrity: sha512-IIMfXRjmbSP9QmG18WJLQa4Z4yx3J0VC9QN5q9z2XYlWSzFlJ+bSm/AyLyyV/YFwjof1OXFX2Mz6Ao60LXudJg==}
+    peerDependencies:
+      preact: '>=10 || >= 11.0.0-0'
 
   preact@10.27.1:
     resolution: {integrity: sha512-V79raXEWch/rbqoNc7nT9E4ep7lu+mI3+sBmfRD4i1M73R3WLYcCtdI0ibxGVf4eQL8ZIz2nFacqEC+rmnOORQ==}
@@ -1610,6 +1624,15 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  preact-iso@2.10.0(preact-render-to-string@6.6.1(preact@10.27.1))(preact@10.27.1):
+    dependencies:
+      preact: 10.27.1
+      preact-render-to-string: 6.6.1(preact@10.27.1)
+
+  preact-render-to-string@6.6.1(preact@10.27.1):
+    dependencies:
+      preact: 10.27.1
 
   preact@10.27.1: {}
 

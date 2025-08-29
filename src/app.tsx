@@ -1,11 +1,12 @@
 import {useEffect} from "preact/hooks";
+import {Route, Router} from "preact-iso/router";
+
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
 import {apiRequest} from "./api/backend-api.ts";
 
 import {useStickerPicker} from "./stores/sticker-picker.tsx";
 import {TopNav} from "./components/top-nav.tsx";
 import {ConnectForm} from "./components/forms/connect-form.tsx";
-import {useSimpleRouter} from "./stores/simple-router.tsx";
 import {ManageStickerpacks} from "@/components/views/manage-stickerpacks/manage-stickerpacks.tsx";
 import {CreateStickerpackView} from "@/components/views/manage-stickerpacks/create-stickerpack-view.tsx";
 import {StickerView} from "@/components/views/sticker-view.tsx";
@@ -13,7 +14,6 @@ import {ExploreStickersView} from "@/components/views/explore-stickers-view.tsx"
 import {SettingsView} from "@/components/views/settings-view.tsx";
 
 export function App() {
-    const {currentView, setView} = useSimpleRouter();
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
 
@@ -30,20 +30,25 @@ export function App() {
     };
 
     useEffect(() => {
-        widget.on('capabilities', (data) => {
-            window.parent.postMessage({
-                ...data, response: {
-                    capabilities: [
-                        "m.sticker",
-                        "m.download_file",
-                        "org.matrix.msc4039.download_file",
-                        "org.matrix.msc4039.upload_file",
-                    ]
-                }
-            }, "*");
+        widget.on("capabilities", (data) => {
+            window.parent.postMessage(
+                {
+                    ...data,
+                    response: {
+                        capabilities: [
+                            "m.sticker",
+                            "m.download_file",
+                            "org.matrix.msc4039.download_file",
+                            "org.matrix.msc4039.upload_file",
+                            "m.fyly_read",
+                        ],
+                    },
+                },
+                "*"
+            );
         });
 
-        widget.on('openid_credentials', (event) => {
+        widget.on("openid_credentials", (event) => {
             console.log("access token got");
             console.log(event);
             apiRequest("auth/login", {
@@ -53,8 +58,8 @@ export function App() {
                     homeserver: event?.data?.matrix_server_name,
                 }),
                 headers: {
-                    'Content-Type': "application/json",
-                }
+                    "Content-Type": "application/json",
+                },
             }).then(async (response: Response) => {
                 if (response.status == 200) {
                     let data: any = await response.json();
@@ -63,29 +68,31 @@ export function App() {
                         token: data.token,
                     });
                 }
-            })
+            });
 
             window.parent.postMessage({...event});
         });
     }, []);
 
-    return <>
-        {stickerPicker.userData == null ? <ConnectForm sendAuthRequest={sendAuthRequest}/> : null}
+    return (
+        <div class="main">
+            {stickerPicker.userData == null ? (
+                <ConnectForm sendAuthRequest={sendAuthRequest}/>
+            ) : null}
 
-        {/*{isDebug ? <button onClick={() => {*/}
-        {/*    localStorage.setItem('stickerCollections', '');*/}
-        {/*}}>*/}
-        {/*    Clear cache*/}
-        {/*</button> : null}*/}
-
-        <div class={"main"}>
             <TopNav/>
-            {currentView === "stickers" && <StickerView explore={() => setView("explore")}/>}
-            {currentView === "explore" && <ExploreStickersView/>}
-            {currentView === "settings" && <SettingsView/>}
-            {currentView === "manage-stickerpacks" && <ManageStickerpacks/>}
-            {currentView === "create-stickerpack" && <CreateStickerpackView/>}
-            {currentView === "gifs" && <div class={"view center"}>Coming soon... or not</div>}
+            <Router>
+                <Route path="/" component={StickerView}/>
+                <Route path="/stickers" component={StickerView}/>
+                <Route path="/explore" component={ExploreStickersView}/>
+                <Route path="/settings" component={SettingsView}/>
+                <Route path="/manage-stickerpacks" component={ManageStickerpacks}/>
+                <Route path="/create-stickerpack" component={CreateStickerpackView}/>
+                <Route
+                    path="/gifs"
+                    component={() => <div class="view center">Coming soon... or not</div>}
+                />
+            </Router>
         </div>
-    </>;
+    );
 }

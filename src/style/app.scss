@@ -1,6 +1,7 @@
 @use "reboot";
 @use "variables";
 @use "components/stickerpack";
+@use "components/top-nav";
 @use "components/field";
 @use "settings";
 
@@ -38,46 +39,6 @@ body {
   color: var(--icon-color);
 }
 
-.top-nav {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 5px;
-  user-select: none;
-  padding-bottom: 5px;
-
-  &__item {
-    font-weight: 600;
-    cursor: pointer;
-    flex: 1;
-    text-align: center;
-    transition: background 0.2s, color 0.2s;
-    padding: 2px 5px;
-    border-radius: 5px;
-    overflow: hidden;
-
-    &.ico {
-      max-width: 40px;
-    }
-
-    &[data-selected=true] {
-      border-bottom: solid 3px var(--bg-third);
-    }
-
-    &:hover {
-      background: var(--bg-secondary);
-      color: var(--text-main);
-    }
-  }
-
-  &__underline {
-    position: absolute;
-    bottom: 0;
-    height: 5px;
-    border-radius: 5px;
-    background: var(--bg-third);
-    transition: transform 0.3s ease, width 0.3s ease;
-  }
-}
 
 .view {
   flex: 1;
