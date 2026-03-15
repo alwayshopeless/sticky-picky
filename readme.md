@@ -1,3 +1,6 @@
+# Warning
+I'm so sorry, I forgot about the instance of this service on my VPS, and now this project is only available for self-hosting. Perhaps I'll launch it again on a server if I have time.
+For questions, you can write to: @rotten_rat:matrix.org
 # Demo
 
 [![Screenshot](https://raw.githubusercontent.com/alwayshopeless/sticky-picky/refs/heads/master/screenshots/sticky-picky-demo.png)](https://www.youtube.com/watch?v=CBU_-gFRFmw "Sticky Picky demo")
