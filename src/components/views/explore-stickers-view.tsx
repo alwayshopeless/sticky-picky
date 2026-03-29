@@ -1,14 +1,14 @@
 import {useMatrix} from "../../contexts/matrix-widget-api-context.tsx";
 import {useEffect, useMemo, useRef, useState} from "preact/hooks";
-import {apiRequest} from "../../api/backend-api.ts";
+import {apiRequest} from "@/api/backend-api.ts";
 import {Stickerpack} from "../stickerpack.tsx";
-import type {IStickerpack} from "../../types/stickerpack.ts";
+import type {IStickerpack} from "@/types/stickerpack.ts";
 import {StickerPreviewProvider} from "../../contexts/sticker-preview-context.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {Loader} from "../loader.tsx";
 import {SearchResult} from "../search-result.tsx";
-import {buildHttpQuery} from "../../utils/url.ts";
-import {loadStickerpackRaw} from "../../utils/stickers.ts";
+import {buildHttpQuery} from "@/utils/url.ts";
+import {loadStickerpackRaw} from "@/utils/stickers.ts";
 
 export function ExploreStickersView() {
     //@ts-ignore
@@ -27,7 +27,7 @@ export function ExploreStickersView() {
     const [searchText, setSearchText] = useState<string>("");
     const isSearch = useMemo(() => searchText.trim() !== "", [searchText]);
 
-    const ITEMS_PER_PAGE = 2;
+    const ITEMS_PER_PAGE = 7;
 
     const loadExploreStickerpacks = async () => {
         if (!hasMoreData && !isSearch) return;
@@ -56,12 +56,12 @@ export function ExploreStickersView() {
                     return;
                 }
 
-                // новые пакеты
+                // New stickerpacks
                 const existingIds = exploreStickerpacks.map(p => p.id.toString());
                 const newIds = fetchedIds.filter(id => !existingIds.includes(id));
                 const newPacks = newIds.map(id => fetchedPacks[id]);
 
-                // загрузка их содержимого
+                // Stickerpacks data loading
                 const loadedData = await Promise.allSettled(
                     newPacks.map(async (pack) => {
                         const stickers = await loadStickerpackRaw(pack);
@@ -69,7 +69,10 @@ export function ExploreStickersView() {
                     })
                 );
 
-                const successful = loadedData.filter(r => r.status === "fulfilled") as PromiseFulfilledResult<{pack: IStickerpack, stickers: any[]}>[];
+                const successful = loadedData.filter(r => r.status === "fulfilled") as PromiseFulfilledResult<{
+                    pack: IStickerpack,
+                    stickers: any[]
+                }>[];
 
                 if (successful.length > 0) {
                     setExploreStickerpacks(prev => [...prev, ...successful.map(s => s.value.pack)]);

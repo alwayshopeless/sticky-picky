@@ -1,4 +1,4 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import path from 'node:path'
@@ -7,8 +7,15 @@ import path from 'node:path'
 export default defineConfig({
     plugins: [
         preact(),
-        basicSsl(),
+        // basicSsl({
+        //     domains: ['m-stickers.loc'],
+        // }),
     ],
+    server: {
+        host: false,
+        port: 5173,
+        allowedHosts: true,
+    },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),

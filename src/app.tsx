@@ -12,6 +12,7 @@ import {CreateStickerpackView} from "@/components/views/manage-stickerpacks/crea
 import {StickerView} from "@/components/views/sticker-view.tsx";
 import {ExploreStickersView} from "@/components/views/explore-stickers-view.tsx";
 import {SettingsView} from "@/components/views/settings-view.tsx";
+import {EditStickerpackView} from "@/components/views/manage-stickerpacks/edit-stickerpack-view.tsx";
 
 export function App() {
     const widget = useMatrix();
@@ -83,14 +84,14 @@ export function App() {
             <TopNav/>
             <Router>
                 <Route path="/" component={StickerView}/>
-                <Route path="/stickers" component={StickerView}/>
                 <Route path="/explore" component={ExploreStickersView}/>
                 <Route path="/settings" component={SettingsView}/>
                 <Route path="/manage-stickerpacks" component={ManageStickerpacks}/>
                 <Route path="/create-stickerpack" component={CreateStickerpackView}/>
+                <Route path="/edit-stickerpack/:stickerpackId" component={EditStickerpackView}/>
                 <Route
                     path="/gifs"
-                    component={() => <div class="view center">Coming soon... or not</div>}
+                    component={() => (<div class="view center">Coming soon... or not</div>)}
                 />
             </Router>
         </div>

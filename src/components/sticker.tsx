@@ -6,6 +6,27 @@ import {useStickerCollections} from "../stores/sticker-collections.tsx";
 
 const ALWAYS_FETCH_MXC = true;
 
+const getFileExtensionFromMimeType = (mimeType?: string) => {
+    if (!mimeType) return "webm";
+
+    const normalizedMimeType = mimeType.toLowerCase().split(";")[0].trim();
+    const extensionMap: Record<string, string> = {
+        "image/apng": "apng",
+        "image/avif": "avif",
+        "image/gif": "gif",
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/svg+xml": "svg",
+        "image/webm": "webm",
+        "image/webp": "webp",
+        "video/webm": "webm",
+    };
+
+    return extensionMap[normalizedMimeType]
+        ?? normalizedMimeType.split("/")[1]?.replace("+xml", "").replace("jpeg", "jpg")
+        ?? "webm";
+};
+
 export function Sticker({sticker, repository}: { sticker: any; repository: string }) {
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
@@ -27,6 +48,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
         setIsLoading(true);
 
         try {
+            console.log(`${mxcUrl} load starting`);
             const requestId = `mxc-request-${Date.now()}+${mxcUrl}`;
             widget.sendMessage({
                 api: "fromWidget",
@@ -57,20 +79,6 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                 // widget.off("org.matrix.msc4039.download_file", handler)
             };
 
-            /*
-            // Download with legacy
-            const mxcMatch = mxcUrl.match(/^mxc:\/\/([^/]+)\/(.+)$/);
-            if (!mxcMatch || !stickerPicker.matrixAuthData?.accessToken) return;
-            const [, homeserver, mediaId] = mxcMatch;
-            const matrixUrl = `https://${stickerPicker.matrixAuthData.homeserver}/_matrix/client/v1/media/thumbnail/${homeserver}/${mediaId}?width=${width}&height=${height}&method=scale&allow_redirect=true`;
-            const response = await fetch(matrixUrl, {
-                headers: { Authorization: `Bearer ${stickerPicker.matrixAuthData.accessToken}` },
-            });
-            if (!response.ok) throw new Error("Failed to fetch matrix thumbnail");
-            const blob = await response.blob();
-            setSrc(URL.createObjectURL(blob));
-            setLoaded(true);
-            */
         } catch (err) {
             console.error("Matrix thumbnail fetch failed", err);
         } finally {
@@ -115,6 +123,7 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     const sendSticker = () => {
         let width = stickerPicker.sentStickerSize;
         let height = width;
+        const stickerExtension = getFileExtensionFromMimeType(sticker?.info?.mimetype);
 
         if (originalSize) {
             height = Math.round((originalSize.h / originalSize.w) * width);
@@ -131,11 +140,13 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                     ...sticker,
                     info: {
                         ...sticker.info,
-                        w: width,
-                        h: height,
+                        w: 100,
+                        h: 100,
+                        // "mimetype": "image/webm",
+                        // Dirty hack: Setting the webp mimetype for an image to ensure stickers work correctly in bridges.
                     },
                 },
-                name: sticker.body,
+                name: `${sticker.body}.${stickerExtension}`,
             },
         });
         addStickerToRecent();

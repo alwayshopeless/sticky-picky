@@ -7,6 +7,7 @@ export function TopNav({}) {
     const containerRef = useRef<HTMLDivElement>(null);
     const refs = useRef<{ [key: string]: HTMLDivElement | null }>({});
     const {route, path} = useLocation();
+
     useEffect(() => {
         const current = refs.current[path];
         const container = containerRef.current;
@@ -24,14 +25,14 @@ export function TopNav({}) {
 
     return (
         <div ref={containerRef} className="top-nav" style={{position: 'relative'}}>
-            {['/gifs', '/stickers', '/explore', '/settings'].map((key: string) => (
+            {['/gifs', '/', '/explore', '/settings'].map((key: string) => (
                 <div
                     key={key}
                     ref={setRef(key)}
                     onClick={() => route(key)}
                     className={`top-nav__item ${key === '/explore' || key === '/settings' ? 'ico' : ''}`}
                 >
-                    {key === '/gifs' ? 'GIF' : key === '/stickers' ? 'Stickers' : key === '/explore' ? <Globe/> :
+                    {key === '/gifs' ? 'GIF' : key === '/' ? 'Stickers' : key === '/explore' ? <Globe/> :
                         <Settings/>}
                 </div>
             ))}

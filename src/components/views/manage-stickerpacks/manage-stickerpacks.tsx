@@ -6,14 +6,12 @@ import {Button} from "@/components/ui/button.tsx";
 import {ExtraLayout} from "@/layouts/extra-layout.tsx";
 import {useLocation} from "preact-iso";
 
-interface StickerpacksListProps {
-    onEdit: (id: string) => void,
-}
 
-export function StickerpacksList({onEdit}: StickerpacksListProps) {
+export function StickerpacksList() {
     const stickerPicker = useStickerPicker();
     const stickerCollections = useStickerCollections();
     const {route} = useLocation();
+
     const removeStickerpack = async (stickerpack: any) => {
         stickerCollections.removeStickerpack(stickerpack.id);
 
@@ -46,9 +44,11 @@ export function StickerpacksList({onEdit}: StickerpacksListProps) {
                         <span>{stickerpack.name}</span>
                         <div class="stickerpack__header-btns">
                             {stickerpack.type === "user_owned" ? (
-                                <button onClick={() => onEdit(stickerpack.id)} class="btn btn--edit">
+                                <Button onClick={() => {
+                                    route(`/edit-stickerpack/${stickerpack.id}`);
+                                }} class="btn btn--edit">
                                     Edit
-                                </button>
+                                </Button>
                             ) : (
                                 <X onClick={() => removeStickerpack(stickerpack)} class="ico stickerpack__x"/>
                             )}
@@ -70,8 +70,6 @@ export function StickerpacksList({onEdit}: StickerpacksListProps) {
 
 export function ManageStickerpacks() {
     return <ExtraLayout>
-        <StickerpacksList onEdit={() => {
-
-        }}/>
+        <StickerpacksList/>
     </ExtraLayout>
 }

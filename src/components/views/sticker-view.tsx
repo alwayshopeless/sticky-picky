@@ -38,7 +38,7 @@ export function StickerView() {
 
         try {
             const response = await apiRequest('user/stickerpacks', {
-                method: "POST",
+                method: "GET",
                 headers: {
                     Authorization: `Bearer ${stickerPicker?.userData?.token}`
                 },
@@ -94,11 +94,8 @@ export function StickerView() {
         }));
 
         try {
-            const response = await apiRequest('user/stickers', {
+            const response = await apiRequest('user/stickerpacks', {
                 method: "GET",
-                headers: {
-                    Authorization: `Bearer ${stickerPicker?.userData?.token}`
-                },
             });
 
             if (response.status === 200) {

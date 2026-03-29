@@ -1,19 +1,24 @@
-import type {IStickerpack} from "../types/stickerpack.ts";
-import {useStickerCollections} from "../stores/sticker-collections.tsx";
-import {BACKEND_URL} from "../config/main.ts";
-import {apiRequest} from "@/api/backend-api.ts";
+import type { IStickerpack } from "../types/stickerpack.ts";
+import { useStickerCollections } from "../stores/sticker-collections.tsx";
+import { BACKEND_URL } from "../config/main.ts";
+import { apiRequest } from "@/api/backend-api.ts";
+import { useEffect, useState } from "preact/hooks";
+import { useMatrix } from "../contexts/matrix-widget-api-context.tsx";
 
 const parsedUrl = new URL(BACKEND_URL);
 let CORS_PROXY = `https://${parsedUrl.hostname}/cors/`;
 
 export function buildThumbnailUrl(repository: string, sticker: any) {
+    if (!sticker?.url?.split) {
+        return "";
+    }
     return `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`;
 }
 
-export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = false, token?: string) {
+export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = false, cache = true) {
     const stickerCollections = useStickerCollections;
 
-    if (stickerCollections.getState().isStickerpackDataCached(stickerpack.id)) {
+    if (cache && stickerCollections.getState().isStickerpackDataCached(stickerpack.id)) {
         console.debug(`${stickerpack.id} already cached. Request skip.`);
         return true;
     }
@@ -32,7 +37,6 @@ export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = f
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token ?? ""}`,
             },
         });
     } else {
@@ -53,7 +57,7 @@ export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = f
         .catch((err: Error) => {
             console.error("Stickerpack load failed:", err);
             if (stickerpack.type === "maunium" && !useProxy) {
-                loadStickerpack(stickerpack, true, token);
+                loadStickerpack(stickerpack, true, cache);
             }
         });
 }
@@ -102,4 +106,48 @@ export async function loadStickerpackRaw(
         }
         return null;
     }
+}
+
+
+export function useMatrixFile(mxcUrl: string | null) {
+    const widget = useMatrix();
+    const [file, setFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        if (!mxcUrl) return;
+        setLoading(true);
+        setError(null);
+
+        const requestId = `mxc-request-${Date.now()}-${mxcUrl}`;
+        const handler = (event: any) => {
+            if (
+                event.action === "org.matrix.msc4039.download_file" &&
+                event.requestId === requestId &&
+                event.response?.file
+            ) {
+                setFile(event.response.file);
+                setLoading(false);
+                widget.off("org.matrix.msc4039.download_file", handler);
+            }
+        };
+
+        widget.on("org.matrix.msc4039.download_file", handler);
+
+        console.log("Тут я типа отправляю сообщение");
+        widget.sendMessage({
+            api: "fromWidget",
+            action: "org.matrix.msc4039.download_file",
+            requestId,
+            widgetId: widget.widgetId,
+            data: { content_uri: mxcUrl, timeout_ms: 20000 },
+        });
+
+        return () => {
+            widget.off("org.matrix.msc4039.download_file", handler);
+        };
+    }, [mxcUrl]);
+
+    return { file, loading, error };
 }

@@ -30,10 +30,10 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
         stickerCollections.removeStickerpack(stickerpack.id);
 
         try {
-            const response = await apiRequest('user/stickerpacks/remove', {
+            const response = await apiRequest('user/stickerpack/detach', {
                 method: "POST",
                 body: JSON.stringify({
-                    stickerpack_id: stickerpack.id,
+                    stickerpackId: stickerpack.id,
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
 
     const addStickerpack = async () => {
         try {
-            const response = await apiRequest('user/stickerpacks/add', {
+            const response = await apiRequest('user/stickerpack/attach', {
                 method: "POST",
                 body: JSON.stringify({
                     stickerpack_id: stickerpack.id,

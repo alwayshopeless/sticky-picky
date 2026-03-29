@@ -21,7 +21,7 @@ interface CreateStickerDto {
 //     url: string;  // mxc:// url
 // }
 
-async function resizeImage(file: File, maxSize = 512): Promise<File> {
+export async function resizeImage(file: File, maxSize = 512): Promise<File> {
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
@@ -55,7 +55,8 @@ async function resizeImage(file: File, maxSize = 512): Promise<File> {
 }
 
 // Helper to wait for a single Matrix upload response matching requestId
-function useMatrixUploader() {
+// TODO: refactor, move to utils
+export function useMatrixUploader() {
     const widget = useMatrix();
 
     const uploadViaMatrix = (file: File): Promise<string> => {

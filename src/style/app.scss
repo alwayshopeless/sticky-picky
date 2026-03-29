@@ -291,3 +291,25 @@ body {
 .color-danger {
   color: var(--danger);
 }
+
+.sticker-edit-preview {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  background-color: var(--bg-fourth);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.inline-btns {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+
+  &--between {
+    justify-content: space-between;
+  }
+}

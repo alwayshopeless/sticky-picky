@@ -14,6 +14,7 @@ interface MatrixContextType {
     messages: MatrixEvent[];
     sendMessage: (message: MatrixEvent) => void;
     on: <T = any>(type: string, callback: (payload: T) => void) => () => void;
+    off: (type: string, callback: (payload: any) => void) => void;
     widgetId: string | null,
     widgetParams: any
 }
@@ -42,7 +43,7 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
             const data = event.data as MatrixEvent;
             setMessages((prev) => [...prev, data]);
             // TODO: refactor
-            // console.log("А тут листенеры типа выполучаются, да")
+            // console.log("Listeners:")
             // console.log(data.action);
             if (data.action && listeners.current[data.action]) {
                 listeners.current[data.action].forEach((cb) => cb(data));
@@ -64,10 +65,17 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
     const on = <T = any>(type: string, callback: (payload: T) => void) => {
         if (!listeners.current[type]) listeners.current[type] = [];
         listeners.current[type].push(callback);
-        console.log(`Event ${type} received. Meow.`);
         return () => {
             listeners.current[type] = listeners.current[type].filter((cb) => cb !== callback);
         };
+    };
+
+    const off = (type: string, callback: (payload: any) => void) => {
+        if (!listeners.current[type]) return;
+        listeners.current[type] = listeners.current[type].filter((cb) => cb !== callback);
+        if (listeners.current[type].length === 0) {
+            delete listeners.current[type];
+        }
     };
 
     return (
@@ -75,6 +83,7 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
             messages,
             sendMessage,
             on,
+            off,
             widgetId,
             widgetParams,
         }}>
@@ -87,4 +96,9 @@ export function useMatrix(): MatrixContextType {
     const context = useContext(MatrixContext);
     if (!context) throw new Error('useMatrix must be used within a MatrixProvider');
     return context;
+}
+
+
+export function useDownloadMatrixFile() {
+
 }
