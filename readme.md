@@ -39,7 +39,8 @@ You can use this version in local development in web version Matrix Element
 Use a tunnel service like "cloudflared tunnel" or any other, Element requires HTTPS to correctly display the widget in the iframe.
 
 # Other
-...
+
 Backend:
 https://github.com/alwayshopeless/sticky-picky-server
-It is required for sticker picker to workm we use it to store the user's favorite stickers, recents, and stickerpacks of the user they added.
+
+The backend is required for sticker picker. We use it to store a user's favorite stickers/recently added stickers, and stickerpacks.
