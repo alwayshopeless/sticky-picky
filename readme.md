@@ -29,15 +29,13 @@ You can also import your maunium repository directly into Sticky Picky in the wi
 # For devs
 You can use this version in local development in web version Matrix Element
 # Add widget in chat
-``/addwidget https://m-stickers.loc:5173/?roomId=$matrix_room_id&matrix_room_id=$matrix_room_id&widgetId=$matrix_widget_id``
+``/addwidget https://your-tunnel/?roomId=$matrix_room_id&matrix_room_id=$matrix_room_id&widgetId=$matrix_widget_id``
 # Run vite
-``pnpm run dev --host=m-stickers.loc``
-It will run with https for except mixed content problem.
-
-**Warning: visit host first for accept self-signed certificate**
+``pnpm run dev``
+Use a tunnel service like "cloudflared tunnel" or any other, Element requires HTTPS to correctly display the widget in the iframe.
 
 # Other
 ...
 Backend:
 https://github.com/alwayshopeless/sticky-picky-server
-
+It is required for sticker picker to workm we use it to store the user's favorite stickers, recents, and stickerpacks of the user they added.

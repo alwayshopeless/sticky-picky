@@ -2,7 +2,20 @@ import {useEffect, useRef, useState} from "preact/hooks";
 import {Globe, Settings} from "lucide-preact";
 import {useLocation} from "preact-iso";
 
-export function TopNav({}) {
+type NavItem = {
+    path: string;
+    label?: string;
+    icon?: typeof Globe;
+};
+
+const NAV_ITEMS: NavItem[] = [
+    // {path: "/gifs", label: "GIF"},
+    {path: "/", label: "Stickers"},
+    {path: "/explore", icon: Globe},
+    {path: "/settings", icon: Settings},
+];
+
+export function TopNav() {
     const [underlineStyle, setUnderlineStyle] = useState({left: 0, width: 0});
     const containerRef = useRef<HTMLDivElement>(null);
     const refs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -22,18 +35,16 @@ export function TopNav({}) {
         refs.current[key] = el;
     };
 
-
     return (
         <div ref={containerRef} className="top-nav" style={{position: 'relative'}}>
-            {['/gifs', '/', '/explore', '/settings'].map((key: string) => (
+            {NAV_ITEMS.map(({path: itemPath, label, icon: Icon}) => (
                 <div
-                    key={key}
-                    ref={setRef(key)}
-                    onClick={() => route(key)}
-                    className={`top-nav__item ${key === '/explore' || key === '/settings' ? 'ico' : ''}`}
+                    key={itemPath}
+                    ref={setRef(itemPath)}
+                    onClick={() => route(itemPath)}
+                    className={`top-nav__item ${Icon ? "ico" : ""}`}
                 >
-                    {key === '/gifs' ? 'GIF' : key === '/' ? 'Stickers' : key === '/explore' ? <Globe/> :
-                        <Settings/>}
+                    {Icon ? <Icon/> : label}
                 </div>
             ))}
 

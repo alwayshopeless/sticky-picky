@@ -56,13 +56,14 @@ export function StickerpacksList() {
                     </div>
                 </div>
             ))}
-            <div>
+            {/* TODO: Thank about implement stickerpack creation feature */}
+            {/* <div>
                 <Button onClick={() => {
                     route("/create-stickerpack");
                 }}>
                     Create stickerpack!
                 </Button>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -140,8 +140,8 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                     ...sticker,
                     info: {
                         ...sticker.info,
-                        w: 100,
-                        h: 100,
+                        w: width,
+                        h: height,
                         // "mimetype": "image/webm",
                         // Dirty hack: Setting the webp mimetype for an image to ensure stickers work correctly in bridges.
                     },
