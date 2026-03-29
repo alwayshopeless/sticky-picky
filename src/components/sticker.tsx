@@ -5,6 +5,8 @@ import {useStickerPicker} from "../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../stores/sticker-collections.tsx";
 
 const ALWAYS_FETCH_MXC = true;
+const mxcObjectUrlCache = new Map<string, string>();
+const mxcRequestCache = new Map<string, Promise<string>>();
 
 const getFileExtensionFromMimeType = (mimeType?: string) => {
     if (!mimeType) return "webm";
@@ -39,52 +41,87 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
         `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`.replace("http://", "https://");
 
     const [loaded, setLoaded] = useState(false);
-    const [src, setSrc] = useState(buildThumbnailUrl());
-    const [isLoading, setIsLoading] = useState(false);
+    const [src, setSrc] = useState(() => (
+        ALWAYS_FETCH_MXC && sticker.url.startsWith("mxc://")
+            ? ""
+            : buildThumbnailUrl()
+    ));
+    const [shouldLoad, setShouldLoad] = useState(false);
     const [originalSize, setOriginalSize] = useState<{ w: number; h: number } | null>(null);
     //@ts-ignore
-    const fetchMatrixThumbnail = async (mxcUrl: string, width = 100, height = 100) => {
-        if (isLoading) return;
-        setIsLoading(true);
+    const fetchMatrixThumbnail = async (mxcUrl: string) => {
+        const cachedUrl = mxcObjectUrlCache.get(mxcUrl);
+        if (cachedUrl) {
+            if (cachedUrl !== src) setSrc(cachedUrl);
+            return cachedUrl;
+        }
+
+        const existingRequest = mxcRequestCache.get(mxcUrl);
+        if (existingRequest) {
+            const objectUrl = await existingRequest;
+            if (objectUrl !== src) setSrc(objectUrl);
+            return objectUrl;
+        }
 
         try {
-            console.log(`${mxcUrl} load starting`);
             const requestId = `mxc-request-${Date.now()}+${mxcUrl}`;
-            widget.sendMessage({
-                api: "fromWidget",
-                action: "org.matrix.msc4039.download_file",
-                requestId,
-                widgetId: widget.widgetId,
-                data: {content_uri: mxcUrl, timeout_ms: 20000},
+            const requestPromise = new Promise<string>((resolve, reject) => {
+                const handler = (event: any) => {
+                    if (event.action !== "org.matrix.msc4039.download_file" || event.requestId !== requestId) {
+                        return;
+                    }
+
+                    widget.off("org.matrix.msc4039.download_file", handler);
+
+                    if (!event.response?.file) {
+                        reject(new Error(`No file returned for ${mxcUrl}`));
+                        return;
+                    }
+
+                    const url = URL.createObjectURL(event.response.file);
+                    mxcObjectUrlCache.set(mxcUrl, url);
+                    resolve(url);
+                };
+
+                widget.on("org.matrix.msc4039.download_file", handler);
+                widget.sendMessage({
+                    api: "fromWidget",
+                    action: "org.matrix.msc4039.download_file",
+                    requestId,
+                    widgetId: widget.widgetId,
+                    data: {content_uri: mxcUrl, timeout_ms: 20000},
+                });
             });
 
-            const handler = (event: any) => {
-                if (event.action === 'org.matrix.msc4039.download_file' && event.requestId == requestId && event.response?.file) {
-                    const url = URL.createObjectURL(event.response.file);
-                    let ni = new Image();
-                    ni.src = url;
-                    ni.onload = () => {
-                        setOriginalSize({
-                            w: ni.naturalWidth,
-                            h: ni.naturalHeight
-                        })
-                        setLoaded(true);
-                    };
-                    if (url !== src) setSrc(url);
-                }
-            };
-
-            widget.on("org.matrix.msc4039.download_file", handler);
-            return () => {
-                // widget.off("org.matrix.msc4039.download_file", handler)
-            };
-
+            mxcRequestCache.set(mxcUrl, requestPromise);
+            const objectUrl = await requestPromise;
+            if (objectUrl !== src) setSrc(objectUrl);
+            return objectUrl;
         } catch (err) {
             console.error("Matrix thumbnail fetch failed", err);
+            return null;
         } finally {
-            setIsLoading(false);
+            mxcRequestCache.delete(mxcUrl);
         }
     };
+
+    useEffect(() => {
+        const element = elRef.current;
+        if (!element) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry?.isIntersecting) return;
+                setShouldLoad(true);
+                observer.disconnect();
+            },
+            {rootMargin: "300px"}
+        );
+
+        observer.observe(element);
+
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         const element = elRef.current;
@@ -96,6 +133,8 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     }, [src, sticker, repository]);
 
     useEffect(() => {
+        if (!shouldLoad) return;
+
         if (ALWAYS_FETCH_MXC && sticker.url.startsWith("mxc://")) {
             fetchMatrixThumbnail(sticker.url);
             return;
@@ -111,7 +150,18 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
             if (sticker.url.startsWith("mxc://")) fetchMatrixThumbnail(sticker.url);
         };
 
-    }, [sticker.url]);
+    }, [shouldLoad, sticker.url]);
+
+    useEffect(() => {
+        if (!shouldLoad || !src) return;
+
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+            setOriginalSize({w: img.naturalWidth, h: img.naturalHeight});
+            setLoaded(true);
+        };
+    }, [shouldLoad, src]);
 
     const addStickerToRecent = () => {
         const tmpSticker = {...sticker, repository};
