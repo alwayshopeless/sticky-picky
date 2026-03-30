@@ -38,10 +38,8 @@ export function App() {
                     response: {
                         capabilities: [
                             "m.sticker",
-                            "m.download_file",
                             "org.matrix.msc4039.download_file",
                             "org.matrix.msc4039.upload_file",
-                            "m.fyly_read",
                         ],
                     },
                 },
