@@ -4,6 +4,9 @@ import {Button} from '@/components/ui/button.tsx';
 import {Check, Loader, X} from 'lucide-preact';
 import {useMatrix} from '@/contexts/matrix-widget-api-context.tsx';
 import {apiRequest} from "@/api/backend-api.ts";
+import {useLocation} from "preact-iso";
+import {useStickerCollections} from "@/stores/sticker-collections.tsx";
+import {useStickerPicker} from "@/stores/sticker-picker.tsx";
 
 
 interface CreateStickerDto {
@@ -14,6 +17,15 @@ interface CreateStickerDto {
     uploading: boolean;
     uploaded: boolean;
     uploadedPath: string | null; // mxc:// url after Matrix upload
+}
+
+interface CreateStickerpackResponse {
+    stickerpack_id: number;
+}
+
+interface CreatedStickerResponse {
+    sticker_id: number;
+    sticker: any;
 }
 
 // interface StickerDataOut {
@@ -125,6 +137,9 @@ export function CreateStickerpackView({token}: { token?: string }): JSX.Element 
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const {uploadViaMatrix} = useMatrixUploader();
+    const stickerCollections = useStickerCollections();
+    const stickerPicker = useStickerPicker();
+    const {route} = useLocation();
 
     // Revoke previews on unmount
     useEffect(() => {
@@ -239,15 +254,12 @@ export function CreateStickerpackView({token}: { token?: string }): JSX.Element 
                 (s) => uploadedResults.find((u) => u.id === s.id) ?? s,
             );
 
-
-            const payload = {
-                name: packName.trim(),
-                stickers: finalStickers.map((s) => ({body: s.emoji, url: s.uploadedPath!})),
-            };
-
             const res = await apiRequest('stickerpacks/create', {
                 method: 'POST',
-                body: JSON.stringify(payload),
+                body: JSON.stringify({
+                    name: packName.trim(),
+                    type: 'matrix_mxc',
+                }),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token ?? ''}`,
@@ -255,14 +267,64 @@ export function CreateStickerpackView({token}: { token?: string }): JSX.Element 
             });
 
             if (res?.status == 200) {
+                const data: CreateStickerpackResponse = await res.json();
+                const stickerpackId = data.stickerpack_id;
+                const createdStickers: any[] = [];
+
+                for (const sticker of finalStickers) {
+                    const addRes = await apiRequest(`stickerpacks/${stickerpackId}/stickers/add`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            body: sticker.emoji,
+                            url: sticker.uploadedPath,
+                            info: {
+                                mimetype: sticker.file.type,
+                            },
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token ?? ''}`,
+                        },
+                    });
+
+                    if (addRes.status !== 200) {
+                        const addData = await addRes.json().catch(() => ({}));
+                        throw new Error(addData?.error || 'Error adding sticker to sticker pack');
+                    }
+
+                    const addData: CreatedStickerResponse = await addRes.json();
+                    createdStickers.push(addData.sticker);
+                }
+
+                const homeserver = stickerPicker.userData?.matrixUserId?.split(':').slice(1).join(':') ?? 'matrix.local';
+                const createdPack = {
+                    id: stickerpackId,
+                    stickerpack_id: stickerpackId,
+                    name: packName.trim(),
+                    internal_name: `matrix-mxc-${stickerpackId}`,
+                    homeserver: `https://${homeserver}`,
+                    repository: `matrix-mxc://${homeserver}/`,
+                    type: 'matrix_mxc',
+                };
+
+                stickerCollections.addStickerpack(createdPack);
+                useStickerCollections.setState((state) => ({
+                    stickerpacksData: {
+                        ...state.stickerpacksData,
+                        [stickerpackId]: createdStickers,
+                    },
+                    lastStickerpacksLoad: Date.now(),
+                }));
+
                 setPackName('');
                 stickers.forEach((s) => s.preview && URL.revokeObjectURL(s.preview));
                 setStickers([]);
                 setError(null);
                 setSuccess('Sticker pack created successfully');
+                route('/');
             } else {
                 let respData = await res.json();
-                const msg = respData?.message || 'Error creating sticker pack';
+                const msg = respData?.error || respData?.message || 'Error creating sticker pack';
                 setError(msg);
                 throw new Error(msg);
             }
@@ -275,7 +337,7 @@ export function CreateStickerpackView({token}: { token?: string }): JSX.Element 
     };
 
     return (
-        <div>
+        <div class="view">
             <h2>Create New Sticker Pack</h2>
 
             <label>Pack Name:</label>

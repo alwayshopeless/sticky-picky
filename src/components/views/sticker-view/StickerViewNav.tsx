@@ -92,14 +92,20 @@ export function StickerViewNav({stickerpacks, stickerpacksData}: StickerViewNavP
             </a>
             {stickerpacks.map((pack: IStickerpack) => (
                 <a href={`#spack-${pack.id}`} class="pack-preview dedrag" draggable={false}>
-                    {stickerpacksData[pack?.id] !== undefined ? (
-                        <img
-                            draggable={false}
-                            class={"dedrag"}
-                            src={buildThumbnailUrl(pack.repository, stickerpacksData[pack.id][0])}
-                            alt=""
-                        />
-                    ) : null}
+                    {(() => {
+                        const firstSticker = stickerpacksData[pack?.id]?.[0];
+                        const thumbnailUrl = firstSticker ? buildThumbnailUrl(pack.repository, firstSticker) : "";
+                        if (!thumbnailUrl) return null;
+
+                        return (
+                            <img
+                                draggable={false}
+                                class={"dedrag"}
+                                src={thumbnailUrl}
+                                alt=""
+                            />
+                        );
+                    })()}
                 </a>
             ))}
         </div>

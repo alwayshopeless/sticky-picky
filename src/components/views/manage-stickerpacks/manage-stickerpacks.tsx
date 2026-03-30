@@ -16,7 +16,7 @@ export function StickerpacksList() {
         stickerCollections.removeStickerpack(stickerpack.id);
 
         try {
-            const response = await apiRequest('user/stickerpacks/remove', {
+            const response = await apiRequest('user/stickerpack/detach', {
                 method: "POST",
                 body: JSON.stringify({stickerpack_id: stickerpack.id}),
                 headers: {
@@ -43,7 +43,7 @@ export function StickerpacksList() {
                     <div class={"stickerpack__header"}>
                         <span>{stickerpack.name}</span>
                         <div class="stickerpack__header-btns">
-                            {stickerpack.type === "user_owned" ? (
+                            {stickerpack.type === "user_owned" || stickerpack.type === "matrix_mxc" ? (
                                 <Button onClick={() => {
                                     route(`/edit-stickerpack/${stickerpack.id}`);
                                 }} class="btn btn--edit">
@@ -56,14 +56,13 @@ export function StickerpacksList() {
                     </div>
                 </div>
             ))}
-            {/* TODO: Thank about implement stickerpack creation feature */}
-            {/* <div>
+            <div>
                 <Button onClick={() => {
                     route("/create-stickerpack");
                 }}>
                     Create stickerpack!
                 </Button>
-            </div> */}
+            </div>
         </div>
     );
 }

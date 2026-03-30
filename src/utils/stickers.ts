@@ -9,7 +9,7 @@ const parsedUrl = new URL(BACKEND_URL);
 let CORS_PROXY = `https://${parsedUrl.hostname}/cors/`;
 
 export function buildThumbnailUrl(repository: string, sticker: any) {
-    if (!sticker?.url?.split) {
+    if (!sticker?.url?.split || repository.startsWith("matrix-mxc://") || sticker.url.startsWith("mxc://")) {
         return "";
     }
     return `${repository}/packs/thumbnails/${sticker.url.split("/").slice(-1)[0]}`;
@@ -32,7 +32,7 @@ export function loadStickerpack(stickerpack: IStickerpack, useProxy: boolean = f
             stickerpackUrl = CORS_PROXY + stickerpackUrl;
         }
         fetchPromise = fetch(stickerpackUrl);
-    } else if (stickerpack.type === "user_owned") {
+    } else if (stickerpack.type === "user_owned" || stickerpack.type === "matrix_mxc") {
         fetchPromise = apiRequest(`stickerpacks/${stickerpack.id}/stickers`, {
             method: "GET",
             headers: {
@@ -88,7 +88,7 @@ export async function loadStickerpackRaw(
                 return data.stickers;
             }
             return null;
-        } else if (stickerpack.type === "user_owned") {
+        } else if (stickerpack.type === "user_owned" || stickerpack.type === "matrix_mxc") {
             const res = await apiRequest(`stickerpacks/${stickerpack.id}/stickers`, {
                 method: "GET",
                 headers: {

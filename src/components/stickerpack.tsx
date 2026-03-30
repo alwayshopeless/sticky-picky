@@ -33,7 +33,7 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
             const response = await apiRequest('user/stickerpack/detach', {
                 method: "POST",
                 body: JSON.stringify({
-                    stickerpackId: stickerpack.id,
+                    stickerpack_id: stickerpack.id,
                 }),
                 headers: {
                     "Content-Type": "application/json",

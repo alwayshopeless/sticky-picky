@@ -10,14 +10,22 @@ import {PlusIcon, Trash2} from "lucide-preact";
 
 interface StickerOut {
     id: number;
-    emoji: string;
+    body: string;
     url: string;
+    repository?: string;
+    stickerpack_type?: string;
+    info?: any;
+}
+
+interface AddStickerResponse {
+    sticker_id: number;
+    sticker: StickerOut;
 }
 
 interface EditStickerPreviewProps {
     stickerData: any;
-    removeSticker: (stickerId: string) => Promise<void>
-    changeStickerBody: (stickerId: string, body: string) => Promise<void>
+    removeSticker: (stickerId: number | string) => Promise<void>
+    changeStickerBody: (stickerId: number | string, body: string) => Promise<void>
 }
 
 export function EditStickerPreview({stickerData, changeStickerBody, removeSticker}: EditStickerPreviewProps) {
@@ -81,7 +89,7 @@ export function EditStickerpackView(): JSX.Element {
         if (!tmpStickpack) {
             return;
         }
-        await loadStickerpack(tmpStickpack, false, true);
+        await loadStickerpack(tmpStickpack, false, false);
         setStickers(stickerpackCollections.stickerpacksData[tmpStickpack.id]);
     };
 
@@ -100,42 +108,95 @@ export function EditStickerpackView(): JSX.Element {
             const resizedFile = await resizeImage(file);
             try {
                 const mxcUrl = await uploadViaMatrix(resizedFile);
-                await apiRequest(`stickerpacks/${stickerpackId}/stickers/add`, {
+                const response = await apiRequest(`stickerpacks/${stickerpackId}/stickers/add`, {
                     method: 'POST',
-                    body: JSON.stringify({body: "😀", url: mxcUrl}),
+                    body: JSON.stringify({
+                        body: "😀",
+                        url: mxcUrl,
+                        info: {
+                            mimetype: resizedFile.type,
+                        },
+                    }),
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
-                await loadPack();
+
+                if (response.status !== 200) {
+                    const data = await response.json().catch(() => ({}));
+                    throw new Error(data?.error || 'Error adding sticker');
+                }
+
+                const data: AddStickerResponse = await response.json();
+                setStickers((prev) => [...prev, data.sticker]);
             } catch (e: any) {
                 setError(e.message);
             }
         }
     };
 
-    const removeSticker = async (stickerId: string) => {
+    const removeSticker = async (stickerId: number | string) => {
         try {
-            await apiRequest(`stickerpacks/${stickerpackId}/stickers/${stickerId}/remove`, {
+            const requestPath = `stickerpacks/${stickerpackId}/stickers/${stickerId}/remove`;
+            console.log('[removeSticker] starting request', {
+                stickerpackId,
+                stickerId,
+                requestPath,
+            });
+
+            const response = await apiRequest(requestPath, {
                 method: 'DELETE',
                 headers: {},
             });
-            await loadPack();
+
+            console.log('[removeSticker] response received', {
+                stickerpackId,
+                stickerId,
+                status: response.status,
+                ok: response.ok,
+                type: response.type,
+                url: response.url,
+            });
+
+            if (response.status !== 200) {
+                const data = await response.json().catch(() => ({}));
+                console.error('[removeSticker] non-200 response body', data);
+                throw new Error(data?.error || 'Error removing sticker');
+            }
+
+            setStickers((prev) => prev.filter((sticker) => String(sticker.id) !== String(stickerId)));
         } catch (e: any) {
+            console.error('[removeSticker] request failed', {
+                stickerpackId,
+                stickerId,
+                message: e?.message,
+                name: e?.name,
+                stack: e?.stack,
+            });
             setError(e.message);
         }
     };
 
-    const changeStickerBody = async (stickerId: string, body: string) => {
+    const changeStickerBody = async (stickerId: number | string, body: string) => {
         try {
-            await apiRequest(`stickerpacks/${stickerpackId}/stickers/${stickerId}/edit`, {
+            const response = await apiRequest(`stickerpacks/${stickerpackId}/stickers/${stickerId}/edit`, {
                 method: 'POST',
                 headers: {},
                 body: JSON.stringify({
                     body: body
                 })
             });
-            await loadPack();
+
+            if (response.status !== 200) {
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data?.error || 'Error updating sticker');
+            }
+
+            setStickers((prev) => prev.map((sticker) => (
+                String(sticker.id) === String(stickerId)
+                    ? {...sticker, body}
+                    : sticker
+            )));
         } catch (e: any) {
             setError(e.message);
         }
@@ -157,7 +218,7 @@ export function EditStickerpackView(): JSX.Element {
 
 
     return (
-        <div>
+        <div class="view">
             <h2>Edit Sticker Pack</h2>
             <div class={"inline-btns inline-btns--between"}>
                 <div class="mb-1">
