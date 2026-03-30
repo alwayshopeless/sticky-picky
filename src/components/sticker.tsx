@@ -3,6 +3,7 @@ import {useMatrix} from "../contexts/matrix-widget-api-context.tsx";
 import {useStickerPreview} from "../contexts/sticker-preview-context.tsx";
 import {useStickerPicker} from "../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../stores/sticker-collections.tsx";
+import {getCachedMxcBlob, setCachedMxcBlob} from "@/utils/indexeddb-storage.ts";
 
 const ALWAYS_FETCH_MXC = true;
 const mxcObjectUrlCache = new Map<string, string>();
@@ -52,12 +53,30 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     ));
     const [shouldLoad, setShouldLoad] = useState(false);
     const [originalSize, setOriginalSize] = useState<{ w: number; h: number } | null>(null);
+
+    const cacheObjectUrl = (mxcUrl: string, blob: Blob) => {
+        const existingUrl = mxcObjectUrlCache.get(mxcUrl);
+        if (existingUrl) {
+            return existingUrl;
+        }
+
+        const objectUrl = URL.createObjectURL(blob);
+        mxcObjectUrlCache.set(mxcUrl, objectUrl);
+        return objectUrl;
+    };
     //@ts-ignore
     const fetchMatrixThumbnail = async (mxcUrl: string) => {
         const cachedUrl = mxcObjectUrlCache.get(mxcUrl);
         if (cachedUrl) {
             if (cachedUrl !== src) setSrc(cachedUrl);
             return cachedUrl;
+        }
+
+        const cachedBlob = await getCachedMxcBlob(mxcUrl);
+        if (cachedBlob) {
+            const objectUrl = cacheObjectUrl(mxcUrl, cachedBlob);
+            if (objectUrl !== src) setSrc(objectUrl);
+            return objectUrl;
         }
 
         const existingRequest = mxcRequestCache.get(mxcUrl);
@@ -82,8 +101,11 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                         return;
                     }
 
-                    const url = URL.createObjectURL(event.response.file);
-                    mxcObjectUrlCache.set(mxcUrl, url);
+                    void setCachedMxcBlob(mxcUrl, event.response.file).catch((error) => {
+                        console.error("Failed to persist MXC blob cache", error);
+                    });
+
+                    const url = cacheObjectUrl(mxcUrl, event.response.file);
                     resolve(url);
                 };
 

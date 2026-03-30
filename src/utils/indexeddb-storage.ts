@@ -1,4 +1,4 @@
-import {del, get, set} from "idb-keyval";
+import {createStore, del, get, set} from "idb-keyval";
 import type {StateStorage} from "zustand/middleware";
 
 const LEGACY_STORAGE_KEYS = [
@@ -6,6 +6,8 @@ const LEGACY_STORAGE_KEYS = [
     "stickerCollections",
     "zustand",
 ] as const;
+
+const mediaCacheStore = createStore("sticky-picky-cache", "mxc-media");
 
 async function migrateLegacyLocalStorageItem(name: string) {
     if (typeof window === "undefined") return null;
@@ -45,4 +47,16 @@ export function createIndexedDbStorage(): StateStorage {
             }
         },
     };
+}
+
+export async function getCachedMxcBlob(mxcUrl: string) {
+    return get<Blob>(mxcUrl, mediaCacheStore);
+}
+
+export async function setCachedMxcBlob(mxcUrl: string, blob: Blob) {
+    await set(mxcUrl, blob, mediaCacheStore);
+}
+
+export async function removeCachedMxcBlob(mxcUrl: string) {
+    await del(mxcUrl, mediaCacheStore);
 }
