@@ -1,7 +1,8 @@
 import {create} from "zustand";
-import {persist} from "zustand/middleware";
+import {createJSONStorage, persist} from "zustand/middleware";
 import {apiRequest} from "../api/backend-api.ts";
 import type {IStickerpack} from "../types/stickerpack.ts";
+import {createIndexedDbStorage} from "@/utils/indexeddb-storage.ts";
 
 export type StickerpacksDataType = Record<string, any>;
 
@@ -66,6 +67,8 @@ export type StickerCollectionsStore = StickerCollectionsData & {
     removeFromFavorites: (sticker: any) => Promise<void>;
     removeFromRecent: (sticker: any) => Promise<void>;
 };
+
+const STICKER_COLLECTIONS_STORAGE_KEY = "sticker-collections";
 
 
 export const useStickerCollections = create<StickerCollectionsStore>()(
@@ -297,7 +300,8 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
             },
         }),
         {
-            name: "stickerCollections",
+            name: STICKER_COLLECTIONS_STORAGE_KEY,
+            storage: createJSONStorage(() => createIndexedDbStorage()),
         }
     )
 );
