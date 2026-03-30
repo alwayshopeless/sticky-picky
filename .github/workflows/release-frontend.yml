@@ -33,6 +33,10 @@ jobs:
       - name: Build frontend
         run: pnpm run build
 
+      - name: Replace local backend URL with release placeholder
+        run: |
+          sed -i 's|https://m-stickers-back.loc/api/v1/|__BACKEND_URL__|g' dist/index.html
+
       - name: Archive dist bundle
         run: |
           cd dist
