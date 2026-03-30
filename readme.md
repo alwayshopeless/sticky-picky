@@ -1,5 +1,7 @@
 # Warning
-I'm so sorry, I forgot about the instance of this service on my VPS, and now this project is only available for self-hosting. Perhaps I'll launch it again on a server if I have time.
+~~I'm so sorry, I forgot about the instance of this service on my VPS, and now this project is only available for self-hosting. Perhaps I'll launch it again on a server if I have time.~~
+
+UPD: The domain is back up and running. I can't guarantee I won't forget about it again, but you can always deploy your instance and suggest adding it here.
 For questions, you can write to: @rotten_rat:matrix.org
 
 # Demo
