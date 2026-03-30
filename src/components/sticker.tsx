@@ -29,6 +29,10 @@ const getFileExtensionFromMimeType = (mimeType?: string) => {
         ?? "webm";
 };
 
+const isImageMimeType = (mimeType?: string) => {
+    return mimeType?.toLowerCase().startsWith("image/") ?? false;
+};
+
 export function Sticker({sticker, repository}: { sticker: any; repository: string }) {
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
@@ -173,12 +177,21 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     const sendSticker = () => {
         let width = stickerPicker.sentStickerSize;
         let height = width;
-        const stickerExtension = getFileExtensionFromMimeType(sticker?.info?.mimetype);
+        const mimeType = sticker?.info?.mimetype;
+        const stickerExtension = getFileExtensionFromMimeType(mimeType);
 
         if (originalSize) {
             height = Math.round((originalSize.h / originalSize.w) * width);
         }
-        console.log(originalSize)
+
+        const thumbnailInfo = isImageMimeType(mimeType)
+            ? {
+                w: sticker?.info?.thumbnail_info?.w ?? sticker?.info?.w ?? originalSize?.w ?? width,
+                h: sticker?.info?.thumbnail_info?.h ?? sticker?.info?.h ?? originalSize?.h ?? height,
+                size: sticker?.info?.thumbnail_info?.size ?? sticker?.info?.size,
+                mimetype: sticker?.info?.thumbnail_info?.mimetype ?? mimeType,
+            }
+            : null;
 
         widget.sendMessage({
             widgetId: widget.widgetId,
@@ -192,8 +205,10 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                         ...sticker.info,
                         w: width,
                         h: height,
-                        // "mimetype": "image/webm",
-                        // Dirty hack: Setting the webp mimetype for an image to ensure stickers work correctly in bridges.
+                        ...(thumbnailInfo ? {
+                            thumbnail_url: sticker?.info?.thumbnail_url ?? sticker.url,
+                            thumbnail_info: thumbnailInfo,
+                        } : {}),
                     },
                 },
                 name: `${sticker.body}.${stickerExtension}`,
