@@ -1,4 +1,13 @@
 # Adding a Sticker Picker Widget in Element Web
+The most convenient way to use it is to add the widget to the desired chat.
+Yes, unfortunately, you'll have to add the widget to every chat where you want to use the sit-picker, but it's much more convenient than doing the same thing in Element's tiny sticker panel.
+Just type in chat:
+
+/addwidget https://sticky-picky.kekpower.dev/?roomId=$matrix_room_id&matrix_room_id=$matrix_room_id&widgetId=$matrix_widget_id
+
+
+If you using self-hosted instance, you must replace sticky-picky.kekpower.dev to your own domain.
+# Adding a Sticker Picker Widget in Element Web[Stickers button]
 
 This guide explains how to add a custom sticker picker widget to your Element Web account using the global `m.widgets` account data.
 
