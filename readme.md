@@ -51,3 +51,4 @@ Backend:
 https://github.com/alwayshopeless/sticky-picky-server
 
 The backend is required for sticker picker. We use it to store a user's favorite stickers/recently added stickers, and stickerpacks.
+Self-hosting instructions are also there.
