@@ -6,8 +6,6 @@ import {buildThumbnailUrl, useMatrixPreviewUrl} from "../../../utils/stickers.ts
 interface StickerViewNavProps {
     stickerpacks: IStickerpack[],
     stickerpacksData: any,
-    favoriteStickers: any[],
-    recentStickers: any[],
 }
 
 function NavPackPreview({
@@ -44,7 +42,7 @@ function NavPackPreview({
     );
 }
 
-export function StickerViewNav({stickerpacks, stickerpacksData, favoriteStickers, recentStickers}: StickerViewNavProps) {
+export function StickerViewNav({stickerpacks, stickerpacksData}: StickerViewNavProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -122,15 +120,11 @@ export function StickerViewNav({stickerpacks, stickerpacksData, favoriteStickers
         >
             <NavPackPreview
                 href="#spack-favorites"
-                sticker={favoriteStickers[0]}
-                repository={favoriteStickers[0]?.repository}
                 fallbackIcon={Heart}
                 className="ico"
             />
             <NavPackPreview
                 href="#spack-recent"
-                sticker={recentStickers[0]}
-                repository={recentStickers[0]?.repository}
                 fallbackIcon={Clock}
                 className="ico"
             />

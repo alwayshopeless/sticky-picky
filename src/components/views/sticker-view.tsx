@@ -156,8 +156,6 @@ export function StickerView() {
             <StickerViewNav
                 stickerpacks={currentStickerpacks}
                 stickerpacksData={stickerCollections.stickerpacksData}
-                favoriteStickers={stickerCollections.favoriteStickers}
-                recentStickers={stickerCollections.recentStickers}
             />
             <div class={"view"}>
                 <div>
