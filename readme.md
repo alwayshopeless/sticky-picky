@@ -27,7 +27,19 @@ which allows you to create your own sticker packs and import them from Telegram,
 **Yes, you can!**
 Settings(Gear icon) -> Manage stickerpacks -> Create stickerpack
 
-You can also import your maunium repository directly into Sticky Picky in the widget settings, as shown in the video.
+You can also add a Maunium stickerpack by its direct `pack.json` URL in widget settings.
+
+# How stickerpacks work
+
+There is now a separate document describing:
+
+- stickerpack types
+- mirrors and homeserver-aware imports
+- ownership vs fork
+- Maunium imports
+- share refs and sent sticker metadata
+
+See: [stickerpacks.md](./stickerpacks.md)
 
 # Project roadmap\[Planned tasks]
 1. Implement stickerpack creation via widget interface with MSC4039 inside external DB(watch notes.md)[DONE] 

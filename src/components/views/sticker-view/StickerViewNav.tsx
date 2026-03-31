@@ -1,14 +1,50 @@
 import {useEffect, useRef} from "preact/hooks";
 import {Clock, Heart} from "lucide-preact";
 import type {IStickerpack} from "../../../types/stickerpack.ts";
-import {buildThumbnailUrl} from "../../../utils/stickers.ts";
+import {buildThumbnailUrl, useMatrixPreviewUrl} from "../../../utils/stickers.ts";
 
 interface StickerViewNavProps {
     stickerpacks: IStickerpack[],
-    stickerpacksData: any
+    stickerpacksData: any,
+    favoriteStickers: any[],
+    recentStickers: any[],
 }
 
-export function StickerViewNav({stickerpacks, stickerpacksData}: StickerViewNavProps) {
+function NavPackPreview({
+    href,
+    sticker,
+    repository,
+    fallbackIcon,
+    className = "",
+}: {
+    href: string;
+    sticker?: any;
+    repository?: string;
+    fallbackIcon: any;
+    className?: string;
+}) {
+    const previewUrl = sticker
+        ? (sticker.url?.startsWith?.("mxc://")
+            ? sticker.url
+            : repository
+                ? buildThumbnailUrl(repository, sticker) || sticker.url
+                : sticker.url)
+        : "";
+    const {src} = useMatrixPreviewUrl(previewUrl || null);
+    const FallbackIcon = fallbackIcon;
+
+    return (
+        <a class={`pack-preview dedrag ${className}`.trim()} href={href} draggable={false}>
+            {src ? (
+                <img draggable={false} class={"dedrag"} src={src} alt=""/>
+            ) : (
+                <FallbackIcon/>
+            )}
+        </a>
+    );
+}
+
+export function StickerViewNav({stickerpacks, stickerpacksData, favoriteStickers, recentStickers}: StickerViewNavProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -84,29 +120,27 @@ export function StickerViewNav({stickerpacks, stickerpacksData}: StickerViewNavP
                 WebkitOverflowScrolling: "touch",
             }}
         >
-            <a class="pack-preview ico" href="#spack-favorites">
-                <Heart/>
-            </a>
-            <a class="pack-preview ico" href="#spack-recent">
-                <Clock/>
-            </a>
+            <NavPackPreview
+                href="#spack-favorites"
+                sticker={favoriteStickers[0]}
+                repository={favoriteStickers[0]?.repository}
+                fallbackIcon={Heart}
+                className="ico"
+            />
+            <NavPackPreview
+                href="#spack-recent"
+                sticker={recentStickers[0]}
+                repository={recentStickers[0]?.repository}
+                fallbackIcon={Clock}
+                className="ico"
+            />
             {stickerpacks.map((pack: IStickerpack) => (
-                <a href={`#spack-${pack.id}`} class="pack-preview dedrag" draggable={false}>
-                    {(() => {
-                        const firstSticker = stickerpacksData[pack?.id]?.[0];
-                        const thumbnailUrl = firstSticker ? buildThumbnailUrl(pack.repository, firstSticker) : "";
-                        if (!thumbnailUrl) return null;
-
-                        return (
-                            <img
-                                draggable={false}
-                                class={"dedrag"}
-                                src={thumbnailUrl}
-                                alt=""
-                            />
-                        );
-                    })()}
-                </a>
+                <NavPackPreview
+                    href={`#spack-${pack.id}`}
+                    sticker={stickerpacksData[pack?.id]?.[0]}
+                    repository={pack.repository}
+                    fallbackIcon={Heart}
+                />
             ))}
         </div>
     );

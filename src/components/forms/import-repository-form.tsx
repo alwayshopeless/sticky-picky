@@ -3,7 +3,7 @@ import {Button} from "../ui/button.tsx";
 import {apiRequest} from "../../api/backend-api.ts";
 
 export function ImportRepositoryForm() {
-    const [repoUrl, setRepoUrl] = useState<string>("");
+    const [packUrl, setPackUrl] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
@@ -11,31 +11,33 @@ export function ImportRepositoryForm() {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        apiRequest('stickerpacks/import', {
+        setSuccess(null);
+
+        apiRequest('stickerpacks/import/maunium-pack', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                repository: repoUrl,
-                type: "maunium",
+                pack_url: packUrl,
             }),
         })
             .then(async (response: Response) => {
                 if (response.status == 200) {
                     let data = await response.json();
-                    let successCount = data.imported.filter((item: any) => item.status === "success").length;
-                    let alreadyExistsCount = data.imported.filter((item: any) => item.status === "already_exists").length;
-                    setSuccess(`Handled ${data.imported.length} stickerpacks.
-                     Success: ${successCount}. 
-                     Already exists: ${alreadyExistsCount}.`);
-                    setRepoUrl('');
+                    if (data.status === "already_exists") {
+                        setSuccess("This Maunium stickerpack is already in the aggregator.");
+                    } else {
+                        setSuccess("Maunium stickerpack added.");
+                    }
+                    setPackUrl('');
                 } else {
-                    setError("Error while import maunium repo.");
+                    const data = await response.json().catch(() => ({}));
+                    setError(data?.error || "Error while importing Maunium stickerpack.");
                 }
             })
             .catch((err: Error) => {
-                setError("Error while network request import maunium repo.");
+                setError("Error while network request import Maunium stickerpack.");
                 console.log(err);
             })
             .finally(() => {
@@ -44,18 +46,18 @@ export function ImportRepositoryForm() {
     };
 
     return <form onSubmit={submit}>
-        <h4>Import repository with stickers</h4>
+        <h4>Add Maunium pack</h4>
         <div className="field mb-1">
             <input
                 required
                 className="field__input"
-                placeholder="Repository link"
-                value={repoUrl}
-                onInput={(e: any) => setRepoUrl(e.target.value)}
+                placeholder="https://example.org/packs/cats.json"
+                value={packUrl}
+                onInput={(e: any) => setPackUrl(e.target.value)}
             />
         </div>
         {success ? <div style={"color: var(--success); padding: 5px;"}>{success}</div> : null}
         {error ? <div style={"color: var(--danger); padding: 5px;"}>{error}</div> : null}
-        <Button style={"min-width: 200px;"} loading={loading}>Import</Button>
+        <Button style={"min-width: 220px;"} loading={loading}>Add Maunium pack</Button>
     </form>
 }

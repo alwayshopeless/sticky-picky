@@ -4,6 +4,8 @@ import {useStickerPreview} from "../contexts/sticker-preview-context.tsx";
 import {useStickerPicker} from "../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../stores/sticker-collections.tsx";
 import {getCachedMxcBlob, setCachedMxcBlob} from "@/utils/indexeddb-storage.ts";
+import type {IStickerpack} from "@/types/stickerpack.ts";
+import {buildStickerpackShareRef} from "@/utils/stickerpack-share.ts";
 
 const ALWAYS_FETCH_MXC = true;
 const mxcObjectUrlCache = new Map<string, string>();
@@ -34,7 +36,21 @@ const isImageMimeType = (mimeType?: string) => {
     return mimeType?.toLowerCase().startsWith("image/") ?? false;
 };
 
-export function Sticker({sticker, repository}: { sticker: any; repository: string }) {
+const getStickerDimensions = (sticker: any, originalSize: { w: number; h: number } | null) => {
+    const width = sticker?.info?.w ?? originalSize?.w ?? null;
+    const height = sticker?.info?.h ?? originalSize?.h ?? null;
+
+    if (!width || !height) {
+        return null;
+    }
+
+    return {
+        width: Number(width),
+        height: Number(height),
+    };
+};
+
+export function Sticker({sticker, repository, stickerpack}: { sticker: any; repository: string; stickerpack?: IStickerpack | null }) {
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
     const stickerCollections = useStickerCollections();
@@ -197,23 +213,35 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
     };
 
     const sendSticker = () => {
-        let width = stickerPicker.sentStickerSize;
-        let height = width;
+        const desiredSize = stickerPicker.sentStickerSize;
         const mimeType = sticker?.info?.mimetype;
         const stickerExtension = getFileExtensionFromMimeType(mimeType);
+        const stickerDimensions = getStickerDimensions(sticker, originalSize);
+        let width = desiredSize;
+        let height = desiredSize;
 
-        if (originalSize) {
+        if (stickerDimensions) {
+            const sourceMaxSide = Math.max(stickerDimensions.width, stickerDimensions.height);
+            const scale = sourceMaxSide > 0 ? desiredSize / sourceMaxSide : 1;
+
+            width = Math.max(1, Math.round(stickerDimensions.width * scale));
+            height = Math.max(1, Math.round(stickerDimensions.height * scale));
+        } else if (originalSize) {
             height = Math.round((originalSize.h / originalSize.w) * width);
         }
 
         const thumbnailInfo = isImageMimeType(mimeType)
             ? {
-                w: sticker?.info?.thumbnail_info?.w ?? sticker?.info?.w ?? originalSize?.w ?? width,
-                h: sticker?.info?.thumbnail_info?.h ?? sticker?.info?.h ?? originalSize?.h ?? height,
+                w: sticker?.info?.thumbnail_info?.w ?? stickerDimensions?.width ?? width,
+                h: sticker?.info?.thumbnail_info?.h ?? stickerDimensions?.height ?? height,
                 size: sticker?.info?.thumbnail_info?.size ?? sticker?.info?.size,
                 mimetype: sticker?.info?.thumbnail_info?.mimetype ?? mimeType,
             }
             : null;
+        const resolvedStickerpack = stickerpack ?? sticker?.stickerpack ?? null;
+        const stickerpackShareRef = resolvedStickerpack?.share_id
+            ? buildStickerpackShareRef(resolvedStickerpack.share_id)
+            : undefined;
 
         widget.sendMessage({
             widgetId: widget.widgetId,
@@ -227,6 +255,9 @@ export function Sticker({sticker, repository}: { sticker: any; repository: strin
                         ...sticker.info,
                         w: width,
                         h: height,
+                        ...(stickerpackShareRef ? {
+                            stpk_ref: stickerpackShareRef,
+                        } : {}),
                         ...(thumbnailInfo ? {
                             thumbnail_url: sticker?.info?.thumbnail_url ?? sticker.url,
                             thumbnail_info: thumbnailInfo,

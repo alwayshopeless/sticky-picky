@@ -60,6 +60,7 @@ export type StickerCollectionsStore = StickerCollectionsData & {
     getSavedStickerpacksArray: () => number[];
 
     addStickerpack: (stickerpack: IStickerpack) => void;
+    updateStickerpack: (id: number, patch: Partial<IStickerpack>) => void;
     removeStickerpack: (id: number) => void;
 
     addToRecent: (sticker: any) => Promise<void>;
@@ -131,8 +132,17 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
             },
 
             isStickerpacksCacheValid: () => {
-                const {lastStickerpacksLoad, cacheTimeout} = getState();
+                const {lastStickerpacksLoad, cacheTimeout, stickerpacks, savedStickerpacks} = getState();
                 if (!lastStickerpacksLoad) return false;
+                const hasMissingShareIds = Object.values(stickerpacks).some((pack) => {
+                    if (!savedStickerpacks[pack.id]) {
+                        return false;
+                    }
+
+                    const isEditablePack = pack.type === "matrix_mxc" || pack.type === "user_owned";
+                    return isEditablePack && !pack.share_id;
+                });
+                if (hasMissingShareIds) return false;
                 return Date.now() - lastStickerpacksLoad < cacheTimeout;
             },
 
@@ -176,15 +186,38 @@ export const useStickerCollections = create<StickerCollectionsStore>()(
                 }));
             },
 
+            updateStickerpack: (id, patch) => {
+                set(state => {
+                    const currentStickerpack = state.stickerpacks[id];
+                    if (!currentStickerpack) {
+                        return {};
+                    }
+
+                    return {
+                        stickerpacks: {
+                            ...state.stickerpacks,
+                            [id]: {
+                                ...currentStickerpack,
+                                ...patch,
+                            },
+                        },
+                        lastStickerpacksLoad: Date.now(),
+                    };
+                });
+            },
+
             removeStickerpack: (id) => {
                 set(state => {
                     const newStickerpacks = {...state.stickerpacks};
                     const newSavedStickerpacks = {...state.savedStickerpacks};
+                    const newStickerpacksData = {...state.stickerpacksData};
                     delete newStickerpacks[id];
                     delete newSavedStickerpacks[id];
+                    delete newStickerpacksData[id];
 
                     return {
                         stickerpacks: newStickerpacks,
+                        stickerpacksData: newStickerpacksData,
                         savedStickerpacks: newSavedStickerpacks,
                         lastStickerpacksLoad: Date.now()
                     };

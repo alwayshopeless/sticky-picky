@@ -79,7 +79,11 @@ export function SearchResult({
             <div class="stickerpack__header">Found</div>
             <div class={"stickerpack__body"}>
                 {foundStickers.map(sticker => (
-                    <Sticker sticker={sticker} repository={sticker.stickerpack.repository}/>
+                    <Sticker
+                        sticker={sticker}
+                        repository={sticker.stickerpack.repository}
+                        stickerpack={sticker.stickerpack}
+                    />
                 ))}
             </div>
         </div>

@@ -94,7 +94,7 @@ export function StickerView() {
         }));
 
         try {
-            const response = await apiRequest('user/stickerpacks', {
+            const response = await apiRequest('user/stickers', {
                 method: "GET",
             });
 
@@ -156,6 +156,8 @@ export function StickerView() {
             <StickerViewNav
                 stickerpacks={currentStickerpacks}
                 stickerpacksData={stickerCollections.stickerpacksData}
+                favoriteStickers={stickerCollections.favoriteStickers}
+                recentStickers={stickerCollections.recentStickers}
             />
             <div class={"view"}>
                 <div>

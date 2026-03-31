@@ -1,5 +1,6 @@
 import {themes} from "../../config/themes.ts";
 import type {ThemeName} from "../../types/themes.ts";
+import {AttachStickerpackForm} from "../forms/attach-stickerpack-form.tsx";
 import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {Button} from "../ui/button.tsx";
@@ -10,7 +11,6 @@ export function SettingsView() {
     const {theme, setTheme} = stickerPicker;
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
     const {sentStickerSize, setSentStickerSize} = stickerPicker;
-    const {compactViewInExplore, setCompactViewInExplore} = stickerPicker;
     const {route} = useLocation();
 
     const handleThemeChange = (value: ThemeName) => {
@@ -25,6 +25,7 @@ export function SettingsView() {
                     route('/manage-stickerpacks');
                 }}>Manage stickerpacks</Button>
 
+                <AttachStickerpackForm/>
                 <h4>Theme: <span className={"capitalize"}>{theme}</span></h4>
                 <div className="theme-selector">
                     {Object.keys(themes).map((themeKey: ThemeName) => (
@@ -96,23 +97,6 @@ export function SettingsView() {
                         16
                     </div>
                 </div>
-
-                <h4>Compact view in explore</h4>
-                <label className="switch">
-                    <input
-                        type="checkbox"
-                        checked={compactViewInExplore}
-                        onChange={(e: any) => setCompactViewInExplore(e.target.checked)}
-                    />
-                    <span
-                        class={"slider " + (compactViewInExplore ? "slider--active" : "")}
-                        style={{
-                            background: compactViewInExplore
-                                ? themes[theme ?? 'dark']?.bgThird
-                                : themes[theme ?? 'dark']?.bgSecondary,
-                        }}
-                    />
-                </label>
 
                 <ImportRepositoryForm/>
 

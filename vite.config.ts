@@ -15,6 +15,13 @@ export default defineConfig({
         host: false,
         port: 5173,
         allowedHosts: true,
+        proxy: {
+            "/api": {
+                target: "https://m-stickers-back.loc",
+                changeOrigin: true,
+                secure: false,
+            },
+        },
     },
     resolve: {
         alias: {

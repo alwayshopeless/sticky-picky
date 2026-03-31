@@ -4,6 +4,7 @@ import {applyTheme} from '../utils/themes.ts';
 import type {ThemeName} from '../types/themes.ts';
 
 export type BackendAuthData = {
+    backendUserId: number;
     matrixUserId: string;
     token: string;
 };
@@ -51,7 +52,7 @@ export const createStickerPickerStore = (
                 theme: initial?.theme ?? 'ligth',
                 userData: initial?.userData ?? null,
                 sentStickerSize: initial?.sentStickerSize ?? 128,
-                compactViewInExplore: initial?.compactViewInExplore ?? false,
+                compactViewInExplore: initial?.compactViewInExplore ?? true,
 
                 setStickersPerRow: (n) => {
                     const v = clamp(n);
@@ -72,7 +73,27 @@ export const createStickerPickerStore = (
             }),
             {
                 name: storageKey,
-                version: 1,
+                version: 3,
+                migrate: (persistedState: any, version) => {
+                    if (version < 2 && persistedState && persistedState.compactViewInExplore === undefined) {
+                        return {
+                            ...persistedState,
+                            compactViewInExplore: true,
+                        };
+                    }
+
+                    if (version < 3 && persistedState?.userData) {
+                        return {
+                            ...persistedState,
+                            userData: {
+                                ...persistedState.userData,
+                                backendUserId: persistedState.userData.backendUserId ?? 0,
+                            },
+                        };
+                    }
+
+                    return persistedState;
+                },
                 onRehydrateStorage: () => (state) => {
                     if (state?.theme) {
                         applyTheme(state.theme);

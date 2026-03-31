@@ -1,4 +1,4 @@
-import {useEffect} from "preact/hooks";
+import {useEffect, useRef} from "preact/hooks";
 import {Route, Router} from "preact-iso/router";
 
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
@@ -13,10 +13,15 @@ import {StickerView} from "@/components/views/sticker-view.tsx";
 import {ExploreStickersView} from "@/components/views/explore-stickers-view.tsx";
 import {SettingsView} from "@/components/views/settings-view.tsx";
 import {EditStickerpackView} from "@/components/views/manage-stickerpacks/edit-stickerpack-view.tsx";
+import {useStickerCollections} from "@/stores/sticker-collections.tsx";
+import {parseStickerpackShareInput} from "@/utils/stickerpack-share.ts";
+import {loadStickerpack} from "@/utils/stickers.ts";
 
 export function App() {
     const widget = useMatrix();
     const stickerPicker = useStickerPicker();
+    const handledShareRef = useRef<string | null>(null);
+    const authRefreshRequested = useRef(false);
 
     const sendAuthRequest = () => {
         const nonce = `auth-nonce-${Date.now()}`;
@@ -48,7 +53,6 @@ export function App() {
         });
 
         widget.on("openid_credentials", (event) => {
-            console.log("access token got");
             console.log(event);
             apiRequest("auth/login", {
                 method: "POST",
@@ -62,7 +66,20 @@ export function App() {
             }).then(async (response: Response) => {
                 if (response.status == 200) {
                     let data: any = await response.json();
+                    const previousUserId = useStickerPicker.getState().userData?.matrixUserId ?? null;
+                    const switchedMatrixUser = previousUserId !== null && previousUserId !== data.matrix_id;
+
+                    if (switchedMatrixUser) {
+                        const stickerCollections = useStickerCollections.getState();
+                        stickerCollections.setSavedStickerpacks([]);
+                        stickerCollections.setStickerpacks([]);
+                        stickerCollections.setStickerpacksData({});
+                        stickerCollections.setFavoriteStickers([]);
+                        stickerCollections.setRecentStickers([]);
+                    }
+
                     stickerPicker.setUserData({
+                        backendUserId: data.user_id,
                         matrixUserId: data.matrix_id,
                         token: data.token,
                     });
@@ -72,6 +89,60 @@ export function App() {
             window.parent.postMessage({...event});
         });
     }, []);
+
+    useEffect(() => {
+        if (!stickerPicker.userData || authRefreshRequested.current) {
+            return;
+        }
+
+        authRefreshRequested.current = true;
+        sendAuthRequest();
+    }, [stickerPicker.userData]);
+
+    useEffect(() => {
+        if (!stickerPicker.userData) {
+            return;
+        }
+
+        const url = new URL(window.location.href);
+        const sharedRef = url.searchParams.get("addStickerpack") || url.hash || null;
+        if (!sharedRef || handledShareRef.current === sharedRef) {
+            return;
+        }
+
+        handledShareRef.current = sharedRef;
+        const parsed = parseStickerpackShareInput(sharedRef);
+        if (!parsed || parsed.isRemote) {
+            return;
+        }
+
+        apiRequest("user/stickerpack/attach", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                share_id: parsed.shareId,
+            }),
+        }).then(async (response) => {
+            if (response.status !== 200) {
+                return;
+            }
+
+            const data = await response.json().catch(() => null);
+            if (data?.stickerpack) {
+                useStickerCollections.getState().addStickerpack(data.stickerpack);
+                void loadStickerpack(data.stickerpack);
+            }
+
+            const cleanUrl = new URL(window.location.href);
+            cleanUrl.searchParams.delete("addStickerpack");
+            cleanUrl.hash = "";
+            window.history.replaceState({}, "", cleanUrl.toString());
+        }).catch((error) => {
+            console.error("Failed to attach shared stickerpack:", error);
+        });
+    }, [stickerPicker.userData]);
 
     return (
         <div class="main">

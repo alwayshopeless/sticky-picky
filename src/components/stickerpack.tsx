@@ -1,6 +1,6 @@
 import {useEffect, useMemo} from "preact/hooks";
 import {Sticker} from "./sticker.tsx";
-import {CircleFadingPlus, RefreshCcw, X} from "lucide-preact";
+import {CircleFadingPlus, RefreshCcw} from "lucide-preact";
 import {apiRequest} from "../api/backend-api.ts";
 import {useStickerPicker} from "../stores/sticker-picker.tsx";
 import {useStickerCollections} from "../stores/sticker-collections.tsx";
@@ -25,34 +25,6 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
         return stickerpack.spType == 'favorites' || stickerpack.spType == 'recent';
     }, [stickerpack.spType]);
 
-    const removeStickerpack = async () => {
-        // Оптимистичное обновление UI
-        stickerCollections.removeStickerpack(stickerpack.id);
-
-        try {
-            const response = await apiRequest('user/stickerpack/detach', {
-                method: "POST",
-                body: JSON.stringify({
-                    stickerpack_id: stickerpack.id,
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${stickerPicker?.userData?.token ?? ""}`
-                },
-            });
-
-            if (response.status !== 200) {
-                // Если запрос не удался, откатываем изменения
-                stickerCollections.addStickerpack(stickerpack);
-                console.error("Failed to remove stickerpack from server");
-            }
-        } catch (error) {
-            // Если произошла ошибка, откатываем изменения
-            stickerCollections.addStickerpack(stickerpack);
-            console.error("Error removing stickerpack:", error);
-        }
-    };
-
     const addStickerpack = async () => {
         try {
             const response = await apiRequest('user/stickerpack/attach', {
@@ -68,6 +40,7 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
 
             if (response.status === 200) {
                 stickerCollections.addStickerpack(stickerpack);
+                loadStickerpack(stickerpack, false, false);
             } else {
                 console.error("Failed to add stickerpack to server");
             }
@@ -80,6 +53,10 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
         return Boolean(stickerCollections.savedStickerpacks[stickerpack.id]);
     };
 
+    const refreshStickerpack = () => {
+        loadStickerpack(stickerpack, false, false);
+    };
+
     return <div className={"stickerpack"} id={`spack-${stickerpack.id}`}>
         <div className={"stickerpack__header"}>
             <div>
@@ -87,9 +64,8 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
             </div>
             <div class={"stickerpack__header-btns"}>
                 {!isInternalType ? <RefreshCcw onClick={() => {
-                    loadStickerpack(stickerpack);
+                    refreshStickerpack();
                 }} class={'ico stickerpack__x'}/> : null}
-                {isSaved() && !isInternalType ? <X onClick={removeStickerpack} class={'ico stickerpack__x'}/> : null}
                 {!isSaved() && !isInternalType ?
                     <button onClick={addStickerpack} class={"btn btn--add-stick"}><CircleFadingPlus size={16}/>
                     </button> : null}
@@ -104,6 +80,7 @@ export function Stickerpack({stickerpack, stickers = [], compact = true}: Sticke
                         key={sticker.url}
                         repository={isInternalType ? sticker.repository : stickerpack.repository}
                         sticker={sticker}
+                        stickerpack={isInternalType ? sticker.stickerpack ?? null : stickerpack}
                     />
                 )
             )}
