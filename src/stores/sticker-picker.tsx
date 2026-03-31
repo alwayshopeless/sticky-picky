@@ -8,16 +8,10 @@ export type BackendAuthData = {
     token: string;
 };
 
-export type MatrixAuthData = {
-    homeserver: string;
-    accessToken: string;
-};
-
 export type StickerPickerSettings = {
     stickersPerRow: number;
     theme: ThemeName | string | null;
     userData: BackendAuthData | null;
-    matrixAuthData: MatrixAuthData | null;
     sentStickerSize: number;
     compactViewInExplore: boolean;
 };
@@ -25,7 +19,6 @@ export type StickerPickerSettings = {
 export type StickerPickerStore = StickerPickerSettings & {
     setStickersPerRow: (n: number) => void;
     setTheme: (t: ThemeName | string | null) => void;
-    setMatrixAuthData: (data: MatrixAuthData | null) => void;
     setUserData: (data: BackendAuthData | null) => void;
     setSentStickerSize: (size: number) => void;
     setCompactViewInExplore: (val: boolean) => void;
@@ -56,7 +49,6 @@ export const createStickerPickerStore = (
             (set) => ({
                 stickersPerRow: clamp(initial?.stickersPerRow ?? 6),
                 theme: initial?.theme ?? 'ligth',
-                matrixAuthData: initial?.matrixAuthData ?? null,
                 userData: initial?.userData ?? null,
                 sentStickerSize: initial?.sentStickerSize ?? 128,
                 compactViewInExplore: initial?.compactViewInExplore ?? false,
@@ -68,9 +60,6 @@ export const createStickerPickerStore = (
                         '--stickers-per-row',
                         v.toString()
                     );
-                },
-                setMatrixAuthData: (data) => {
-                    set({matrixAuthData: data});
                 },
                 setTheme: (t) => {
                     set({theme: t});
