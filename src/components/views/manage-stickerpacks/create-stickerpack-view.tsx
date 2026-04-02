@@ -30,6 +30,10 @@ interface CreatedStickerResponse {
 }
 
 export async function resizeImage(file: File, maxSize = 512): Promise<File> {
+    if (file.type === "image/gif") {
+        return file;
+    }
+
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {

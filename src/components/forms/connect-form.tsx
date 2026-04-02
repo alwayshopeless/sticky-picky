@@ -20,7 +20,14 @@ export function ConnectForm({sendAuthRequest}: { sendAuthRequest: () => void }) 
         }
     }
 
-    return <>
+    return <div className={"auth-card"}>
+        <div className={"auth-card__content"}>
+            <div className={"auth-card__eyebrow"}>Authorization required</div>
+            <p className={"auth-card__text auth-card__text--muted"}>
+                Sign in to use Sticky Picky. This is required to save your data, and your homeserver must support <code>get_openid</code>.
+            </p>
+        </div>
+
         <div className={"connect-btns"} style={"padding: 0.1rem;"}>
             <button className={'btn flex-1'} onClick={sendAuthRequest}>Connect</button>
             <button className={"btn"}
@@ -47,5 +54,5 @@ export function ConnectForm({sendAuthRequest}: { sendAuthRequest: () => void }) 
             ><SendHorizonal class={"ico"}/></button>
         </div>
         {error.length > 0 ? <div>{error}</div> : null}
-    </>;
+    </div>;
 }

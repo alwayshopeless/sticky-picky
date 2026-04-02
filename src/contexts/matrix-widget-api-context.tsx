@@ -1,6 +1,7 @@
 import {createContext} from 'preact';
-import {useContext, useEffect, useRef, useState} from 'preact/hooks';
+import {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'preact/hooks';
 import {getAllUrlParams} from "../utils/url.ts";
+import {isDebug} from "@/config/main.ts";
 
 export interface MatrixEvent {
     api: string;
@@ -41,6 +42,9 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
             if (parentOrigin !== '*' && event.origin !== parentOrigin) return;
 
             const data = event.data as MatrixEvent;
+            if (isDebug) {
+                console.log("[Widget API][in]", data);
+            }
             setMessages((prev) => [...prev, data]);
             // TODO: refactor
             // console.log("Listeners:")
@@ -53,40 +57,46 @@ export function MatrixProvider({children, parentOrigin = '*'}: MatrixProviderPro
         return () => window.removeEventListener('message', handleMessage);
     }, [parentOrigin]);
 
-    const sendMessage = (message: MatrixEvent) => {
+    const sendMessage = useCallback((message: MatrixEvent) => {
+        if (isDebug) {
+            console.log("[Widget API][out]", message);
+        }
+
         // window.parent.postMessage(message, parentOrigin);
         window.parent.postMessage({
             // widgetId,
             // api: "fromWidget",
             ...message,
         }, '*');
-    };
+    }, []);
 
-    const on = <T = any>(type: string, callback: (payload: T) => void) => {
+    const on = useCallback(<T = any>(type: string, callback: (payload: T) => void) => {
         if (!listeners.current[type]) listeners.current[type] = [];
         listeners.current[type].push(callback);
         return () => {
             listeners.current[type] = listeners.current[type].filter((cb) => cb !== callback);
         };
-    };
+    }, []);
 
-    const off = (type: string, callback: (payload: any) => void) => {
+    const off = useCallback((type: string, callback: (payload: any) => void) => {
         if (!listeners.current[type]) return;
         listeners.current[type] = listeners.current[type].filter((cb) => cb !== callback);
         if (listeners.current[type].length === 0) {
             delete listeners.current[type];
         }
-    };
+    }, []);
+
+    const contextValue = useMemo(() => ({
+        messages,
+        sendMessage,
+        on,
+        off,
+        widgetId,
+        widgetParams,
+    }), [messages, sendMessage, on, off, widgetId, widgetParams]);
 
     return (
-        <MatrixContext.Provider value={{
-            messages,
-            sendMessage,
-            on,
-            off,
-            widgetId,
-            widgetParams,
-        }}>
+        <MatrixContext.Provider value={contextValue}>
             {children}
         </MatrixContext.Provider>
     );

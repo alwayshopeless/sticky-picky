@@ -36,10 +36,7 @@ export function MxcImageExample() {
 
         widget.on("org.matrix.msc4039.download_file", handler);
         return () => {
-            // widget.off("get_media", handler);
-            // if (blobUrl) {
-            //     URL.revokeObjectURL(blobUrl);
-            // }
+            widget.off("org.matrix.msc4039.download_file", handler);
         };
     }, []);
 

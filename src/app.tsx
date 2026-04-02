@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "preact/hooks";
+import {useCallback, useEffect, useRef} from "preact/hooks";
 import {Route, Router} from "preact-iso/router";
 
 import {useMatrix} from "./contexts/matrix-widget-api-context.tsx";
@@ -22,8 +22,27 @@ export function App() {
     const stickerPicker = useStickerPicker();
     const handledShareRef = useRef<string | null>(null);
     const authRefreshRequested = useRef(false);
+    const lastProcessedOpenIdRequestRef = useRef<string | null>(null);
+    const requestedCapabilities = [
+        "m.sticker",
+        "org.matrix.msc4039.download_file",
+        "org.matrix.msc4039.upload_file",
+    ];
 
-    const sendAuthRequest = () => {
+    const requestWidgetPermissions = useCallback(() => {
+        const requestId = `capabilities-request-${Date.now()}`;
+        widget.sendMessage({
+            api: "fromWidget",
+            action: "capabilities",
+            widgetId: widget.widgetId,
+            requestId,
+            data: {
+                capabilities: requestedCapabilities,
+            },
+        });
+    }, [widget.sendMessage, widget.widgetId]);
+
+    const sendAuthRequest = useCallback(() => {
         const nonce = `auth-nonce-${Date.now()}`;
         const requestId = `login-request-${Date.now()}`;
         widget.sendMessage({
@@ -33,26 +52,30 @@ export function App() {
             data: {nonce},
             requestId,
         });
-    };
+    }, [widget.sendMessage, widget.widgetId]);
 
     useEffect(() => {
-        widget.on("capabilities", (data) => {
-            window.parent.postMessage(
-                {
-                    ...data,
-                    response: {
-                        capabilities: [
-                            "m.sticker",
-                            "org.matrix.msc4039.download_file",
-                            "org.matrix.msc4039.upload_file",
-                        ],
-                    },
+        const handleCapabilities = (data: any) => {
+            widget.sendMessage({
+                api: "fromWidget",
+                action: "capabilities",
+                widgetId: widget.widgetId,
+                requestId: data?.requestId,
+                response: {
+                    capabilities: requestedCapabilities,
                 },
-                "*"
-            );
-        });
+            });
+        };
 
-        widget.on("openid_credentials", (event) => {
+        const handleOpenIdCredentials = (event: any) => {
+            if (event?.requestId && lastProcessedOpenIdRequestRef.current === event.requestId) {
+                return;
+            }
+
+            if (event?.requestId) {
+                lastProcessedOpenIdRequestRef.current = event.requestId;
+            }
+
             console.log(event);
             apiRequest("auth/login", {
                 method: "POST",
@@ -87,8 +110,29 @@ export function App() {
             });
 
             window.parent.postMessage({...event});
-        });
-    }, []);
+        };
+
+        widget.on("capabilities", handleCapabilities);
+        widget.on("openid_credentials", handleOpenIdCredentials);
+
+        return () => {
+            widget.off("capabilities", handleCapabilities);
+            widget.off("openid_credentials", handleOpenIdCredentials);
+        };
+    }, [widget.on, widget.off, widget.sendMessage, widget.widgetId, stickerPicker]);
+
+    useEffect(() => {
+        const handlePermissionRefresh = () => {
+            authRefreshRequested.current = false;
+            requestWidgetPermissions();
+            sendAuthRequest();
+        };
+
+        window.addEventListener("sticky-picky:refresh-widget-permissions", handlePermissionRefresh);
+        return () => {
+            window.removeEventListener("sticky-picky:refresh-widget-permissions", handlePermissionRefresh);
+        };
+    }, [requestWidgetPermissions, sendAuthRequest]);
 
     useEffect(() => {
         if (!stickerPicker.userData || authRefreshRequested.current) {
@@ -97,7 +141,7 @@ export function App() {
 
         authRefreshRequested.current = true;
         sendAuthRequest();
-    }, [stickerPicker.userData]);
+    }, [stickerPicker.userData, sendAuthRequest]);
 
     useEffect(() => {
         if (!stickerPicker.userData) {
@@ -144,12 +188,16 @@ export function App() {
         });
     }, [stickerPicker.userData]);
 
+    if (stickerPicker.userData == null) {
+        return (
+            <div class="main auth-gate">
+                <ConnectForm sendAuthRequest={sendAuthRequest}/>
+            </div>
+        );
+    }
+
     return (
         <div class="main">
-            {stickerPicker.userData == null ? (
-                <ConnectForm sendAuthRequest={sendAuthRequest}/>
-            ) : null}
-
             <TopNav/>
             <Router>
                 <Route path="/" component={StickerView}/>

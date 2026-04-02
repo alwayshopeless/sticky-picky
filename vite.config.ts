@@ -12,16 +12,9 @@ export default defineConfig({
         // }),
     ],
     server: {
-        host: false,
+        host: "0.0.0.0",
         port: 5173,
         allowedHosts: true,
-        proxy: {
-            "/api": {
-                target: "https://m-stickers-back.loc",
-                changeOrigin: true,
-                secure: false,
-            },
-        },
     },
     resolve: {
         alias: {

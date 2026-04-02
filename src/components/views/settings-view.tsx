@@ -5,6 +5,7 @@ import {ImportRepositoryForm} from "../forms/import-repository-form.tsx";
 import {useStickerPicker} from "../../stores/sticker-picker.tsx";
 import {Button} from "../ui/button.tsx";
 import {useLocation} from "preact-iso";
+import {useState} from "preact/hooks";
 
 export function SettingsView() {
     const stickerPicker = useStickerPicker();
@@ -12,6 +13,7 @@ export function SettingsView() {
     const {stickersPerRow, setStickersPerRow} = stickerPicker;
     const {sentStickerSize, setSentStickerSize} = stickerPicker;
     const {route} = useLocation();
+    const [permissionsRequested, setPermissionsRequested] = useState(false);
 
     const handleThemeChange = (value: ThemeName) => {
         setTheme(value);
@@ -24,6 +26,23 @@ export function SettingsView() {
                 <Button onClick={() => {
                     route('/manage-stickerpacks');
                 }}>Manage stickerpacks</Button>
+
+                <div>
+                    <Button onClick={() => {
+                        window.dispatchEvent(new CustomEvent("sticky-picky:refresh-widget-permissions"));
+                        setPermissionsRequested(true);
+                        window.setTimeout(() => {
+                            setPermissionsRequested(false);
+                        }, 2500);
+                    }}>
+                        Re-request widget permissions
+                    </Button>
+                    {permissionsRequested ? (
+                        <div style={{marginTop: "0.5rem", opacity: 0.8}}>
+                            Permission request sent. Confirm it in the client if prompted.
+                        </div>
+                    ) : null}
+                </div>
 
                 <AttachStickerpackForm/>
                 <h4>Theme: <span className={"capitalize"}>{theme}</span></h4>

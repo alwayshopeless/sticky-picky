@@ -28,7 +28,10 @@ export function StickerView() {
     });
 
     const loadStickerpacks = async () => {
-        if (stickerCollections.isStickerpacksCacheValid()) {
+        const collectionsState = useStickerCollections.getState();
+        const isCacheValid = collectionsState.isStickerpacksCacheValid();
+
+        if (isCacheValid) {
             console.log("Stickerpacks cache is still valid, skipping load");
             setStickersLoaded(true);
             return;
@@ -47,21 +50,22 @@ export function StickerView() {
             if (response.status === 200) {
                 const data = await response.json();
 
-                const currentStickerpacks = stickerCollections.getStickerpacksArray();
+                const latestCollectionsState = useStickerCollections.getState();
+                const currentStickerpacks = latestCollectionsState.getStickerpacksArray();
                 const newStickerpackIds = data.stickerpacks.map((item: any) => item.stickerpack_id);
-                const currentStickerpackIds = stickerCollections.getSavedStickerpacksArray();
+                const currentStickerpackIds = latestCollectionsState.getSavedStickerpacksArray();
 
                 const hasChanges = newStickerpackIds.length !== currentStickerpackIds.length ||
-                    !newStickerpackIds.every((id: number) => stickerCollections.savedStickerpacks[id]);
+                    !newStickerpackIds.every((id: number) => latestCollectionsState.savedStickerpacks[id]);
 
-                if (hasChanges || currentStickerpacks.length === 0) {
+                if (hasChanges || currentStickerpacks.length === 0 || !isCacheValid) {
                     console.log("Stickerpacks changed, updating...");
                     stickerCollections.setStickerpacks(data.stickerpacks);
                     stickerCollections.setSavedStickerpacks(newStickerpackIds);
 
                     data.stickerpacks.forEach((item: IStickerpack) => {
-                        if (!stickerCollections.isStickerpackDataCached(item.id)) {
-                            loadStickerpack(item);
+                        if (!isCacheValid || !latestCollectionsState.isStickerpackDataCached(item.id)) {
+                            loadStickerpack(item, false, false);
                         }
                     });
                 }
@@ -79,8 +83,9 @@ export function StickerView() {
     };
 
     const loadRecentAndFavorite = async () => {
-        const needsFavorites = !stickerCollections.isFavoritesCacheValid();
-        const needsRecent = !stickerCollections.isRecentCacheValid();
+        const collectionsState = useStickerCollections.getState();
+        const needsFavorites = !collectionsState.isFavoritesCacheValid();
+        const needsRecent = !collectionsState.isRecentCacheValid();
 
         if (!needsFavorites && !needsRecent) {
             console.log("Favorites and Recent cache are still valid, skipping load");
@@ -136,6 +141,25 @@ export function StickerView() {
                 console.error("Error in parallel data loading:", error);
             });
         }
+    }, [stickerPicker.userData]);
+
+    useEffect(() => {
+        if (stickerPicker.userData == null) {
+            return;
+        }
+
+        const intervalId = window.setInterval(() => {
+            Promise.all([
+                loadStickerpacks(),
+                loadRecentAndFavorite(),
+            ]).catch((error) => {
+                console.error("Error during sticker cache revalidation:", error);
+            });
+        }, 60_000);
+
+        return () => {
+            window.clearInterval(intervalId);
+        };
     }, [stickerPicker.userData]);
 
     const currentStickerpacks = stickerCollections.getStickerpacksArray();
